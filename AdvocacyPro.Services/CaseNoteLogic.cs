@@ -1,0 +1,39 @@
+﻿using AdvocacyPro.Services.Base;
+using AdvocacyPro.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AdvocacyPro.Data;
+using Microsoft.EntityFrameworkCore;
+using AdvocacyPro.Models.Exceptions;
+
+namespace AdvocacyPro.Services
+{
+    public class CaseNoteLogic : CaseChildBaseLogic<CaseNote>
+    {
+        public CaseNoteLogic(DataContext db) : base(db)
+        {
+        }
+
+        public async override Task Update(int id, int caseId, int organizationId, int userId, CaseNote item)
+        {
+            var result = await (from v in db.CaseNote
+                                join c in db.Case on v.CaseId equals c.Id
+                                where v.Id == id
+                                && v.CaseId == caseId
+                                && c.OrganizationId == organizationId
+                                select v).FirstOrDefaultAsync();
+
+            if (result == null)
+                throw new NotFoundException();
+
+            result.Notes = item.Notes;
+            result.UpdateDate = DateTime.UtcNow;
+            result.UpdatedById = userId;
+
+
+            await db.SaveChangesAsync();
+        }
+    }
+}
