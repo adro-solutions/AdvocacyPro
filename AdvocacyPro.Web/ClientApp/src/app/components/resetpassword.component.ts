@@ -1,9 +1,12 @@
-﻿import { Component, Router, ActivatedRoute, OnInit, FormGroup } from '../vendor';
-import { HttpService, CSPNotificationService, FormService } from '../services';
+﻿import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CSPNotificationService } from '../services/notification.service';
+import { FormService } from '../services/form.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     template: require('./resetpassword.component.html'),
-    providers: [HttpService],
     styleUrls: ['resetpassword.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
@@ -11,15 +14,15 @@ export class ResetPasswordComponent implements OnInit {
     private submitted = false;
     formGroup: FormGroup;
 
-    constructor(private http: HttpService, private router: Router, private popupService: CSPNotificationService,
+    constructor(private http: HttpClient, private router: Router, private popupService: CSPNotificationService,
         private route: ActivatedRoute, private formService: FormService) { }
 
     ngOnInit() {
-        this.resetPwd = { email: "", code: "", newPassword: "", newPassword2: "" };
-        this.formService.buildFormGroup<any>(this.resetPwd, "ResetPassword")
+        this.resetPwd = { email: '', code: '', newPassword: '', newPassword2: '' };
+        this.formService.buildFormGroup<any>(this.resetPwd, 'ResetPassword')
             .subscribe((fbg: FormGroup) => { this.formGroup = fbg; });
         this.route.queryParams.subscribe(params => {
-            this.resetPwd.code = params["code"];
+            this.resetPwd.code = params['code'];
         });
     }
 
@@ -28,13 +31,13 @@ export class ResetPasswordComponent implements OnInit {
         if (this.formGroup.valid) {
             this.formService.buildObject(value, this.resetPwd);
             if (this.resetPwd.newPassword === this.resetPwd.newPassword2) {
-                this.http.post('/api/Auth/ResetPassword', this.resetPwd).subscribe(result => {
-                    this.popupService.showAlert("Reset Password", "Your password has been changed. Please log in.").subscribe(result2 => {
+                this.http.post('/api/Auth/ResetPassword', this.resetPwd).subscribe(() => {
+                    this.popupService.showAlert('Reset Password', 'Your password has been changed. Please log in.').subscribe(() => {
                         this.router.navigate(['/login']);
                     });
                 });
             } else {
-                this.popupService.showAlert("Password Mismatch", "The new passwords you have entered do not match");
+                this.popupService.showAlert('Password Mismatch', 'The new passwords you have entered do not match');
             }
         }
     }

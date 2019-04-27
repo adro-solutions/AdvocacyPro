@@ -1,11 +1,11 @@
-﻿<modal *ngIf="member">
+﻿<app-modal *ngIf="member">
     <div class="app-modal-header">
         <span *ngIf="member.id === 0">Add New Member</span>
         <span *ngIf="member.id !== 0">Edit Member</span>
     </div>
     <div class="app-modal-body">
         <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup">
-            <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+            <app-form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
             <div class="form-group">
                 <label class="col-lg-3 control-label" for="firstName">First Name</label>
                 <div class="col-lg-9">
@@ -36,4 +36,4 @@
         <button type="button" class="btn btn-default" (click)="modal.hide()"><i class="fa fa-close"></i> Close</button>
         <button type="button" class="btn btn-primary" (click)="submit(formGroup.value)"><i class="fa fa-save"></i> Save</button>
     </div>
-</modal>
+</app-modal>

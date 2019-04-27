@@ -1,4 +1,4 @@
-﻿<modal *ngIf="config" [showCloseButton]="false">
+﻿<app-modal *ngIf="config" [showCloseButton]="false">
     <div class="app-modal-header">
         <span>{{config.headerText}}</span>
     </div>
@@ -12,4 +12,4 @@
         <button type="button" class="btn btn-default" (click)="cancel()" *ngIf="config.showCancel">{{config.cancelText}}</button>
         <button type="button" class="btn btn-primary" (click)="ok()">{{config.okText}}</button>
     </div>
-</modal>
+</app-modal>

@@ -1,7 +1,7 @@
-﻿import { Component } from '../vendor';
+﻿import { Component } from '@angular/core';
 
 @Component({
-    selector: 'site-footer',
+    selector: 'app-site-footer',
     template: require('./footer.component.html')
 })
 export class FooterComponent {
@@ -9,7 +9,7 @@ export class FooterComponent {
     private copyright: number;
 
     constructor() {
-        this.version = "1.0.0";
+        this.version = '1.0.0';
         this.copyright = new Date().getFullYear();
     }
 }

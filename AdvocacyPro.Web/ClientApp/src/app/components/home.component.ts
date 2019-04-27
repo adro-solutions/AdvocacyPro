@@ -1,9 +1,8 @@
-import { Component, OnInit } from '../vendor';
-import { StateService } from '../services';
-import { UserData } from '../models';
+import { OnInit, Component } from '@angular/core';
+import { UserData } from '../models/userData.model';
+import { StateService } from '../services/state.service';
 
 @Component({
-    selector: 'home',
     template: require('./home.component.html')
 })
 export class HomeComponent implements OnInit {

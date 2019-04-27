@@ -1,9 +1,10 @@
-import { Component, OnInit } from '../vendor';
-import { StateService } from '../services';
-import { UserData, Organization } from '../models';
+import { Component, OnInit } from '@angular/core';
+import { UserData } from '../models/userData.model';
+import { Organization } from '../models/valueBase.model';
+import { StateService } from '../services/state.service';
 
 @Component({
-    selector: 'nav-menu',
+    selector: 'app-nav-menu',
     template: require('./navmenu.component.html'),
     styleUrls: ['navmenu.component.css']
 })

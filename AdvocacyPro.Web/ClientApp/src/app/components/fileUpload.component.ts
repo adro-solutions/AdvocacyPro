@@ -1,13 +1,13 @@
-﻿import { Component, ElementRef, Input, ViewChild } from '../vendor';
-import { CSPNotificationService } from '../services';
-import { ToastMessageOptions, ToastType } from '../models';
+﻿import { ElementRef, ViewChild, Input, Component } from '@angular/core';
+import { CSPNotificationService } from '../services/notification.service';
+import { ToastMessageOptions, ToastType } from '../models/toastOptions.model';
 
 @Component({
-    selector: 'file-upload',
+    selector: 'app-file-upload',
     template: '<input type="file" (change)="fileChanged()" #fileInput>'
 })
 export class FileUploadComponent {
-    public fileName: string = "";
+    public fileName = '';
     public formData: FormData;
     @ViewChild('fileInput') inputEl: ElementRef;
     @Input() maxSize: number;
@@ -15,16 +15,17 @@ export class FileUploadComponent {
     constructor(private notification: CSPNotificationService) { }
 
     public reset() {
-        this.inputEl.nativeElement.value = "";
+        this.inputEl.nativeElement.value = '';
     }
 
     private fileChanged() {
-        let inputEl: HTMLInputElement = this.inputEl.nativeElement;
-        let fileCount: number = inputEl.files.length;
+        const inputEl: HTMLInputElement = this.inputEl.nativeElement;
+        const fileCount: number = inputEl.files.length;
         if (fileCount > 0) { // a file was selected
             if (!!this.maxSize && inputEl.files.item(0).size > (this.maxSize * 1024 * 1024)) {
-                this.inputEl.nativeElement.value = "";
-                this.notification.toast(new ToastMessageOptions("File too large", `Files must be under ${this.maxSize}MB and cannot be uploaded.`, ToastType.Error));
+                this.inputEl.nativeElement.value = '';
+                this.notification.toast(new ToastMessageOptions('File too large',
+                    `Files must be under ${this.maxSize}MB and cannot be uploaded.`, ToastType.Error));
             } else {
                 this.fileName = inputEl.files.item(0).name;
                 this.formData = new FormData();

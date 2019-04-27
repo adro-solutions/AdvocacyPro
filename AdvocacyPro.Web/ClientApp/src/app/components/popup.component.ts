@@ -1,10 +1,10 @@
-﻿import { Component, ViewChild, Input, FormGroup, Observable, Subject, OnInit } from '../vendor';
-import { ModalComponent } from './';
-import { CSPNotificationService } from '../services';
-import { PopupConfig, PopupResponse } from '../models';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalComponent } from './modal.component';
+import { PopupConfig, PopupResponse } from '../models/popupConfig.model';
+import { CSPNotificationService } from '../services/notification.service';
 
 @Component({
-    selector: 'popup-modal',
+    selector: 'app-popup-modal',
     template: require('./popup.component.html')
 })
 export class PopupComponent implements OnInit {
@@ -21,7 +21,7 @@ export class PopupComponent implements OnInit {
             this.modal.show();
         });
     }
-    
+
     ok(): void {
         this.modal.hide();
         this.popupService.popupClosed(new PopupResponse(true, this.config.inputValue));

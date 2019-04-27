@@ -1,7 +1,7 @@
-﻿import { Component, Input } from '../vendor';
+﻿import { Input, Component } from '@angular/core';
 
 @Component({
-    selector: 'modal',
+    selector: 'app-modal',
     template: require('./modal.component.html'),
     styleUrls: ['modal.component.css']
 })

@@ -1,14 +1,16 @@
-﻿import { Component, OnInit } from '../vendor';
-import { StateService, DashboardService, ValuesService } from '../services';
-import { UserData, Organization } from '../models';
+﻿import { Component, OnInit } from '@angular/core';
+import { UserData } from '../models/userData.model';
+import { Organization } from '../models/valueBase.model';
+import { StateService } from '../services/state.service';
+import { DashboardService } from '../services/dashboard.service';
+import { ValuesService } from '../services/values.service';
 
 @Component({
-    selector: 'site-header',
+    selector: 'app-site-header',
     template: require('./header.component.html'),
-    providers: [ValuesService],
     styleUrls: ['header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
     user: UserData;
     organization: Organization;
     hasFeature: Function;
@@ -32,13 +34,14 @@ export class HeaderComponent {
     }
 
     numberClass(daysOld: number): string {
-        if (daysOld == -1)
-            return "primary";
-        else if (daysOld >= 0 && daysOld < 15)
-            return "success";
-        else if (daysOld >= 15 && daysOld < 30)
-            return "warning";
-        else
-            return "danger";
+        if (daysOld === -1) {
+            return 'primary';
+        } else if (daysOld >= 0 && daysOld < 15) {
+            return 'success';
+        } else if (daysOld >= 15 && daysOld < 30) {
+            return 'warning';
+        } else {
+            return 'danger';
+        }
     }
 }
