@@ -1,14 +1,16 @@
 ﻿import { Product } from '../enums/product.enum';
 
-export class ValueList<T extends ValueBase> extends Array<T> {
-    constructor (list: T[]) {
+export class ValueList<T extends ValueBase, TKey = number> extends Array<T> {
+    private keyField: string;
+    constructor (list: T[], keyField = 'id') {
         super();
         const sortedList = list.sort((a, b) => a.name < b.name ? -1 : 1);
         this.push(...sortedList);
+        this.keyField = keyField;
     }
 
-    public item(id: number): T {
-        return this.find(i => i.id === id);
+    public item(id: TKey): T {
+        return this.find(i => i[this.keyField] === id);
     }
 }
 export class ValueBase {

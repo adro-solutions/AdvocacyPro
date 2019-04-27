@@ -105,11 +105,11 @@ export class FormService {
                             form.controls['city'].setValue(z.city);
                         }
                         if (!!form.controls['stateId'] && !form.controls['stateId'].value) {
-                            form.controls['stateId'].setValue(this.vService.state(z.state).id);
+                            form.controls['stateId'].setValue(this.vService.states.item(z.state).id);
                         }
 
                         if (!!form.controls['state'] && !form.controls['state'].value) {
-                            form.controls['state'].setValue(this.vService.state(z.state).name);
+                            form.controls['state'].setValue(this.vService.states.item(z.state).name);
                         }
                     }
                 });

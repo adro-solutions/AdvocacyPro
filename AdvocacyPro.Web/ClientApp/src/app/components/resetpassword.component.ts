@@ -6,12 +6,12 @@ import { FormService } from '../services/form.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-    template: require('./resetpassword.component.html'),
+    template: './resetpassword.component.html',
     styleUrls: ['resetpassword.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
     private resetPwd: any;
-    private submitted = false;
+    public submitted = false;
     formGroup: FormGroup;
 
     constructor(private http: HttpClient, private router: Router, private popupService: CSPNotificationService,

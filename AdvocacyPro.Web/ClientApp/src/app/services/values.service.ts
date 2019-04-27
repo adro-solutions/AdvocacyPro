@@ -32,7 +32,7 @@ export class ValuesService {
     private _organizationTypes: ValueList<OrganizationType>;
     private _races: ValueList<Race>;
     private _relationshipTypes: ValueList<RelationshipType>;
-    private _states: ValueList<State>;
+    private _states: ValueList<State, string>;
     private _statuses: ValueList<Status>;
     private _applicationStatuses: ValueList<ApplicationStatus>;
     private _bondTypes: ValueList<BondType>;
@@ -50,8 +50,8 @@ export class ValuesService {
 
     constructor(private uApi: UsersService, private httpService: HttpClient) { }
 
-    private initializeList<T extends ValueBase>(endPoint: string, listProperty: ValueList<T>): Observable<boolean> {
-        return this.getAll<T>(endPoint).pipe(tap(o => { listProperty = new ValueList<T>(o); }), map(_ => true));
+    private initializeList<T extends ValueBase, TKey>(endPoint: string, listProperty: ValueList<T, TKey>, key = 'id'): Observable<boolean> {
+        return this.getAll<T>(endPoint).pipe(tap(o => { listProperty = new ValueList<T, TKey>(o, key); }), map(_ => true));
     }
 
     initialize(): Observable<boolean> {
@@ -73,7 +73,7 @@ export class ValuesService {
             this.initializeList(ValueAPIEndpoints.organizationtypes, this._organizationTypes),
             this.initializeList(ValueAPIEndpoints.races, this._races),
             this.initializeList(ValueAPIEndpoints.relationshiptypes, this._relationshipTypes),
-            this.initializeList(ValueAPIEndpoints.states, this._states),
+            this.initializeList(ValueAPIEndpoints.states, this._states, 'code'),
             this.initializeList(ValueAPIEndpoints.statuses, this._statuses),
             this.initializeList(ValueAPIEndpoints.applicationstatuses, this._applicationStatuses),
             this.initializeList(ValueAPIEndpoints.bondtypes, this._bondTypes),
@@ -110,7 +110,7 @@ export class ValuesService {
     public get orgTypes(): ValueList<OrganizationType> { return this._organizationTypes; }
     public get races(): ValueList<Race> { return this._races; }
     public get relationshipTypes(): ValueList<RelationshipType> { return this._relationshipTypes; }
-    public get states(): ValueList<State> { return this._states; }
+    public get states(): ValueList<State, string> { return this._states; }
     public get statuses(): ValueList<Status> { return this._statuses; }
     public get applicationStatuses(): ValueList<ApplicationStatus> { return this._applicationStatuses; }
     public get bondTypes(): ValueList<BondType> { return this._bondTypes; }
