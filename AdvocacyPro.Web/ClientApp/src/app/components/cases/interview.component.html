@@ -1,0 +1,81 @@
+﻿<section class="content-header">
+    <h1 *ngIf="item?.id === 0">Add New Interview</h1>
+    <h1 *ngIf="item?.id !== 0">Edit Interview</h1>
+</section>
+<section class="content">
+    <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup">
+        <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+        <div class="box box-primary">
+            <div class="box-body">
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="planned">Planned</label>
+                    <div class="col-lg-9">
+                        <input type="checkbox" id="planned" autocomplete="off" formControlName="planned">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="onSite">On Site</label>
+                    <div class="col-lg-9">
+                        <input type="checkbox" id="onSite" autocomplete="off" formControlName="onSite">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="interviewDate">Interview Date</label>
+                    <div class="col-lg-9">
+                        <p-calendar name="interviewDate" id="interviewDate" formControlName="interviewDate"></p-calendar>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="interviewerPositionId">Interviewer Position</label>
+                    <div class="col-lg-9">
+                        <select class="form-control" id="interviewerPositionId" formControlName="interviewerPositionId">
+                            <option value="">Select One</option>
+                            <option *ngFor="let o of interviewerPositions" [value]="o.id">{{o.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="interviewerName">Interviewer Names</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" id="interviewerName" placeholder="Interviewer Names" autocomplete="off" formControlName="interviewerName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="observers">Observers</label>
+                    <div class="col-lg-9">
+                        <textarea class="form-control" id="observers" placeholder="Observers" autocomplete="off" formControlName="observers"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="protocolFollowed">Protocol Followed</label>
+                    <div class="col-lg-9">
+                        <input type="checkbox" id="protocolFollowed" autocomplete="off" formControlName="protocolFollowed">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="interviewDocumentation">Documentation</label>
+                    <div class="col-lg-9">
+                        <span *ngFor="let docType of formDocumentationTypes.controls; let ix = index">
+                            <input type="checkbox" [formControl]="docType" [ngClass]="{'margin-left': ix > 0}" /> {{interviewDocumentationTypes[ix].name}}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="notes">Notes</label>
+                    <div class="col-lg-9">
+                        <textarea class="form-control" id="notes" placeholder="Notes" autocomplete="off" formControlName="notes"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <last-edit-info [item]="item" [title]="'Interview Info'"></last-edit-info>
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary" (click)="submit(formGroup.value)"><i class="fa fa-save"></i> Save</button>
+            <button type="button" class="btn btn-default" (click)="cancel()"><i class="fa fa-close"></i> Close</button>
+        </div>
+    </div>
+</section>
+

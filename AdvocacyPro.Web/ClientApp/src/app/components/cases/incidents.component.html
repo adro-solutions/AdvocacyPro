@@ -1,0 +1,30 @@
+﻿<div class="box">
+    <div class="box-body no-padding">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th>Offense</th>
+                    <th>Report Date</th>
+                    <th>Occurrence Date</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th width="150"></th>
+                </tr>
+                <tr *ngFor="let item of items">
+                    <td>{{valuesService.offense(item.offenseId).name}}</td>
+                    <td>{{item.reportDate | date}}</td>
+                    <td>{{item.occurrenceDate | date}}</td>
+                    <td>{{item.location}} ({{valuesService.locationType(item.locationTypeId).name}})</td>
+                    <td>{{valuesService.status(item.statusId).name}}</td>
+                    <td>
+                        <a (click)="edit(item.id)" title="Edit" role="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                        <a title="Delete" (click)="delete(item.id)" role="button" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer">
+        <a (click)="edit(0)" class="btn btn-primary" role="button"><i class="fa fa-plus"></i> Add</a>
+    </div>
+</div>

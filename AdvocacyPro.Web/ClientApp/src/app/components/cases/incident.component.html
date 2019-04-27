@@ -1,0 +1,88 @@
+﻿<section class="content-header">
+    <h1 *ngIf="item?.id === 0">Add New Incident</h1>
+    <h1 *ngIf="item?.id !== 0">Edit Incident</h1>
+</section>
+<section class="content">
+    <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup">
+        <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="offense">Offense</label>
+                    <div class="col-lg-9">
+                        <select class="form-control" id="offense" formControlName="offenseId">
+                            <option value="">Select One</option>
+                            <option *ngFor="let o of offenses" [value]="o.id">{{o.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="reportDate">Report Date</label>
+                    <div class="col-lg-9">
+                        <p-calendar name="reportDate" id="reportDate" formControlName="reportDate"></p-calendar>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="occurrenceDate">Occurence Date</label>
+                    <div class="col-lg-9">
+                        <p-calendar name="occurrenceDate" id="occurrenceDate" formControlName="occurrenceDate"></p-calendar>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="location">Location</label>
+                    <div class="col-lg-9">
+                        <p-autoComplete [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" placeholder="Location" id="location" formControlName="location" [suggestions]="locations" (completeMethod)="search($event)"></p-autoComplete>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="locationType">Location Type</label>
+                    <div class="col-lg-9">
+                        <select class="form-control" id="locationType" formControlName="locationTypeId">
+                            <option value="">Select One</option>
+                            <option *ngFor="let l of locationTypes" [value]="l.id">{{l.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="staffMember">Staff Member</label>
+                    <div class="col-lg-9">
+                        <select class="form-control" id="staffMember" formControlName="staffUserId">
+                            <option value="">Select One</option>
+                            <option *ngFor="let u of users" [value]="u.id">{{u.firstName}} {{u.lastName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="status">Status</label>
+                    <div class="col-lg-9">
+                        <select class="form-control" id="status" formControlName="statusId">
+                            <option value="">Select One</option>
+                            <option *ngFor="let s of statuses" [value]="s.id">{{s.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="disposition">Disposition</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" id="disposition" placeholder="Disposition" autocomplete="off" formControlName="disposition">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="notes">Notes</label>
+                    <div class="col-lg-9">
+                        <textarea class="form-control" id="notes" placeholder="Notes" autocomplete="off" formControlName="notes"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <last-edit-info [item]="item" [title]="'Incident Info'"></last-edit-info>
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary" (click)="submit(formGroup.value)"><i class="fa fa-save"></i> Save</button>
+            <button type="button" class="btn btn-default" (click)="cancel()"><i class="fa fa-close"></i> Close</button>
+        </div>
+    </div>
+</section>
+

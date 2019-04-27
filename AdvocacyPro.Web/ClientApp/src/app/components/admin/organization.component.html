@@ -1,0 +1,169 @@
+﻿
+<section class="content-header"><h1>{{organization?.name}}</h1></section>
+<section class="content">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li [ngClass]="{'active': tabIndex==0}"><a (click)="tabIndex = 0" role="button" data-toggle="tab">Information</a></li>
+            <li *ngIf="organization?.id > 0 && hasFeature('administer_members') && hasFeature('administer_organizations')" [ngClass]="{'active': tabIndex==1}"><a (click)="tabIndex = 1" role="button" data-toggle="tab">Members</a></li>
+            <li *ngIf="organization?.id > 0" [ngClass]="{'active': tabIndex==2}"><a (click)="tabIndex = 2" role="button" data-toggle="tab">Logo</a></li>
+            <li *ngIf="organization?.id > 0" [ngClass]="{'active': tabIndex==3}"><a (click)="tabIndex = 3" role="button" data-toggle="tab">Features</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" [ngClass]="{'active': tabIndex==0}">
+                <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup" (ngSubmit)="submit(formGroup.value)">
+                    <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="type">Product</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control" id="product" formControlName="product">
+                                        <option value="0">AdvocacyPro</option>
+                                        <option value="1">CampusSafetyPro</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="name">Name</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="name" placeholder="Name" autocomplete="off" formControlName="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="address1">Address 1</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="address1" placeholder="Address 1" autocomplete="off" formControlName="address1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="address2">Address 2</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="address2" placeholder="Address 2" autocomplete="off" formControlName="address2">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="address3">Address 3</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="address3" placeholder="Address 3" autocomplete="off" formControlName="address3">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="city">City</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="city" placeholder="City" autocomplete="off" formControlName="city">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="state">State</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="state" placeholder="State" autocomplete="off" formControlName="state">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="zipCode">Zip Code</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="zipCode" placeholder="Zip Code" (blur)="lookupZip()" autocomplete="off" formControlName="zipCode">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="primaryContact">Primary Contact</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="primaryContact" placeholder="Primary Contact" autocomplete="off" formControlName="primaryContact">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="email">Email</label>
+                                <div class="col-lg-8">
+                                    <input type="email" class="form-control" id="email" placeholder="Email" autocomplete="off" formControlName="email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="phone">Phone</label>
+                                <div class="col-lg-8">
+                                    <p-inputMask mask="(999) 999-9999" unmask="true" placeholder="Phone" styleClass="form-control" id="phone" formControlName="phone"></p-inputMask>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="fax">Fax</label>
+                                <div class="col-lg-8">
+                                    <p-inputMask mask="(999) 999-9999" unmask="true" placeholder="Fax" styleClass="form-control" id="fax" formControlName="fax"></p-inputMask>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="url">Website</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="url" placeholder="Website" autocomplete="off" formControlName="url">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="type">Type</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control" id="type" formControlName="typeId">
+                                        <option *ngFor="let item of organizationTypes" [value]="item.id">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="description">Description</label>
+                                <div class="col-lg-8">
+                                    <textarea class="form-control" rows="3" placeholder="Description..." id="description" formControlName="description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                            <a [routerLink]="['/admin/organizations']" class="btn btn-default" role="button"><i class="fa fa-undo"></i> Cancel</a>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="tab-pane" *ngIf="hasFeature('administer_members') && hasFeature('administer_organizations')" [ngClass]="{'active': tabIndex==1}">
+                <members [organizationId]="id"></members>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tabIndex==2}">
+                <div class="row">
+                    <label class="col-lg-8 col-lg-offset-4">
+                        <img src="{{logo}}" style="width: 320px; height: auto" />
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label" for="document">Logo File</label>
+                            <div class="col-lg-8">
+                                <file-upload [maxSize]="0.5"></file-upload>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="button" (click)="uploadLogo()" class="btn btn-primary"><i class="fa fa-upload"></i> Upload</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tabIndex==3}">
+                <form [formGroup]="featureGroup" *ngIf="featureGroup" (ngSubmit)="submitFeatures(featureGroup.value)">
+                    <div class="row" *ngFor="let item of features">
+                        <label class="col-sm-2 text-right">{{item.name}}</label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" id="{{item.value}}" formControlName="{{item.value}}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Features</button>
+                            <a [routerLink]="['/admin/organizations']" class="btn btn-default" role="button"><i class="fa fa-undo"></i> Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</section>

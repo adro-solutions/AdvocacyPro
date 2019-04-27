@@ -1,0 +1,62 @@
+﻿<section class="content-header">
+    <h1 *ngIf="item?.id === 0">Add New Referral</h1>
+    <h1 *ngIf="item?.id !== 0">Edit Referral</h1>
+</section>
+<section class="content">
+    <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup">
+        <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+        <div class="box box-primary">
+            <div class="box-body">
+
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="source">Source</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" id="source" placeholder="Source" autocomplete="off" formControlName="source">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="referralType">Service</label>
+                    <div class="col-lg-9">
+                        <select class="form-control" id="referralType" formControlName="typeId">
+                            <option value="">Select One</option>
+                            <option *ngFor="let cr of caseReferralTypes" [value]="cr.id">{{cr.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="contact">Contact</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" id="contact" placeholder="Contact" autocomplete="off" formControlName="contact">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="followupDate">Follow up Date</label>
+                    <div class="col-lg-9">
+                        <p-calendar name="followupDate" id="followupDate" formControlName="followupDate"></p-calendar>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="contactDate">Contact Date</label>
+                    <div class="col-lg-9">
+                        <p-calendar name="contactDate" id="contactDate" formControlName="contactDate"></p-calendar>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="notes">Notes</label>
+                    <div class="col-lg-9">
+                        <textarea class="form-control" id="notes" placeholder="Notes" autocomplete="off" formControlName="notes"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <last-edit-info [item]="item" [title]="'Referral Info'"></last-edit-info>
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary" (click)="submit(formGroup.value)"><i class="fa fa-save"></i> Save</button>
+            <button type="button" class="btn btn-default" (click)="cancel()"><i class="fa fa-close"></i> Close</button>
+        </div>
+    </div>
+</section>

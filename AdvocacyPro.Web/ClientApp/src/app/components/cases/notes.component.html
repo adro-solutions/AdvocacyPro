@@ -1,0 +1,26 @@
+﻿<div class="box">
+    <div class="box-body no-padding">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th>Create Date</th>
+                    <th>Note</th>
+                    <th>Created By</th>
+                    <th width="150"></th>
+                </tr>
+                <tr *ngFor="let item of items">
+                    <td>{{item.createDate | date}}</td>
+                    <td>{{item.notes}}</td>
+                    <td>{{valuesService.user(item.createdById).firstName}} {{valuesService.user(item.createdById).lastName}}</td>
+                    <td>
+                        <a (click)="edit(item.id)" title="Edit" role="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                        <a title="Delete" (click)="delete(item.id)" role="button" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer">
+        <a (click)="edit(0)" class="btn btn-primary" role="button"><i class="fa fa-plus"></i> Add</a>
+    </div>
+</div>

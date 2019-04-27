@@ -1,0 +1,13 @@
+﻿.user-panel {
+    color: white;
+}
+
+.user-panel p {
+    margin: 0;
+}
+
+.user-panel img {
+    width: 210px;
+    height: auto;
+    padding-bottom: 10px;
+}

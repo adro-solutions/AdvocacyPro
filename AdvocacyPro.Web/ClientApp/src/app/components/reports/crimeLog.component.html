@@ -1,0 +1,68 @@
+﻿
+<section class="content-header"><h1>Crime Log Report</h1></section>
+<section class="content">
+    <div class="box no-print">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                Criteria
+            </h3>
+        </div>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="form-group col-sm-4">
+                    <label for="dateStart" class="control-label col-sm-3">Start</label>
+                    <div class="col-sm-9">
+                        <p-calendar  [disabled]="preset != 0" name="dateStart" id="dateStart"  placeholder="Start Date" [(ngModel)]="dateStart"></p-calendar>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="dateEnd" class="control-label col-sm-3">End</label>
+                    <div class="col-sm-9">
+                        <p-calendar [disabled]="preset != 0" name="dateEnd" id="dateEnd" placeholder="End Date" [(ngModel)]="dateEnd"></p-calendar>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="preset" class="control-label col-sm-3">Preset</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="preset" [(ngModel)]="preset" (change)="presetChange()">
+                            <option value="0">Custom</option>
+                            <option value="4">Today</option>
+                            <option value="5">Yesterday</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer text-right">
+                <button type="button" (click)="search()" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>&nbsp;
+                <button type="button" onclick="window.print()" class="btn btn-primary"><i class="fa fa-print"></i> Print</button>&nbsp;
+                <button type="button" (click)="reset()" class="btn">Reset</button>
+            </div>
+        </div>
+    </div>
+    <div class="box" *ngIf="items">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <th>Offense</th>
+                    <th>Report Date</th>
+                    <th>Occurrence Date</th>
+                    <th>Location</th>
+                    <th>Location Type</th>
+                    <th>Status</th>
+                    <th>Disposition</th>
+                </tr>
+                <tr *ngFor="let item of items">
+                    <td>{{item.id}}</td>
+                    <td>{{vService.offense(item.offenseId)?.name}}</td>
+                    <td>{{item.reportDate | date}}</td>
+                    <td>{{item.occurrenceDate | date}}</td>
+                    <td>{{item.location}}</td>
+                    <td>{{vService.locationType(item.locationTypeId)?.name}}</td>
+                    <td>{{vService.status(item.statusId)?.name}}</td>
+                    <td>{{item.disposition}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

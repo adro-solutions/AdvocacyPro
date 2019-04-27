@@ -1,0 +1,13 @@
+<div class="skin-blue sidebar-mini" [ngClass]="{'sidebar-collapse': !stateService.menuOpen, 'sidebar-open': stateService.menuOpen }" style="height:100%; display:none" [ngStyle]="{'display': !user ? 'none' : 'block'}">
+    <div class="wrapper">
+        <site-header></site-header>
+
+        <nav-menu></nav-menu>
+
+        <div class='content-wrapper'>
+            <router-outlet></router-outlet>            
+        </div>
+
+        <site-footer></site-footer>
+    </div>
+</div>

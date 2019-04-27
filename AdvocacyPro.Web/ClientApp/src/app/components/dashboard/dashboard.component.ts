@@ -1,0 +1,30 @@
+﻿import { Component, OnInit } from '../../vendor';
+import { DashboardService, ValuesService, StateService } from '../../services';
+import { Organization } from '../../models';
+
+@Component({
+    template: require('./dashboard.component.html'),
+    providers: [ValuesService]
+})
+export class DashboardComponent implements OnInit {
+    organization: Organization;
+    hasFeature: Function;
+    constructor(private dService: DashboardService, private vService: ValuesService, private stateService: StateService) {
+        this.hasFeature = stateService.hasFeature;
+    }
+
+    ngOnInit() {
+        this.organization = this.stateService.organization;
+    }
+
+    iconBg(daysOld: number): string {
+        if (daysOld == -1)
+            return "aqua";
+        else if (daysOld >= 0 && daysOld < 15)
+            return "green";
+        else if (daysOld >= 15 && daysOld < 30)
+            return "yellow";
+        else
+            return "red";
+    }
+}

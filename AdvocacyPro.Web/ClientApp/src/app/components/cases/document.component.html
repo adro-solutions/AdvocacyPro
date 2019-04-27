@@ -1,0 +1,69 @@
+﻿<section class="content-header">
+    <h1 *ngIf="document?.id === 0">Add New Document</h1>
+    <h1 *ngIf="document?.id !== 0">Edit Document</h1>
+</section>
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+            <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup">
+                <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="documentTypeId">Type</label>
+                    <div class="col-lg-9">
+                        <select class="form-control" id="documentTypeId" formControlName="documentTypeId">
+                            <option value="">Select One</option>
+                            <option *ngFor="let item of caseDocumentTypes" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="notes">Notes</label>
+                    <div class="col-lg-9">
+                        <textarea class="form-control" id="notes" placeholder="Notes" autocomplete="off" formControlName="notes"></textarea>
+                    </div>
+                </div>
+            </form>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="document">Document</label>
+                    <div class="col-lg-9">
+                        <file-upload [maxSize]="5"></file-upload>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-primary" *ngIf="document?.id > 0">
+        <div class="box-header with-border">
+            <h3 class="box-title">Document Info</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <label class="col-lg-3 text-right">Id</label>
+                <span class="col-lg-9">{{document.id}}</span>
+            </div>
+            <div class="row">
+                <label class="col-lg-3 text-right">Created</label>
+                <span class="col-lg-9">{{document.createDate | date:'medium'}}</span>
+            </div>
+            <div class="row">
+                <label class="col-lg-3 text-right">Created By</label>
+                <span class="col-lg-9">{{valueService.user(document.createdById)?.firstName}} {{valueService.user(document.createdById)?.lastName}}</span>
+            </div>
+            <div class="row">
+                <label class="col-lg-3 text-right">Updated</label>
+                <span class="col-lg-9">{{document.updateDate | date:'medium'}}</span>
+            </div>
+            <div class="row">
+                <label class="col-lg-3 text-right">Updated By</label>
+                <span class="col-lg-9">{{valueService.user(document.updatedById)?.firstName}} {{valueService.user(document.updatedById)?.lastName}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary" (click)="submit(formGroup.value)"><i class="fa fa-save"></i> Save</button>
+            <button type="button" class="btn btn-default" (click)="cancel()"><i class="fa fa-close"></i> Close</button>
+        </div>
+    </div>
+</section>

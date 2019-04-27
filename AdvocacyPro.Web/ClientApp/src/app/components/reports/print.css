@@ -1,0 +1,5 @@
+﻿@media print {
+    .content-header {
+        display: block !important;
+    }
+}

@@ -1,0 +1,297 @@
+﻿
+<section class="content-header"><h1>Cases</h1></section>
+<section class="content">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li [ngClass]="{'active': tab==''}"><a (click)="tab = ''" role="button" data-toggle="tab">Summary</a></li>
+            <li [ngClass]="{'active': tab=='emergencycontacts'}" *ngIf="hasFeature('case_emergency_contacts') && case?.id > 0"><a (click)="tab = 'emergencycontacts'" role="button" data-toggle="tab">Emergency Contacts</a></li>
+            <li [ngClass]="{'active': tab=='referrals'}" *ngIf="hasFeature('case_referrals') && case?.id > 0"><a (click)="tab = 'referrals'" role="button" data-toggle="tab">Referrals</a></li>
+            <li [ngClass]="{'active': tab=='services'}" *ngIf="hasFeature('case_services_provided') && case?.id > 0"><a (click)="tab = 'services'" role="button" data-toggle="tab">Services Provided</a></li>
+            <li [ngClass]="{'active': tab=='notes'}" *ngIf="hasFeature('case_notes') && case?.id > 0"><a (click)="tab = 'notes'" role="button" data-toggle="tab">Notes</a></li>
+            <li [ngClass]="{'active': tab=='contacts'}" *ngIf="hasFeature('case_contact_log') && case?.id > 0"><a (click)="tab = 'contacts'" role="button" data-toggle="tab">Contact Log</a></li>
+            <li [ngClass]="{'active': tab=='documents'}" *ngIf="hasFeature('case_documents') && case?.id > 0"><a (click)="tab = 'documents'" role="button" data-toggle="tab">Documents</a></li>
+            <li [ngClass]="{'active': tab=='witnesses'}" *ngIf="hasFeature('case_witnesses') && case?.id > 0"><a (click)="tab = 'witnesses'" role="button" data-toggle="tab">Witnesses</a></li>
+            <li [ngClass]="{'active': tab=='police'}" *ngIf="hasFeature('case_police_involved') && case?.id > 0"><a (click)="tab = 'police'" role="button" data-toggle="tab">Police Involved</a></li>
+            <li [ngClass]="{'active': tab=='offenders'}" *ngIf="hasFeature('case_offenders') && case?.id > 0"><a (click)="tab = 'offenders'" role="button" data-toggle="tab">Offenders</a></li>
+            <li [ngClass]="{'active': tab=='incidents'}" *ngIf="hasFeature('case_incidents') && case?.id > 0"><a (click)="tab = 'incidents'" role="button" data-toggle="tab">Incidents</a></li>
+
+            <li [ngClass]="{'active': tab=='courtdates'}" *ngIf="hasFeature('case_court_dates') && case?.id > 0"><a (click)="tab = 'courtdates'" role="button" data-toggle="tab">Court Dates</a></li>
+            <li [ngClass]="{'active': tab=='cvcapplications'}" *ngIf="hasFeature('case_cvc_applications') && case?.id > 0"><a (click)="tab = 'cvcapplications'" role="button" data-toggle="tab">Victim Compensation</a></li>
+            <li [ngClass]="{'active': tab=='interviews'}" *ngIf="hasFeature('case_interviews') && case?.id > 0"><a (click)="tab = 'interviews'" role="button" data-toggle="tab">Interviews</a></li>
+            <li [ngClass]="{'active': tab=='letters'}" *ngIf="hasFeature('case_letters') && case?.id > 0"><a (click)="tab = 'letters'" role="button" data-toggle="tab">Letters</a></li>
+            <li [ngClass]="{'active': tab=='payments'}" *ngIf="hasFeature('case_payments') && case?.id > 0"><a (click)="tab = 'payments'" role="button" data-toggle="tab">Payments</a></li>
+            <li [ngClass]="{'active': tab=='protectiveorders'}" *ngIf="hasFeature('case_protective_orders') && case?.id > 0"><a (click)="tab = 'protectiveorders'" role="button" data-toggle="tab">Protective Orders</a></li>
+            <li [ngClass]="{'active': tab=='victimizations'}" *ngIf="hasFeature('case_victimizations') && case?.id > 0"><a (click)="tab = 'victimizations'" role="button" data-toggle="tab">Victimizations</a></li>
+
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" [ngClass]="{'active': tab==''}">
+                <form [formGroup]="formGroup" *ngIf="formGroup">
+                    <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="box box-primary" *ngIf="case?.id > 0">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Case Info</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <label class="col-lg-3 text-right">Id</label>
+                                        <span class="col-lg-9">{{case.id}}</span>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-lg-3 text-right">Created</label>
+                                        <span class="col-lg-9">{{case.createDate | date:'medium'}}</span>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-lg-3 text-right">Created By</label>
+                                        <span class="col-lg-9">{{vService.user(case.createdById)?.firstName}} {{vService.user(case.createdById)?.lastName}}</span>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-lg-3 text-right">Updated</label>
+                                        <span class="col-lg-9">{{case.updateDate | date:'medium'}}</span>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-lg-3 text-right">Updated By</label>
+                                        <span class="col-lg-9">{{vService.user(case.updatedById)?.firstName}} {{vService.user(case.updatedById)?.lastName}}</span>
+                                    </div>
+                                    <div class="row form-horizontal">
+                                        <label class="col-lg-3 control-label" for="status">Status</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="status" formControlName="statusId">
+                                                <option *ngFor="let item of statuses" [value]="item.id">{{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-lg-3 text-right" for="archived">Archived</label>
+                                        <div class="col-lg-9">
+                                            <input type="checkbox" id="archived" formControlName="archived">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Detail</h3>
+                                </div>
+                                <div class="box-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="caseDate">Case Date</label>
+                                        <div class="col-lg-9">
+                                            <p-calendar name="caseDate" id="caseDate" formControlName="caseDate"></p-calendar>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="firstName">First Name</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" id="firstName" placeholder="First Name" autocomplete="off" formControlName="firstName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="middleName">Middle Name</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" id="middleName" placeholder="Middle Name" autocomplete="off" formControlName="middleName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="lastName">Last Name</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" id="lastName" placeholder="Last Name" autocomplete="off" formControlName="lastName">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Address</h3>
+                                </div>
+                                <div class="box-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="address">Address</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" id="address" placeholder="Address" autocomplete="off" formControlName="address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="city">City</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" id="city" placeholder="City" autocomplete="off" formControlName="city">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="state">State</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="state" formControlName="stateId">
+                                                <option value="">Select One</option>
+                                                <option *ngFor="let item of states" [value]="item.id">{{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="zipCode">Zip Code</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" id="zipCode" placeholder="Zip Code" (blur)="lookupZip()" autocomplete="off" formControlName="zipCode">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Contact Information</h3>
+                                </div>
+                                <div class="box-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="homePhone">Home Phone</label>
+                                        <div class="col-lg-9">
+                                            <p-inputMask mask="(999) 999-9999" unmask="true" placeholder="Home Phone" styleClass="form-control" id="homePhone" formControlName="homePhone"></p-inputMask>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="workPhone">Work Phone</label>
+                                        <div class="col-lg-9">
+                                            <p-inputMask mask="(999) 999-9999" unmask="true" placeholder="Work Phone" styleClass="form-control" id="workPhone" formControlName="workPhone"></p-inputMask>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="cellPhone">Cell Phone</label>
+                                        <div class="col-lg-9">
+                                            <p-inputMask mask="(999) 999-9999" unmask="true" placeholder="Cell Phone" styleClass="form-control" id="cellPhone" formControlName="cellPhone"></p-inputMask>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="email">Email</label>
+                                        <div class="col-lg-9">
+                                            <input type="email" class="form-control" id="email" placeholder="Email" autocomplete="off" formControlName="email">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Demographics</h3>
+                                </div>
+                                <div class="box-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="gender">Gender</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="gender" formControlName="genderId">
+                                                <option value="">Select One</option>
+                                                <option *ngFor="let item of genders" [value]="item.id">{{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="race">Race</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="race" formControlName="raceId">
+                                                <option value="">Select One</option>
+                                                <option *ngFor="let item of races" [value]="item.id">{{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="ethnicity">Ethnicity</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="ethnicity" formControlName="ethnicityId">
+                                                <option value="">Select One</option>
+                                                <option *ngFor="let item of ethnicities" [value]="item.id">{{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="dob">Date of Birth</label>
+                                        <div class="col-lg-9">
+                                            <p-calendar name="dob" id="dob" formControlName="dob"></p-calendar>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Staff</h3>
+                                </div>
+                                <div class="box-body form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="staff">Staff Member</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" id="staff" formControlName="staffUserId">
+                                                <option value="">Select One</option>
+                                                <option *ngFor="let item of users" [value]="item.id">{{item.firstName}} {{item.lastName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="button" (click)="submit(formGroup.value, false)" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                            <button type="button" (click)="submit(formGroup.value, true)" *ngIf="case?.id > 0" class="btn btn-primary"><i class="fa fa-save"></i> Save &amp; Close</button>
+                            <a [routerLink]="['/cases']" [queryParams]="{archived: this.archived}" class="btn btn-default" role="button"><i class="fa fa-undo"></i> Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='incidents'}" *ngIf="hasFeature('case_incidents') && case?.id > 0">
+                <incidents [caseId]="case.id" *ngIf="tab=='incidents'"></incidents>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='emergencycontacts'}" *ngIf="hasFeature('case_emergency_contacts') && case?.id > 0">
+                <emergency-contacts [caseId]="case.id" *ngIf="tab=='emergencycontacts'"></emergency-contacts>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='referrals'}" *ngIf="hasFeature('case_referrals') && case?.id > 0">
+                <referrals [caseId]="case.id" *ngIf="tab=='referrals'"></referrals>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='services'}" *ngIf="hasFeature('case_services_provided') && case?.id > 0">
+                <services-provided [caseId]="case.id" *ngIf="tab=='services'"></services-provided>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='notes'}" *ngIf="hasFeature('case_notes') && case?.id > 0">
+                <notes [caseId]="case.id" *ngIf="tab=='notes'"></notes>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='contacts'}" *ngIf="hasFeature('case_contact_log') && case?.id > 0">
+                <contact-log [caseId]="case.id" *ngIf="tab=='contacts'"></contact-log>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='documents'}" *ngIf="hasFeature('case_documents') && case?.id > 0">
+                <documents [caseId]="case.id" *ngIf="tab=='documents'"></documents>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='witnesses'}" *ngIf="hasFeature('case_witnesses') && case?.id > 0">
+                <witnesses [caseId]="case.id" *ngIf="tab=='witnesses'"></witnesses>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='police'}" *ngIf="hasFeature('case_police_involved') && case?.id > 0">
+                <police-case-log [caseId]="case.id" *ngIf="tab=='police'"></police-case-log>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='offenders'}" *ngIf="hasFeature('case_offenders') && case?.id > 0">
+                <offenders [caseId]="case.id" *ngIf="tab=='offenders'"></offenders>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='courtdates'}" *ngIf="hasFeature('case_court_dates') && case?.id > 0">
+                <court-dates [caseId]="case.id" *ngIf="tab=='courtdates'"></court-dates>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='cvcapplications'}" *ngIf="hasFeature('case_cvc_applications') && case?.id > 0">
+                <cvc-applications [caseId]="case.id" *ngIf="tab=='cvcapplications'"></cvc-applications>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='interviews'}" *ngIf="hasFeature('case_interviews') && case?.id > 0">
+                <interviews [caseId]="case.id" *ngIf="tab=='interviews'"></interviews>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='letters'}" *ngIf="hasFeature('case_letters') && case?.id > 0">
+                <letters [caseId]="case.id" *ngIf="tab=='letters'"></letters>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='payments'}" *ngIf="hasFeature('case_payments') && case?.id > 0">
+                <payments [caseId]="case.id" *ngIf="tab=='payments'"></payments>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='protectiveorders'}" *ngIf="hasFeature('case_protective_orders') && case?.id > 0">
+                <protective-orders [caseId]="case.id" *ngIf="tab=='protectiveorders'"></protective-orders>
+            </div>
+            <div class="tab-pane" [ngClass]="{'active': tab=='victimizations'}" *ngIf="hasFeature('case_victimizations') && case?.id > 0">
+                <victimizations [caseId]="case.id" *ngIf="tab=='victimizations'"></victimizations>
+            </div>
+        </div>
+    </div>
+
+</section>

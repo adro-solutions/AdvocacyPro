@@ -1,0 +1,96 @@
+﻿
+<section class="content-header"><h1>Performance Report - Demographics</h1></section>
+<section class="content">
+    <div class="box no-print">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                Criteria
+            </h3>
+        </div>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="form-group col-sm-4">
+                    <label for="dateStart" class="control-label col-sm-3">Start</label>
+                    <div class="col-sm-9">
+                        <p-calendar [disabled]="preset != 0" name="dateStart" id="dateStart" placeholder="Start Date" [(ngModel)]="dateStart"></p-calendar>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="dateEnd" class="control-label col-sm-3">End</label>
+                    <div class="col-sm-9">
+                        <p-calendar [disabled]="preset != 0" name="dateEnd" id="dateEnd" placeholder="End Date" [(ngModel)]="dateEnd"></p-calendar>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="preset" class="control-label col-sm-3">Preset</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="preset" [(ngModel)]="preset" (change)="presetChange()">
+                            <option value="0">Custom</option>
+                            <option value="1">This Year</option>
+                            <option value="2">Last Year</option>
+                            <option value="3">Two Years Prior</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer text-right">
+                <button type="button" (click)="search()" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>&nbsp;
+                <button type="button" onclick="window.print()" class="btn btn-primary"><i class="fa fa-print"></i> Print</button>&nbsp;
+                <button type="button" (click)="reset()" class="btn">Reset</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="output">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Genders</h3>
+            </div>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Gender</th>
+                        <th>Count</th>
+                    </tr>
+                    <tr *ngFor="let item of genders">
+                        <td>{{item.name}}</td>
+                        <td>{{countGender(item.id)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Races</h3>
+            </div>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Race</th>
+                        <th>Count</th>
+                    </tr>
+                    <tr *ngFor="let item of races">
+                        <td>{{item.name}}</td>
+                        <td>{{countRace(item.id)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Ethnicities</h3>
+            </div>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Ethnicity</th>
+                        <th>Count</th>
+                    </tr>
+                    <tr *ngFor="let item of ethnicities">
+                        <td>{{item.name}}</td>
+                        <td>{{countEthnicity(item.id)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

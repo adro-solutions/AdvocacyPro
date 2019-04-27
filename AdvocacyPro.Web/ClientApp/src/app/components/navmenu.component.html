@@ -1,0 +1,132 @@
+<aside class="main-sidebar">
+    <section class="sidebar" style="height:auto">
+        <div class="user-panel" *ngIf="stateService.menuOpen">
+            <img src="{{stateService.logo}}" />
+            <div class="pull-left">
+                <p><b>{{user?.firstName}} {{user?.lastName}}</b></p>
+                <div class="row">
+                    <div class="col-xs-9">
+                        <small>{{organization?.name}}</small>
+                    </div>
+                    <div class="col-xs-3">
+                        <small>{{user?.role}}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="treeview" [routerLinkActive]="['active']">
+                <a [routerLink]="['/dashboard']">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="treeview" [routerLinkActive]="['active']" *ngIf="hasFeature('cases')">
+                <a (click)="toggleNav('case-management')" role="button">
+                    <i class="fa fa-files-o"></i>
+                    <span>Case Management</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right" [ngStyle]="{'transform': isOpen('case-management') ? 'rotate(-90deg)' : 'rotate(0)' }"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu menu-open" style="display: block" *ngIf="isOpen('case-management')">
+                    <li><a [routerLink]="['/cases']"><i class="fa fa-search"></i> Search Cases</a></li>
+                    <li><a [routerLink]="['/cases']" [queryParams]="{archived: 'y'}"><i class="fa fa-search"></i> Search Archived Cases</a></li>
+                    <li><a [routerLink]="['/cases', 0]"><i class="fa fa-plus"></i> Add New Case</a></li>
+                </ul>
+            </li>
+            <li class="treeview" [routerLinkActive]="['active']" *ngIf="hasFeature('fires')">
+                <a (click)="toggleNav('fires')" role="button">
+                    <i class="fa fa-fire"></i>
+                    <span>Fires</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right" [ngStyle]="{'transform': isOpen('fires') ? 'rotate(-90deg)' : 'rotate(0)' }"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu menu-open" style="display: block" *ngIf="isOpen('fires')">
+                    <li><a [routerLink]="['/fires']"><i class="fa fa-search"></i> Search Fires</a></li>
+                    <li><a [routerLink]="['/fires']" [queryParams]="{archived: 'y'}"><i class="fa fa-search"></i> Search Archived Fires</a></li>
+                    <li><a [routerLink]="['/fires', 0]"><i class="fa fa-plus"></i> Add New Fire</a></li>
+                </ul>
+            </li>
+            <li class="treeview" [routerLinkActive]="['active']" *ngIf="hasFeature('reports_crime') || hasFeature('reports_fire')">
+                <a (click)="toggleNav('reports')" role="button">
+                    <i class="fa fa-file-text-o"></i>
+                    <span>Reports</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right" [ngStyle]="{'transform': isOpen('reports') ? 'rotate(-90deg)' : 'rotate(0)' }"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu menu-open" style="display: block" *ngIf="isOpen('reports')">
+                    <li *ngIf="hasFeature('reports_crime')"><a [routerLink]="['/reports/crime-log']"><i class="fa fa-circle-o"></i> Crime Log</a></li>
+                    <li *ngIf="hasFeature('reports_fire')"><a [routerLink]="['/reports/fire-log']"><i class="fa fa-circle-o"></i> Fire Log</a></li>
+                    <li *ngIf="hasFeature('reports_crime')"><a [routerLink]="['/reports/crime-statistics']"><i class="fa fa-circle-o"></i> Crime Statistics</a></li>
+                    <li *ngIf="hasFeature('reports_case')"><a [routerLink]="['/reports/performance-demographics']"><i class="fa fa-circle-o"></i> Performance Demographics</a></li>
+                    <li *ngIf="hasFeature('reports_services')"><a [routerLink]="['/reports/performance-services']"><i class="fa fa-circle-o"></i> Performance Services</a></li>
+                    <li *ngIf="hasFeature('reports_victimizations')"><a [routerLink]="['/reports/performance-victimizations']"><i class="fa fa-circle-o"></i> Performance Victimizations</a></li>
+                </ul>
+            </li>
+            <li class="treeview" [routerLinkActive]="['active']">
+                <a [routerLink]="['/documentation']">
+                    <i class="fa fa-book"></i>
+                    <span>Documentation</span>
+                </a>
+            </li>
+            <li class="treeview" [routerLinkActive]="['active']" *ngIf="hasFeature('administer_members') || hasFeature('administer_organizations') || hasFeature('administer_values')">
+                <a (click)="toggleNav('admin')" role="button">
+                    <i class="fa fa-gears"></i>
+                    <span>Admin</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right" [ngStyle]="{'transform': isOpen('admin') ? 'rotate(-90deg)' : 'rotate(0)' }"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu menu-open" style="display:block" *ngIf="isOpen('admin')">
+                    <li *ngIf="hasFeature('administer_members')"><a [routerLink]="['/admin/members']"><i class="fa fa-circle-o"></i> Members</a></li>
+                    <li *ngIf="hasFeature('administer_organizations')"><a [routerLink]="['/admin/organizations']"><i class="fa fa-circle-o"></i> Organizations</a></li>
+                    <li *ngIf="hasFeature('administer_values')">
+                        <a (click)="toggleNav('admin-values')" role="button">
+                            <i class="fa fa-circle-o"></i>
+                            <span>Values</span>
+                            <span class="pull-right-container" [ngStyle]="{'transform': isOpen('admin-values') ? 'rotate(-90deg)' : 'rotate(0)' }">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu menu-open" style="display: block" *ngIf="isOpen('admin-values')">
+                            <li><a [routerLink]="['/admin/values/agegroupings']"><i class="fa fa-circle-o"></i> Age Groupings</a></li>
+                            <li><a [routerLink]="['/admin/values/applicationstatuses']"><i class="fa fa-circle-o"></i> Application Statuses</a></li>
+                            <li><a [routerLink]="['/admin/values/bondtypes']"><i class="fa fa-circle-o"></i> Bond Types</a></li>
+                            <li><a [routerLink]="['/admin/values/contactypes']"><i class="fa fa-circle-o"></i> Case Contact Types</a></li>
+                            <li><a [routerLink]="['/admin/values/documenttypes']"><i class="fa fa-circle-o"></i> Case Document Types</a></li>
+                            <li><a [routerLink]="['/admin/values/referraltypes']"><i class="fa fa-circle-o"></i> Case Referral Types</a></li>
+                            <li><a [routerLink]="['/admin/values/servicecategories']"><i class="fa fa-circle-o"></i> Case Service Categories</a></li>
+                            <li><a [routerLink]="['/admin/values/servicepopulations']"><i class="fa fa-circle-o"></i> Case Service Populations</a></li>
+                            <li><a [routerLink]="['/admin/values/serviceprograms']"><i class="fa fa-circle-o"></i> Case Service Programs</a></li>
+                            <li><a [routerLink]="['/admin/values/countries']"><i class="fa fa-circle-o"></i> Countries</a></li>
+                            <li><a [routerLink]="['/admin/values/dockettypes']"><i class="fa fa-circle-o"></i> Docket Types</a></li>
+                            <li><a [routerLink]="['/admin/values/ethnicities']"><i class="fa fa-circle-o"></i> Ethnicities</a></li>
+                            <li><a [routerLink]="['/admin/values/firecauses']"><i class="fa fa-circle-o"></i> Fire Causes</a></li>
+                            <li><a [routerLink]="['/admin/values/genders']"><i class="fa fa-circle-o"></i> Genders</a></li>
+                            <li><a [routerLink]="['/admin/values/interviewerpositions']"><i class="fa fa-circle-o"></i> Interviewer Positions</a></li>
+                            <li><a [routerLink]="['/admin/values/languages']"><i class="fa fa-circle-o"></i> Languages</a></li>
+                            <li><a [routerLink]="['/admin/values/lettertypes']"><i class="fa fa-circle-o"></i> Letter Types</a></li>
+                            <li><a [routerLink]="['/admin/values/locationtypes']"><i class="fa fa-circle-o"></i> Location Types</a></li>
+                            <li><a [routerLink]="['/admin/values/offenses']"><i class="fa fa-circle-o"></i> Offenses</a></li>
+                            <li><a [routerLink]="['/admin/values/offensetypes']"><i class="fa fa-circle-o"></i> Offense Types</a></li>
+                            <li><a [routerLink]="['/admin/values/orderstatuses']"><i class="fa fa-circle-o"></i> Order Statuses</a></li>
+                            <li><a [routerLink]="['/admin/values/ordertypes']"><i class="fa fa-circle-o"></i> Order Types</a></li>
+                            <li><a [routerLink]="['/admin/values/organizationtypes']"><i class="fa fa-circle-o"></i> Organization Types</a></li>
+                            <li><a [routerLink]="['/admin/values/paymentcategories']"><i class="fa fa-circle-o"></i> Payment Categories</a></li>
+                            <li><a [routerLink]="['/admin/values/payors']"><i class="fa fa-circle-o"></i> Payors</a></li>
+                            <li><a [routerLink]="['/admin/values/races']"><i class="fa fa-circle-o"></i> Races</a></li>
+                            <li><a [routerLink]="['/admin/values/relationshiptypes']"><i class="fa fa-circle-o"></i> Relationship Types</a></li>
+                            <li><a [routerLink]="['/admin/values/states']"><i class="fa fa-circle-o"></i> States</a></li>
+                            <li><a [routerLink]="['/admin/values/statuses']"><i class="fa fa-circle-o"></i> Statuses</a></li>
+                            <li><a [routerLink]="['/admin/values/victimtypes']"><i class="fa fa-circle-o"></i> Victim Types</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+    </section>
+</aside>

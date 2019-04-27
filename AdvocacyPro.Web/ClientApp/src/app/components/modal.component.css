@@ -1,0 +1,13 @@
+﻿.dialog-large {
+    width: 80% !important;
+}
+
+.dialog-body-large {
+    max-height: 550px;
+    overflow-y: auto;
+}
+
+.modal-body {
+    overflow-y: auto;
+    max-height: 550px;
+}

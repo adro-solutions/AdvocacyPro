@@ -1,0 +1,112 @@
+﻿    <section class="content-header">
+        <h1 *ngIf="item?.id === 0">Add New Witness</h1>
+        <h1 *ngIf="item?.id !== 0">Edit Witness</h1>
+    </section>
+    <section class="content">
+        <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup">
+            <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Name</h3>
+                        </div>
+                        <div class="box-body form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="firstName">First Name</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control" id="firstName" placeholder="First Name" autocomplete="off" formControlName="firstName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="lastName">Last Name</label>
+                                <div class="col-lg-9">
+                                    <input type="text" class="form-control" id="lastName" placeholder="Last Name" autocomplete="off" formControlName="lastName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="relationship">Relationship to Victim</label>
+                                <div class="col-lg-9">
+                                    <select class="form-control" id="relationship" formControlName="relationshipTypeId">
+                                        <option value="">Select One</option>
+                                        <option *ngFor="let rt of relationshipTypes" [value]="rt.id">{{rt.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Interview Information</h3>
+                        </div>
+                        <div class="box-body form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="interviewDate">Interview Date</label>
+                                <div class="col-lg-9">
+                                    <p-calendar name="interviewDate" id="interviewDate" formControlName="interviewDate"></p-calendar>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="notes">Notes</label>
+                                <div class="col-lg-9">
+                                    <textarea class="form-control" id="notes" placeholder="Notes" autocomplete="off" formControlName="notes"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Demographics</h3>
+                        </div>
+                        <div class="box-body form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="gender">Gender</label>
+                                <div class="col-lg-9">
+                                    <select class="form-control" id="gender" formControlName="genderId">
+                                        <option value="">Select One</option>
+                                        <option *ngFor="let g of genders" [value]="g.id">{{g.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="race">Race</label>
+                                <div class="col-lg-9">
+                                    <select class="form-control" id="race" formControlName="raceId">
+                                        <option value="">Select One</option>
+                                        <option *ngFor="let r of races" [value]="r.id">{{r.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="ethnicity">Ethnicity</label>
+                                <div class="col-lg-9">
+                                    <select class="form-control" id="ethnicity" formControlName="ethnicityId">
+                                        <option value="">Select One</option>
+                                        <option *ngFor="let e of ethnicities" [value]="e.id">{{e.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="dob">Date of Birth</label>
+                                <div class="col-lg-9">
+                                    <p-calendar name="dob" id="dob" formControlName="dob"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <last-edit-info [item]="item" [title]="'Witness Info'"></last-edit-info>
+                </div>
+            </div>
+        </form>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-primary" (click)="submit(formGroup.value)"><i class="fa fa-save"></i> Save</button>
+                <button type="button" class="btn btn-default" (click)="cancel()"><i class="fa fa-close"></i> Close</button>
+            </div>
+        </div>
+    </section>
+

@@ -1,0 +1,115 @@
+﻿<header class="main-header">
+
+    <!-- Logo -->
+    <a [routerLink]="['/dashboard']" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini" [innerHTML]="stateService.productShortName"></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg" [innerHTML]="stateService.productName"></span>
+    </a>
+
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a class="sidebar-toggle" data-toggle="offcanvas" role="button" (click)="stateService.menuOpen=!stateService.menuOpen">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown tasks-menu" *ngIf="hasFeature('cases')" [ngClass]="{'open': isOpen('case-header')}">
+                    <a (click)="toggleNav('case-header')" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-files-o"></i>
+                        <span class="label label-{{numberClass(dService.caseDaysOld)}}">{{dService.cases?.length}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have {{dService.cases?.length}} open cases</li>
+                        <li>
+                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
+                                <ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                                    <li *ngFor="let c of dService.cases">
+                                        <a [routerLink]="['/cases', c.id]" (click)="toggleNav('case-header')" role="button">
+                                            <h3>
+                                                {{c.firstName}} {{c.lastName}}
+                                            </h3>
+                                            <small>Case Date: {{c.caseDate | date}}</small>
+                                            <small class="pull-right">DOB: {{c.caseDate | date}}</small>
+                                        </a>
+                                    </li>
+                                </ul><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div><div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                            </div>
+                        </li>
+                        <li class="footer">
+                            <a [routerLink]="['/cases']" (click)="toggleNav('case-header')">View all cases</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown tasks-menu" *ngIf="hasFeature('fires')" [ngClass]="{'open': isOpen('fire-header')}">
+                    <a (click)="toggleNav('fire-header')" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-fire"></i>
+                        <span class="label label-{{numberClass(dService.fireDaysOld)}}">{{dService.fires?.length}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have {{dService.fires?.length}} open fires</li>
+                        <li>
+                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
+                                <ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                                    <li *ngFor="let f of dService.fires">
+                                        <a [routerLink]="['/fires', f.id]" (click)="toggleNav('fire-header')" role="button">
+                                            <h3>
+                                                {{f.location}}
+                                                <small class="pull-right">{{vService.fireCause(f.causeId)?.name}}</small>
+                                            </h3>
+                                            <small>
+                                                Occurrence Date: {{f.occurrenceDate | date}}
+                                            </small>
+                                        </a>
+                                    </li>
+                                </ul><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div><div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                            </div>
+                        </li>
+                        <li class="footer">
+                            <a [routerLink]="['/fires']" (click)="toggleNav('fire-header')">View all fires</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu" [ngClass]="{'open': isOpen('user-header')}">
+                    <a (click)="toggleNav('user-header')" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="hidden-xs">{{user?.firstName}} {{user?.lastName}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="user-header">
+                            <img src="{{stateService.logo}}" />
+                            <p>
+                                <strong>{{user?.firstName}} {{user?.lastName}}</strong><br />
+                                <em>{{user?.role}}</em>
+                                <small>{{organization?.name}}</small>
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <div class="pull-left">
+                                <a [routerLink]="['/changepassword']" (click)="toggleNav('user-header')" class="btn btn-default btn-flat">Change Password</a>
+                            </div>
+                            <div class="pull-right">
+                                <a (click)="stateService.signout()" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                            <!-- /.row -->
+                        </li>
+                        <!-- Menu Footer-->
+                        <!--<li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>-->
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+</header>

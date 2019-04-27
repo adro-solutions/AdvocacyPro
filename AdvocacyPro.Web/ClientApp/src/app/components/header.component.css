@@ -1,0 +1,9 @@
+﻿.navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+    height: auto;
+}
+
+    .navbar-nav > .user-menu > .dropdown-menu > li.user-header > img {
+        height: auto;
+        width: 160px;
+        border: none;
+    }

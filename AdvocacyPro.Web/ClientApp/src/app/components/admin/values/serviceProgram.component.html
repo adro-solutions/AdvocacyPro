@@ -1,0 +1,32 @@
+﻿
+<section class="content-header"><h1>Case Service Programs</h1></section>
+<section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{caseServiceProgram?.name}}</h3>
+        </div>
+        <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup" (ngSubmit)="submit(formGroup.value)">
+            <div class="box-body">
+                <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" placeholder="Name" autocomplete="off" formControlName="name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="category" class="col-sm-2 control-label">Service Category</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="category" formControlName="categoryId">
+                            <option *ngFor="let item of caseServiceCategories" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                <a [routerLink]="['/admin/values/serviceprograms']" class="btn btn-default" role="button"><i class="fa fa-undo"></i> Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>

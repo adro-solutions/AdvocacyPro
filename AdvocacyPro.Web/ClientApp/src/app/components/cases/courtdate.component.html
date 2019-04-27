@@ -1,0 +1,118 @@
+﻿<section class="content-header">
+    <h1 *ngIf="item?.id === 0">Add New Court Date</h1>
+    <h1 *ngIf="item?.id !== 0">Edit Court Date</h1>
+</section>
+<section class="content">
+    <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup">
+        <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Docket Information</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="docketNumber">Docket Number</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="docketNumber" placeholder="Docket Number" autocomplete="off" formControlName="docketNumber">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="docketTypeId">Docket Type</label>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="docketTypeId" formControlName="docketTypeId">
+                                    <option value="">Select One</option>
+                                    <option *ngFor="let s of docketTypes" [value]="s.id">{{s.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="court">Court</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="court" placeholder="Court" autocomplete="off" formControlName="court">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="police">Police</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="police" placeholder="Police" autocomplete="off" formControlName="police">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="arrestDate">Arrest Date</label>
+                            <div class="col-lg-9">
+                                <p-calendar name="arrestDate" id="arrestDate" formControlName="arrestDate"></p-calendar>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Bond Information</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="bondAmount">Bond Amount</label>
+                            <div class="col-lg-9">
+                                <input type="number" class="form-control" id="bondAmount" placeholder="bondAmount" autocomplete="off" formControlName="bondAmount">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="bondTypeId">Bond Type</label>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="bondTypeId" formControlName="bondTypeId">
+                                    <option value="">Select One</option>
+                                    <option *ngFor="let s of bondTypes" [value]="s.id">{{s.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Hearing Information</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="startDate">Start Date</label>
+                            <div class="col-lg-9">
+                                <p-calendar name="startDate" id="startDate" formControlName="startDate"></p-calendar>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="endDate">End Date</label>
+                            <div class="col-lg-9">
+                                <p-calendar name="endDate" id="endDate" formControlName="endDate"></p-calendar>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="purpose">Purpose</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="purpose" placeholder="Purpose" autocomplete="off" formControlName="purpose">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="reason">Reason</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="reason" placeholder="Reason" autocomplete="off" formControlName="reason">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <last-edit-info [item]="item" [title]="'Court Date Info'"></last-edit-info>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary" (click)="submit(formGroup.value)"><i class="fa fa-save"></i> Save</button>
+            <button type="button" class="btn btn-default" (click)="cancel()"><i class="fa fa-close"></i> Close</button>
+        </div>
+    </div>
+</section>
+

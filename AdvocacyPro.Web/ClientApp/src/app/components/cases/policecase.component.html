@@ -1,0 +1,95 @@
+﻿<section class="content-header">
+    <h1 *ngIf="item?.id === 0">Add New Police Case</h1>
+    <h1 *ngIf="item?.id !== 0">Edit Police Case</h1>
+</section>
+<section class="content">
+    <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup">
+        <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Name</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="firstName">First Name</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="firstName" placeholder="First Name" autocomplete="off" formControlName="firstName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="lastName">Last Name</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="lastName" placeholder="Last Name" autocomplete="off" formControlName="lastName">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Notes</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="notes">Notes</label>
+                            <div class="col-lg-9">
+                                <textarea class="form-control" id="notes" placeholder="Notes" autocomplete="off" formControlName="notes"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Police Department Information</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="policeDepartment">Department Name</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="policeDepartment" placeholder="Department Name" autocomplete="off" formControlName="policeDepartment">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="policeSequenceNo">Sequence Number</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="policeSequenceNo" placeholder="Sequence Number" autocomplete="off" formControlName="policeSequenceNo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="policeCaseNo">Case Number</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="policeCaseNo" placeholder="Case Number" autocomplete="off" formControlName="policeCaseNo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="policeClosedDate">Close Date</label>
+                            <div class="col-lg-9">
+                                <p-calendar name="policeClosedDate" id="policeClosedDate" formControlName="policeClosedDate"></p-calendar>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="policeOutcome">Outcome</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="policeOutcome" placeholder="Outcome" autocomplete="off" formControlName="policeOutcome">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <last-edit-info [item]="item" [title]="'Police Case Info'"></last-edit-info>
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary" (click)="submit(formGroup.value)"><i class="fa fa-save"></i> Save</button>
+            <button type="button" class="btn btn-default" (click)="cancel()"><i class="fa fa-close"></i> Close</button>
+        </div>
+    </div>
+</section>
+

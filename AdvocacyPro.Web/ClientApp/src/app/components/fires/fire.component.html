@@ -1,0 +1,150 @@
+﻿
+<section class="content-header"><h1>Fires</h1></section>
+<section class="content">
+    <form [formGroup]="formGroup" *ngIf="formGroup">
+        <form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="box box-primary" *ngIf="fire?.id > 0">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Fire Info</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <label class="col-lg-3 text-right">Id</label>
+                            <span class="col-lg-9">{{fire.id}}</span>
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-3 text-right">Created</label>
+                            <span class="col-lg-9">{{fire.createDate | date:'medium'}}</span>
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-3 text-right">Created By</label>
+                            <span class="col-lg-9">{{vService.user(fire.createdById)?.firstName}} {{vService.user(fire.createdById)?.lastName}}</span>
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-3 text-right">Updated</label>
+                            <span class="col-lg-9">{{fire.updateDate | date:'medium'}}</span>
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-3 text-right">Updated By</label>
+                            <span class="col-lg-9">{{vService.user(fire.updatedById)?.firstName}} {{vService.user(fire.updatedById)?.lastName}}</span>
+                        </div>
+                        <div class="row form-horizontal">
+                            <label class="col-lg-3 control-label" for="status">Status</label>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="status" formControlName="statusId">
+                                    <option *ngFor="let item of statuses" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-3 text-right" for="archived">Archived</label>
+                            <div class="col-lg-9">
+                                <input type="checkbox" id="archived" formControlName="archived">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Detail</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="cause">Cause</label>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="cause" formControlName="causeId">
+                                    <option value="">Select One</option>
+                                    <option *ngFor="let item of fireCauses" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="occurrenceDate">Occurrence Date</label>
+                            <div class="col-lg-9">
+                                <p-calendar name="occurrenceDate" id="occurrenceDate" formControlName="occurrenceDate"></p-calendar>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="reportDate">Report Date</label>
+                            <div class="col-lg-9">
+                                <p-calendar name="reportDate" id="reportDate" formControlName="reportDate"></p-calendar>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="disposition">Disposition</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="disposition" placeholder="Disposition" autocomplete="off" formControlName="disposition">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div class="col-sm-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Location</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="location">Location</label>
+                            <div class="col-lg-9">
+                                <p-autoComplete [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" placeholder="Location" id="location" formControlName="location" [suggestions]="locations" (completeMethod)="search($event)"></p-autoComplete>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="locationType">Location Type</label>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="locationType" formControlName="locationTypeId">
+                                    <option value="">Select One</option>
+                                    <option *ngFor="let item of locationTypes" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Notes</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="notes">Notes</label>
+                            <div class="col-lg-9">
+                                <textarea class="form-control" id="notes" placeholder="Notes" autocomplete="off" formControlName="notes"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Staff</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="staff">Staff Member</label>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="staff" formControlName="staffUserId">
+                                    <option value="">Select One</option>
+                                    <option *ngFor="let item of users" [value]="item.id">{{item.firstName}} {{item.lastName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="button" (click)="submit(formGroup.value, false)" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                <button type="button" (click)="submit(formGroup.value, true)" *ngIf="fire?.id > 0" class="btn btn-primary"><i class="fa fa-save"></i> Save &amp; Close</button>
+                <a [routerLink]="['/fires']" [queryParams]="{archived: this.archived}" class="btn btn-default" role="button"><i class="fa fa-undo"></i> Cancel</a>
+            </div>
+        </div>
+    </form>
+</section>

@@ -1,0 +1,35 @@
+﻿import { Component, ElementRef, Input, ViewChild } from '../vendor';
+import { CSPNotificationService } from '../services';
+import { ToastMessageOptions, ToastType } from '../models';
+
+@Component({
+    selector: 'file-upload',
+    template: '<input type="file" (change)="fileChanged()" #fileInput>'
+})
+export class FileUploadComponent {
+    public fileName: string = "";
+    public formData: FormData;
+    @ViewChild('fileInput') inputEl: ElementRef;
+    @Input() maxSize: number;
+
+    constructor(private notification: CSPNotificationService) { }
+
+    public reset() {
+        this.inputEl.nativeElement.value = "";
+    }
+
+    private fileChanged() {
+        let inputEl: HTMLInputElement = this.inputEl.nativeElement;
+        let fileCount: number = inputEl.files.length;
+        if (fileCount > 0) { // a file was selected
+            if (!!this.maxSize && inputEl.files.item(0).size > (this.maxSize * 1024 * 1024)) {
+                this.inputEl.nativeElement.value = "";
+                this.notification.toast(new ToastMessageOptions("File too large", `Files must be under ${this.maxSize}MB and cannot be uploaded.`, ToastType.Error));
+            } else {
+                this.fileName = inputEl.files.item(0).name;
+                this.formData = new FormData();
+                this.formData.append('file[]', inputEl.files.item(0));
+            }
+        }
+    }
+}

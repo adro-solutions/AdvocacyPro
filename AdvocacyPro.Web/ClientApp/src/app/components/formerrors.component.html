@@ -1,0 +1,5 @@
+﻿<div class="alert alert-danger" *ngIf="formGroup && !formGroup.valid">
+    <ul>
+        <li *ngFor="let m of errorMessages">{{m}}</li>
+    </ul>
+</div>

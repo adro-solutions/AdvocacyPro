@@ -1,0 +1,27 @@
+﻿<div class="box box-primary" *ngIf="item?.id > 0">
+    <div class="box-header with-border">
+        <h3 class="box-title">{{title}}</h3>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <label class="col-lg-3 text-right">Id</label>
+            <span class="col-lg-9">{{item.id}}</span>
+        </div>
+        <div class="row">
+            <label class="col-lg-3 text-right">Created</label>
+            <span class="col-lg-9">{{item.createDate | date:'medium'}}</span>
+        </div>
+        <div class="row">
+            <label class="col-lg-3 text-right">Created By</label>
+            <span class="col-lg-9">{{valueService.user(item.createdById)?.firstName}} {{valueService.user(item.createdById)?.lastName}}</span>
+        </div>
+        <div class="row">
+            <label class="col-lg-3 text-right">Updated</label>
+            <span class="col-lg-9">{{item.updateDate | date:'medium'}}</span>
+        </div>
+        <div class="row">
+            <label class="col-lg-3 text-right">Updated By</label>
+            <span class="col-lg-9">{{valueService.user(item.updatedById)?.firstName}} {{valueService.user(item.updatedById)?.lastName}}</span>
+        </div>
+    </div>
+</div>

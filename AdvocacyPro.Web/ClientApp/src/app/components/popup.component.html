@@ -1,0 +1,15 @@
+﻿<modal *ngIf="config" [showCloseButton]="false">
+    <div class="app-modal-header">
+        <span>{{config.headerText}}</span>
+    </div>
+    <div class="app-modal-body">
+        <p>{{config.bodyText}}</p>
+        <div class="form-group has-feedback" *ngIf="config.showInput">
+            <input type="text" class="form-control" [(ngModel)]="config.inputValue" />
+        </div>
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-default" (click)="cancel()" *ngIf="config.showCancel">{{config.cancelText}}</button>
+        <button type="button" class="btn btn-primary" (click)="ok()">{{config.okText}}</button>
+    </div>
+</modal>

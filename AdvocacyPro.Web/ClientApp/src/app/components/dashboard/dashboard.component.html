@@ -1,0 +1,118 @@
+﻿
+<section class="content-header"><h1>{{organization?.name}} - Dashboard</h1></section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="info-box" *ngIf="hasFeature('cases')">
+                <span class="info-box-icon bg-{{iconBg(dService.caseDaysOld)}}"><i class="ion ion-ios-folder-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">My Open Cases</span>
+                    <span class="info-box-number">{{dService.cases?.length}}</span>
+                    <span *ngIf="dService.cases?.length > 0">Oldest is {{dService.caseDaysOld}} days old</span>
+                </div>
+            </div>
+            <div class="info-box" *ngIf="hasFeature('fires')">
+                <span class="info-box-icon bg-{{iconBg(dService.fireDaysOld)}}"><i class="ion ion-ios-flame-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">My Open Fires</span>
+                    <span class="info-box-number">{{dService.fires?.length}}</span>
+                    <span *ngIf="dService.fires?.length > 0">Oldest is {{dService.fireDaysOld}} days old</span>
+                </div>
+            </div>
+            <div role="button" [routerLink]="['/cases']" class="info-box" *ngIf="hasFeature('cases')">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-folder"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Open Cases</span>
+                    <span class="info-box-number">{{dService.totalOpenCases}}</span>
+                </div>
+            </div>
+            <div role="button" [routerLink]="['/fires']" class="info-box" *ngIf="hasFeature('fires')">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-flame"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Open Fires</span>
+                    <span class="info-box-number">{{dService.totalOpenFires}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="box" *ngIf="hasFeature('cases')">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        My Open Cases
+                    </h3>
+                    <span class="pull-right">
+                        <a [routerLink]="['/cases']" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Search Cases</a>
+                        <a [routerLink]="['/cases', 0]" class="btn btn-sm btn-primary" style="margin-left:5px"><i class="fa fa-plus"></i> Add Case</a>
+                    </span>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th width="10">#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Case Date</th>
+                                <th>Birth Date</th>
+                                <th width="60"></th>
+                            </tr>
+                            <tr *ngFor="let item of dService.cases">
+                                <td>{{item.id}}</td>
+                                <td>{{item.firstName}}</td>
+                                <td>{{item.lastName}}</td>
+                                <td>{{item.caseDate | date}}</td>
+                                <td>{{item.dob | date}}</td>
+                                <td>
+                                    <a [routerLink]="['/cases', item.id]" title="Edit" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box" *ngIf="hasFeature('fires')">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        My Open Fires
+                    </h3>
+                    <span class="pull-right">
+                        <a [routerLink]="['/fires']" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Search Fires</a>
+                        <a [routerLink]="['/fires', 0]" class="btn btn-sm btn-primary" style="margin-left:5px"><i class="fa fa-plus"></i> Add Fire</a>
+                    </span>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th width="10">#</th>
+                                <th>Cause</th>
+                                <th>Occurrence Date</th>
+                                <th>Location</th>
+                                <th>Location Type</th>
+                                <th>Status</th>
+                                <th>Disposition</th>
+                                <th width="60"></th>
+                            </tr>
+                            <tr *ngFor="let item of dService.fires">
+                                <td>{{item.id}}</td>
+                                <td>{{vService.fireCause(item.causeId)?.name}}</td>
+                                <td>{{item.occurrenceDate | date}}</td>
+                                <td>{{item.location}}</td>
+                                <td>{{vService.locationType(item.locationTypeId)?.name}}</td>
+                                <td>{{vService.status(item.statusId)?.name}}</td>
+                                <td>{{item.disposition}}</td>
+                                <td>
+                                    <a [routerLink]="['/fires', item.id]" title="Edit" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

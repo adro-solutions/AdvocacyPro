@@ -1,0 +1,30 @@
+﻿<member-modal [organizationId]="organizationId"></member-modal>
+<member-feature-modal [organizationId]="organizationId"></member-feature-modal>
+<section class="content-header"><h1>Members</h1></section>
+<section class="content">
+    <div class="box">
+        <div class="box-body no-padding">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th width="{{hasFeature('administer_organizations') ? '225' : '150'}}"></th>
+                    </tr>
+                    <tr *ngFor="let item of members">
+                        <td>{{item.firstName}} {{item.lastName}}</td>
+                        <td>{{item.email}}</td>
+                        <td>
+                            <a (click)="edit(item.id)" title="Edit" role="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                            <a (click)="editFeatures(item.id)" title="Features" role="button" class="btn btn-sm btn-primary"><i class="fa fa-lock"></i> Features</a>
+                            <a *ngIf="hasFeature('administer_organizations')" title="Delete" (click)="delete(item.id)" role="button" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer">
+            <a (click)="edit(0)" class="btn btn-primary" role="button"><i class="fa fa-plus"></i> Add</a>
+        </div>
+    </div>
+</section>
