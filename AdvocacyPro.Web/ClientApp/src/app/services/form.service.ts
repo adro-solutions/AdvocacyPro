@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ValuesService } from './values.service';
 import { HttpClient } from '@angular/common/http';
 import { ZipCodesService } from './zipCodes.service';
@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
 import { UIHint } from '../models/uiHint.model';
 import { Feature } from '../models/feature.model';
 import { CustomValidators } from './customValidators';
-
+import { FormControl } from '../models/formControl.model';
 @Injectable({ providedIn: 'root' })
 export class FormService {
     attributes: any;
