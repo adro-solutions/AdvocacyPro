@@ -123,7 +123,7 @@
 
             </div>
             <div class="tab-pane" *ngIf="hasFeature('administer_members') && hasFeature('administer_organizations')" [ngClass]="{'active': tabIndex==1}">
-                <members [organizationId]="id"></members>
+                <app-members [organizationId]="id"></app-members>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tabIndex==2}">
                 <div class="row">

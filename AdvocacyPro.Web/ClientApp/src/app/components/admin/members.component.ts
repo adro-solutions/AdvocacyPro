@@ -1,12 +1,15 @@
-﻿import { Component, OnInit, Input, ViewChild } from '../../vendor';
-import { OrganizationsService, CSPNotificationService, StateService } from '../../services';
-import { User, UserData } from '../../models';
-import { MemberComponent, MemberFeatureComponent } from '../';
+﻿import { StateService } from './../../services/state.service';
+import { CSPNotificationService } from './../../services/notification.service';
+import { OrganizationsService } from './../../services/organizations.service';
+import { UserData } from './../../models/userData.model';
+import { User } from './../../models/user.model';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { MemberComponent } from './member.component';
+import { MemberFeatureComponent } from './memberFeature.component';
 
 @Component({
-    selector: "members",
+    selector: 'app-members',
     template: require('./members.component.html'),
-    providers: [OrganizationsService]
 })
 export class MembersComponent implements OnInit {
     members: User[];
@@ -21,8 +24,9 @@ export class MembersComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!this.organizationId)
+        if (!this.organizationId) {
             this.organizationId = this.stateService.user.organizationId;
+        }
 
         this.user = this.stateService.user;
 
@@ -33,12 +37,12 @@ export class MembersComponent implements OnInit {
 
     edit(id: number) {
         this.member.editMember(id).subscribe(member => {
-            if (id == 0)
+            if (id === 0) {
                 this.members.push(member);
-            else {
-                let m = this.members.filter((member) => { return member.id === id })[0];
+            } else {
+                const m = this.members.filter(o => o.id === id )[0];
 
-                for (let key of Object.keys(member)) {
+                for (const key of Object.keys(member)) {
                     m[key] = member[key];
                 }
             }
@@ -47,12 +51,12 @@ export class MembersComponent implements OnInit {
 
     editFeatures(id: number) {
         this.memberFeature.editMember(id).subscribe(member => {
-            if (id == 0)
+            if (id === 0) {
                 this.members.push(member);
-            else {
-                let m = this.members.filter((member) => { return member.id === id })[0];
+            } else {
+                const m = this.members.filter(o => o.id === id )[0];
 
-                for (let key of Object.keys(member)) {
+                for (const key of Object.keys(member)) {
                     m[key] = member[key];
                 }
             }
@@ -60,13 +64,13 @@ export class MembersComponent implements OnInit {
     }
 
     delete(id: number) {
-        this.popupService.showConfirm("Delete?", "Are you sure you want to delete this item?").subscribe(confirm => {
-            if (confirm.response)
+        this.popupService.showConfirm('Delete?', 'Are you sure you want to delete this item?').subscribe(confirm => {
+            if (confirm.response) {
                 this.api.deleteUser(this.organizationId, id).subscribe(() => {
-                    let i = this.members.filter((member) => { return member.id === id })[0];
+                    const i = this.members.filter(m => m.id === id )[0];
                     this.members.splice(this.members.indexOf(i), 1);
-
                 });
+            }
         });
     }
 }

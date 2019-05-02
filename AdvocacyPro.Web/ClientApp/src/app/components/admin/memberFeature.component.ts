@@ -1,13 +1,15 @@
-﻿import { Component, ViewChild, Input, FormGroup, noop } from '../../vendor';
-import { OrganizationsService, FormService } from '../../services';
-import { ModalComponent } from '../';
-import { User, Feature } from '../../models';
-import { Observable, Subject } from 'rxjs/Rx';
+﻿import { FormService } from './../../services/form.service';
+import { OrganizationsService } from './../../services/organizations.service';
+import { User } from './../../models/user.model';
+import { Feature } from './../../models/feature.model';
+import { Component, ViewChild, Input } from '@angular/core';
+import { ModalComponent } from '../modal.component';
+import { FormGroup } from '@angular/forms';
+import { Subject, Observable, forkJoin, noop } from 'rxjs';
 
 @Component({
-    selector: 'member-feature-modal',
+    selector: 'app-member-feature-modal',
     template: require('./memberFeature.component.html'),
-    providers: [OrganizationsService]
 })
 export class MemberFeatureComponent {
     @ViewChild(ModalComponent) public readonly modal: ModalComponent;
@@ -15,7 +17,7 @@ export class MemberFeatureComponent {
     memberId: number;
     features: Feature[];
     formGroup: FormGroup;
-    submitted: boolean = false;
+    submitted = false;
     subject: Subject<User>;
 
     constructor(private orgService: OrganizationsService, private formService: FormService) {
@@ -24,12 +26,12 @@ export class MemberFeatureComponent {
     public editMember(id: number): Observable<User> {
         if (id > 0) {
             this.memberId = id;
-            Observable.forkJoin(
+            forkJoin(
                 this.orgService.getFeatures(this.organizationId),
                 this.orgService.getUserFeatures(this.organizationId, id)
             ).subscribe(d => {
                 this.features = d[0];
-                this.formGroup = this.formService.buildFormGroupFromArray(d[0], d[1], "value", "value");
+                this.formGroup = this.formService.buildFormGroupFromArray(d[0], d[1], 'value', 'value');
                 this.modal.show();
             }, error => noop());
         }
@@ -41,13 +43,14 @@ export class MemberFeatureComponent {
     submit(value: any) {
         this.submitted = true;
         if (this.formGroup.valid) {
-            let features = new Array<Feature>();
-            this.formService.buildArrayFromForm(value, features, true, "value");
+            const features = new Array<Feature>();
+            this.formService.buildArrayFromForm(value, features, true, 'value');
 
-            if (this.memberId > 0)
+            if (this.memberId > 0) {
                 this.orgService
                     .updateUserFeatures(this.organizationId, this.memberId, features)
                     .subscribe(() => this.modal.hide());
+                }
         }
     }
 }
