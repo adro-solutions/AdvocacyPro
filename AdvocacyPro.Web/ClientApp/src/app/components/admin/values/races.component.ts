@@ -1,6 +1,8 @@
-﻿import { Component, OnInit } from '../../../vendor';
-import { ValuesService, CSPNotificationService } from '../../../services';
-import { Race, ValueAPIEndpoints } from '../../../models';
+﻿import { ValueAPIEndpoints } from './../../../models/constants';
+import { CSPNotificationService } from './../../../services/notification.service';
+import { ValuesService } from './../../../services/values.service';
+import { Race } from './../../../models/valueBase.model';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     template: require('./races.component.html')
@@ -18,13 +20,13 @@ export class RacesComponent implements OnInit {
 
 
     delete(id: number) {
-        this.popupService.showConfirm("Delete?", "Are you sure you want to delete this item?").subscribe(confirm => {
-            if (confirm.response)
+        this.popupService.showConfirm('Delete?', 'Are you sure you want to delete this item?').subscribe(confirm => {
+            if (confirm.response) {
                 this.api.delete<Race>(ValueAPIEndpoints.races, id).subscribe(() => {
-                    let i = this.races.filter((race) => { return race.id === id })[0];
+                    const i = this.races.filter((race) => race.id === id)[0];
                     this.races.splice(this.races.indexOf(i), 1);
-
                 });
+            }
         });
     }
 }

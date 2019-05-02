@@ -1,6 +1,10 @@
-﻿import { Component, OnInit, ActivatedRoute, Router, FormGroup } from '../../../vendor';
-import { ValuesService, FormService } from '../../../services';
-import { ServiceProgram, ServiceCategory, ValueAPIEndpoints, ObjectType } from '../../../models';
+﻿import { ValueAPIEndpoints, ObjectType } from './../../../models/constants';
+import { FormService } from './../../../services/form.service';
+import { ValuesService } from './../../../services/values.service';
+import { ServiceProgram, ServiceCategory } from './../../../models/valueBase.model';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     template: require('./serviceProgram.component.html')
@@ -10,7 +14,7 @@ export class ServiceProgramComponent implements OnInit {
     caseServiceProgram: ServiceProgram;
     caseServiceCategories: ServiceCategory[];
     formGroup: FormGroup;
-    submitted: boolean = false;
+    submitted = false;
 
     constructor(private api: ValuesService,
         private route: ActivatedRoute, private formService: FormService, private router: Router) {
@@ -19,15 +23,15 @@ export class ServiceProgramComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            this.id = +params["id"];
+            this.id = +params['id'];
 
-            if (this.id > 0)
+            if (this.id > 0) {
                 this.api.get<ServiceProgram>(ValueAPIEndpoints.serviceprograms, this.id).subscribe(a => {
                     this.caseServiceProgram = a;
                     this.formService.buildFormGroup<ServiceProgram>(this.caseServiceProgram, ObjectType.ServiceProgram)
                         .subscribe((fbg: FormGroup) => { this.formGroup = fbg; });
                 });
-            else {
+            } else {
                 this.caseServiceProgram = new ServiceProgram();
                 this.formService.buildFormGroup<ServiceProgram>(this.caseServiceProgram, ObjectType.ServiceProgram)
                     .subscribe((fbg: FormGroup) => { this.formGroup = fbg; });
@@ -40,12 +44,14 @@ export class ServiceProgramComponent implements OnInit {
         this.submitted = true;
         if (this.formGroup.valid) {
             this.formService.buildObject(value, this.caseServiceProgram);
-            if (this.id == 0)
-                this.api.create<ServiceProgram>(ValueAPIEndpoints.serviceprograms, this.caseServiceProgram).subscribe(() => this.router.navigate(['/admin/values/case-service-programs']));
-            else
+            if (this.id === 0) {
+                this.api.create<ServiceProgram>(ValueAPIEndpoints.serviceprograms, this.caseServiceProgram)
+                    .subscribe(() => this.router.navigate(['/admin/values/case-service-programs']));
+            } else {
                 this.api.update<ServiceProgram>(ValueAPIEndpoints.serviceprograms, this.id, this.caseServiceProgram).subscribe(() => {
                     this.router.navigate(['/admin/values/serviceprograms']);
                 });
+            }
         }
     }
 

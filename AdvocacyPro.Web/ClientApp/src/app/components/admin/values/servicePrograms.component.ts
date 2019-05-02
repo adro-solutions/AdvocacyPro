@@ -1,6 +1,8 @@
-﻿import { Component, OnInit } from '../../../vendor';
-import { ValuesService, CSPNotificationService } from '../../../services';
-import { ServiceProgram, ValueAPIEndpoints } from '../../../models';
+﻿import { CSPNotificationService } from './../../../services/notification.service';
+import { ValueAPIEndpoints } from './../../../models/constants';
+import { ValuesService } from './../../../services/values.service';
+import { ServiceProgram } from './../../../models/valueBase.model';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     template: require('./servicePrograms.component.html')
@@ -18,13 +20,13 @@ export class ServiceProgramsComponent implements OnInit {
 
 
     delete(id: number) {
-        this.popupService.showConfirm("Delete?", "Are you sure you want to delete this item?").subscribe(confirm => {
-            if (confirm.response)
+        this.popupService.showConfirm('Delete?', 'Are you sure you want to delete this item?').subscribe(confirm => {
+            if (confirm.response) {
                 this.api.delete<ServiceProgram>(ValueAPIEndpoints.serviceprograms, id).subscribe(() => {
-                    let i = this.servicePrograms.filter((c) => { return c.id === id })[0];
+                    const i = this.servicePrograms.filter((c) => c.id === id)[0];
                     this.servicePrograms.splice(this.servicePrograms.indexOf(i), 1);
-
                 });
+            }
         });
     }
 }

@@ -1,6 +1,10 @@
-﻿import { Component, OnInit, ActivatedRoute, Router, FormGroup } from '../../../vendor';
-import { ValuesService, FormService } from '../../../services';
-import { ValueBase, ValueAPIEndpoints, ValueTitles } from '../../../models';
+﻿import { ValueTitles, ValueAPIEndpoints } from './../../../models/constants';
+import { FormService } from './../../../services/form.service';
+import { ValuesService } from './../../../services/values.service';
+import { ValueBase } from './../../../models/valueBase.model';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     template: require('./value.component.html')
@@ -11,25 +15,25 @@ export class ValueComponent implements OnInit {
     title: string;
     item: ValueBase;
     formGroup: FormGroup;
-    submitted: boolean = false;
+    submitted = false;
 
     constructor(private api: ValuesService, private route: ActivatedRoute, private formService: FormService, private router: Router) { }
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            this.id = +params["id"];
-            this.type = params["type"].toLowerCase();
+            this.id = +params['id'];
+            this.type = params['type'].toLowerCase();
             this.title = ValueTitles[this.type];
 
-            if (this.id > 0)
+            if (this.id > 0) {
                 this.api.get<ValueBase>(ValueAPIEndpoints[this.type], this.id).subscribe(a => {
                     this.item = a;
-                    this.formService.buildFormGroup<ValueBase>(this.item, "ValueBase")
+                    this.formService.buildFormGroup<ValueBase>(this.item, 'ValueBase')
                         .subscribe((fbg: FormGroup) => { this.formGroup = fbg; });
                 });
-            else {
+            } else {
                 this.item = new ValueBase();
-                this.formService.buildFormGroup<ValueBase>(this.item, "ValueBase")
+                this.formService.buildFormGroup<ValueBase>(this.item, 'ValueBase')
                     .subscribe((fbg: FormGroup) => { this.formGroup = fbg; });
             }
         });
@@ -40,12 +44,14 @@ export class ValueComponent implements OnInit {
         this.submitted = true;
         if (this.formGroup.valid) {
             this.formService.buildObject(value, this.item);
-            if (this.id == 0)
-                this.api.create<ValueBase>(ValueAPIEndpoints[this.type], this.item).subscribe(() => this.router.navigate([`/admin/values/${this.type}`]));
-            else
+            if (this.id === 0) {
+                this.api.create<ValueBase>(ValueAPIEndpoints[this.type], this.item)
+                    .subscribe(() => this.router.navigate([`/admin/values/${this.type}`]));
+            } else {
                 this.api.update<ValueBase>(ValueAPIEndpoints[this.type], this.id, this.item).subscribe(() => {
                     this.router.navigate([`/admin/values/${this.type}`]);
                 });
+            }
         }
     }
 

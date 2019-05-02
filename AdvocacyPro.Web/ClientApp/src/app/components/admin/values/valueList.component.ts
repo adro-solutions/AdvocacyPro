@@ -1,6 +1,9 @@
-﻿import { ActivatedRoute, Component, OnInit } from '../../../vendor';
-import { ValuesService, CSPNotificationService } from '../../../services';
-import { ValueBase, ValueAPIEndpoints, ValueTitles } from '../../../models';
+﻿import { ValueTitles, ValueAPIEndpoints } from './../../../models/constants';
+import { CSPNotificationService } from './../../../services/notification.service';
+import { ValuesService } from './../../../services/values.service';
+import { ValueBase } from './../../../models/valueBase.model';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     template: require('./valueList.component.html')
@@ -14,7 +17,7 @@ export class ValueListComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            this.type = params["type"].toLowerCase();
+            this.type = params['type'].toLowerCase();
             this.title = ValueTitles[this.type];
             this.api.getAll<ValueBase>(ValueAPIEndpoints[this.type]).subscribe(a => {
                 this.items = a;
@@ -24,12 +27,13 @@ export class ValueListComponent implements OnInit {
 
 
     delete(id: number) {
-        this.popupService.showConfirm("Delete?", "Are you sure you want to delete this item?").subscribe(confirm => {
-            if (confirm.response)
+        this.popupService.showConfirm('Delete?', 'Are you sure you want to delete this item?').subscribe(confirm => {
+            if (confirm.response) {
                 this.api.delete<ValueBase>(ValueAPIEndpoints[this.type], id).subscribe(() => {
-                    let i = this.items.filter((status) => { return status.id === id })[0];
+                    const i = this.items.filter((status) => status.id === id)[0];
                     this.items.splice(this.items.indexOf(i), 1);
                 });
+            }
         });
     }
 }

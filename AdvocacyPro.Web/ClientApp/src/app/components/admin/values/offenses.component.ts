@@ -1,6 +1,8 @@
-﻿import { Component, OnInit } from '../../../vendor';
-import { ValuesService, CSPNotificationService } from '../../../services';
-import { Offense, ValueAPIEndpoints } from '../../../models';
+﻿import { ValueAPIEndpoints } from './../../../models/constants';
+import { CSPNotificationService } from './../../../services/notification.service';
+import { ValuesService } from './../../../services/values.service';
+import { Offense } from './../../../models/valueBase.model';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     template: require('./offenses.component.html')
@@ -18,13 +20,13 @@ export class OffensesComponent implements OnInit {
 
 
     delete(id: number) {
-        this.popupService.showConfirm("Delete?", "Are you sure you want to delete this item?").subscribe(confirm => {
-            if (confirm.response)
+        this.popupService.showConfirm('Delete?', 'Are you sure you want to delete this item?').subscribe(confirm => {
+            if (confirm.response) {
                 this.api.delete<Offense>(ValueAPIEndpoints.offenses, id).subscribe(() => {
-                    let i = this.offenses.filter((offense) => { return offense.id === id })[0];
+                    const i = this.offenses.filter((offense) => offense.id === id)[0];
                     this.offenses.splice(this.offenses.indexOf(i), 1);
-
                 });
+            }
         });
     }
 }
