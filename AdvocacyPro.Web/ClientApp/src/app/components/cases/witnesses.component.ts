@@ -1,12 +1,15 @@
-﻿import { Component, OnInit, Input, ViewChild, Router } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService } from '../../services';
-import { CaseWitness, CaseAPIEndpoints } from '../../models';
-import { WitnessComponent, CaseChildListComponent } from '../';
+﻿import { Component, OnInit, Input } from '@angular/core';
+import { CaseChildListComponent } from './casechildlist.component';
+import { CaseWitness } from 'src/app/models/caseWitness.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: "witnesses",
+    selector: 'app-witnesses',
     template: require('./witnesses.component.html'),
-    providers: [CasesService]
 })
 export class WitnessesComponent extends CaseChildListComponent<CaseWitness> implements OnInit {
     @Input() caseId: number;

@@ -1,13 +1,16 @@
-﻿import { Component, ViewChild, Input, OnInit, Router, ActivatedRoute } from '../../vendor';
-import { CasesService, FormService, ValuesService, StateService } from '../../services';
-import { ModalComponent } from '../';
-import { CaseCVCApplication, UserData, ApplicationStatus, OffenseType, ReferralType, CaseAPIEndpoints, ObjectType } from '../../models';
-import { CaseChildComponent } from './casechild.component';
+﻿import { CaseChildComponent } from './casechild.component';
+import { Component, OnInit } from '@angular/core';
+import { CaseCVCApplication } from 'src/app/models/caseCVCApplication.model';
+import { ApplicationStatus, OffenseType, ReferralType } from 'src/app/models/valueBase.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { FormService } from 'src/app/services/form.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { StateService } from 'src/app/services/state.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: 'cvc-application-modal',
     template: require('./cvcapplication.component.html'),
-    providers: [CasesService]
 })
 export class CVCApplicationComponent extends CaseChildComponent<CaseCVCApplication> implements OnInit {
     applicationStatuses: ApplicationStatus[];
@@ -25,9 +28,9 @@ export class CVCApplicationComponent extends CaseChildComponent<CaseCVCApplicati
 
     ngOnInit(): void {
         this.activeRoute.params.subscribe(r => {
-            let newItem = new CaseCVCApplication();
-            super.initializeBase(+r["caseId"], ObjectType.CaseCVCApplication, newItem, CaseAPIEndpoints.CVCApplications);
-            this.editItem(+r["id"]);
+            const newItem = new CaseCVCApplication();
+            super.initializeBase(+r['caseId'], ObjectType.CaseCVCApplication, newItem, CaseAPIEndpoints.CVCApplications);
+            this.editItem(+r['id']);
 
         });
     }

@@ -1,13 +1,15 @@
-﻿import { Component, ViewChild, Input, OnInit, Router, ActivatedRoute } from '../../vendor';
-import { CasesService, FormService, ValuesService, StateService } from '../../services';
-import { ModalComponent } from '../';
-import { CaseReferral, ReferralType, CaseAPIEndpoints, ObjectType } from '../../models';
-import { CaseChildComponent } from './casechild.component';
+﻿import { CaseChildComponent } from './casechild.component';
+import { Component, OnInit } from '@angular/core';
+import { CaseReferral } from 'src/app/models/caseReferral.model';
+import { ReferralType } from 'src/app/models/valueBase.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { FormService } from 'src/app/services/form.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: 'referral-modal',
     template: require('./referral.component.html'),
-    providers: [CasesService]
 })
 export class ReferralComponent extends CaseChildComponent<CaseReferral> implements OnInit {
     caseReferralTypes: ReferralType[];
@@ -20,8 +22,8 @@ export class ReferralComponent extends CaseChildComponent<CaseReferral> implemen
 
     ngOnInit(): void {
         this.activeRoute.params.subscribe(r => {
-            super.initializeBase(+r["caseId"], ObjectType.CaseReferral, new CaseReferral(), CaseAPIEndpoints.Referrals);
-            this.editItem(+r["id"]);
+            super.initializeBase(+r['caseId'], ObjectType.CaseReferral, new CaseReferral(), CaseAPIEndpoints.Referrals);
+            this.editItem(+r['id']);
 
         });
     }

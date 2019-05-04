@@ -1,13 +1,14 @@
-﻿import { FormGroup, Observable, Subject, Router } from '../../vendor';
-import { CasesService, FormService } from '../../services';
-import { ModalComponent } from '../';
+﻿import { FormGroup } from '@angular/forms';
+import { CasesService } from 'src/app/services/cases.service';
+import { FormService } from 'src/app/services/form.service';
+import { Router } from '@angular/router';
 
 export class CaseChildComponent<T> {
     item: T;
     id: number;
     _caseId: number;
     formGroup: FormGroup;
-    submitted: boolean = false;
+    submitted = false;
     itemTypeName: string;
     private newItem: T;
     caseEndpoint: string;
@@ -22,7 +23,6 @@ export class CaseChildComponent<T> {
         this.caseEndpoint = caseEndpoint;
 
     }
-    
 
     public editItem(id: number): void {
         this.id = id;
@@ -50,14 +50,15 @@ export class CaseChildComponent<T> {
         this.submitted = true;
         if (this.formGroup.valid) {
             this.formService.buildObject(value, this.item, this.itemTypeName);
-            if (this.id == 0)
+            if (this.id === 0) {
                 this.api.createItem<T>(this._caseId, this.item, this.caseEndpoint).subscribe((item) => {
                     this.router.navigate([`/cases/${this._caseId}/${this.caseEndpoint}`]);
                 });
-            else
+            } else {
                 this.api.updateItem<T>(this._caseId, this.id, this.item, this.caseEndpoint).subscribe((item) => {
                     this.router.navigate([`/cases/${this._caseId}/${this.caseEndpoint}`]);
                 });
+            }
         }
     }
 

@@ -1,13 +1,15 @@
-﻿import { Component, OnInit, Input, ViewChild, Router } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService } from '../../services';
-import { CaseProtectiveOrder, CaseAPIEndpoints } from '../../models';
-import { CaseChildListComponent } from './casechildlist.component';
-import { ProtectiveOrderComponent } from '../';
+﻿import { CaseChildListComponent } from './casechildlist.component';
+import { Component, OnInit, Input } from '@angular/core';
+import { CaseProtectiveOrder } from 'src/app/models/caseProtectiveOrder.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: "protective-orders",
+    selector: 'app-protective-orders',
     template: require('./protectiveorders.component.html'),
-    providers: [CasesService]
 })
 export class ProtectiveOrdersComponent extends CaseChildListComponent<CaseProtectiveOrder> implements OnInit {
     @Input() caseId: number;

@@ -241,55 +241,55 @@
                 </form>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='incidents'}" *ngIf="hasFeature('case_incidents') && case?.id > 0">
-                <incidents [caseId]="case.id" *ngIf="tab=='incidents'"></incidents>
+                <app-incidents [caseId]="case.id" *ngIf="tab=='incidents'"></app-incidents>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='emergencycontacts'}" *ngIf="hasFeature('case_emergency_contacts') && case?.id > 0">
-                <emergency-contacts [caseId]="case.id" *ngIf="tab=='emergencycontacts'"></emergency-contacts>
+                <app-emergency-contacts [caseId]="case.id" *ngIf="tab=='emergencycontacts'"></app-emergency-contacts>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='referrals'}" *ngIf="hasFeature('case_referrals') && case?.id > 0">
-                <referrals [caseId]="case.id" *ngIf="tab=='referrals'"></referrals>
+                <app-referrals [caseId]="case.id" *ngIf="tab=='referrals'"></app-referrals>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='services'}" *ngIf="hasFeature('case_services_provided') && case?.id > 0">
-                <services-provided [caseId]="case.id" *ngIf="tab=='services'"></services-provided>
+                <app-services-provided [caseId]="case.id" *ngIf="tab=='services'"></app-services-provided>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='notes'}" *ngIf="hasFeature('case_notes') && case?.id > 0">
-                <notes [caseId]="case.id" *ngIf="tab=='notes'"></notes>
+                <app-notes [caseId]="case.id" *ngIf="tab=='notes'"></app-notes>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='contacts'}" *ngIf="hasFeature('case_contact_log') && case?.id > 0">
-                <contact-log [caseId]="case.id" *ngIf="tab=='contacts'"></contact-log>
+                <app-contact-log [caseId]="case.id" *ngIf="tab=='contacts'"></app-contact-log>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='documents'}" *ngIf="hasFeature('case_documents') && case?.id > 0">
-                <documents [caseId]="case.id" *ngIf="tab=='documents'"></documents>
+                <app-documents [caseId]="case.id" *ngIf="tab=='documents'"></app-documents>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='witnesses'}" *ngIf="hasFeature('case_witnesses') && case?.id > 0">
-                <witnesses [caseId]="case.id" *ngIf="tab=='witnesses'"></witnesses>
+                <app-witnesses [caseId]="case.id" *ngIf="tab=='witnesses'"></app-witnesses>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='police'}" *ngIf="hasFeature('case_police_involved') && case?.id > 0">
-                <police-case-log [caseId]="case.id" *ngIf="tab=='police'"></police-case-log>
+                <app-police-case-log [caseId]="case.id" *ngIf="tab=='police'"></app-police-case-log>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='offenders'}" *ngIf="hasFeature('case_offenders') && case?.id > 0">
-                <offenders [caseId]="case.id" *ngIf="tab=='offenders'"></offenders>
+                <app-offenders [caseId]="case.id" *ngIf="tab=='offenders'"></app-offenders>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='courtdates'}" *ngIf="hasFeature('case_court_dates') && case?.id > 0">
-                <court-dates [caseId]="case.id" *ngIf="tab=='courtdates'"></court-dates>
+                <app-court-dates [caseId]="case.id" *ngIf="tab=='courtdates'"></app-court-dates>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='cvcapplications'}" *ngIf="hasFeature('case_cvc_applications') && case?.id > 0">
-                <cvc-applications [caseId]="case.id" *ngIf="tab=='cvcapplications'"></cvc-applications>
+                <app-cvc-applications [caseId]="case.id" *ngIf="tab=='cvcapplications'"></app-cvc-applications>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='interviews'}" *ngIf="hasFeature('case_interviews') && case?.id > 0">
-                <interviews [caseId]="case.id" *ngIf="tab=='interviews'"></interviews>
+                <app-interviews [caseId]="case.id" *ngIf="tab=='interviews'"></app-interviews>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='letters'}" *ngIf="hasFeature('case_letters') && case?.id > 0">
-                <letters [caseId]="case.id" *ngIf="tab=='letters'"></letters>
+                <app-letters [caseId]="case.id" *ngIf="tab=='letters'"></app-letters>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='payments'}" *ngIf="hasFeature('case_payments') && case?.id > 0">
-                <payments [caseId]="case.id" *ngIf="tab=='payments'"></payments>
+                <app-payments [caseId]="case.id" *ngIf="tab=='payments'"></app-payments>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='protectiveorders'}" *ngIf="hasFeature('case_protective_orders') && case?.id > 0">
-                <protective-orders [caseId]="case.id" *ngIf="tab=='protectiveorders'"></protective-orders>
+                <app-protective-orders [caseId]="case.id" *ngIf="tab=='protectiveorders'"></app-protective-orders>
             </div>
             <div class="tab-pane" [ngClass]="{'active': tab=='victimizations'}" *ngIf="hasFeature('case_victimizations') && case?.id > 0">
-                <victimizations [caseId]="case.id" *ngIf="tab=='victimizations'"></victimizations>
+                <app-victimizations [caseId]="case.id" *ngIf="tab=='victimizations'"></app-victimizations>
             </div>
         </div>
     </div>

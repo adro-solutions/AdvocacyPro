@@ -1,13 +1,15 @@
-﻿import { Component, ViewChild, Input, OnInit, Router, ActivatedRoute } from '../../vendor';
-import { CasesService, FormService, ValuesService } from '../../services';
-import { ModalComponent } from '../';
-import { CaseService, ServiceCategory, ServicePopulation, ServiceProgram, CaseAPIEndpoints, ObjectType } from '../../models';
-import { CaseChildComponent } from './casechild.component';
+﻿import { CaseChildComponent } from './casechild.component';
+import { Component, OnInit } from '@angular/core';
+import { CaseService } from 'src/app/models/caseService.model';
+import { ServiceCategory, ServiceProgram, ServicePopulation } from 'src/app/models/valueBase.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { FormService } from 'src/app/services/form.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: 'service-provided-modal',
     template: require('./serviceProvided.component.html'),
-    providers: [CasesService]
 })
 export class ServiceProvidedComponent extends CaseChildComponent<CaseService> implements OnInit {
     caseServiceCategories: ServiceCategory[];
@@ -24,14 +26,14 @@ export class ServiceProvidedComponent extends CaseChildComponent<CaseService> im
     }
 
     categoryChange() {
-        this.formGroup.value["programId"] = null;
-        this.filteredServicePrograms = this.caseServicePrograms.filter(csp => csp.categoryId == this.formGroup.value["categoryId"]);
+        this.formGroup.value['programId'] = null;
+        this.filteredServicePrograms = this.caseServicePrograms.filter(csp => csp.categoryId === this.formGroup.value['categoryId']);
     }
 
     ngOnInit(): void {
         this.activeRoute.params.subscribe(r => {
-            super.initializeBase(+r["caseId"], ObjectType.CaseService, new CaseService(), CaseAPIEndpoints.ServicesProvided);
-            this.editItem(+r["id"]);
+            super.initializeBase(+r['caseId'], ObjectType.CaseService, new CaseService(), CaseAPIEndpoints.ServicesProvided);
+            this.editItem(+r['id']);
 
         });
     }

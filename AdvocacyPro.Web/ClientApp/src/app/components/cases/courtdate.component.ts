@@ -1,13 +1,16 @@
-﻿import { Component, ViewChild, Input, OnInit, Router, ActivatedRoute } from '../../vendor';
-import { CasesService, FormService, ValuesService, StateService } from '../../services';
-import { ModalComponent } from '../';
-import { CaseCourtDate, DocketType, UserData, BondType, CaseAPIEndpoints, ObjectType } from '../../models';
-import { CaseChildComponent } from './casechild.component';
+﻿import { CaseChildComponent } from './casechild.component';
+import { Component, OnInit } from '@angular/core';
+import { CaseCourtDate } from 'src/app/models/caseCourtDate.model';
+import { DocketType, BondType } from 'src/app/models/valueBase.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { FormService } from 'src/app/services/form.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { StateService } from 'src/app/services/state.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: 'court-date-modal',
     template: require('./courtdate.component.html'),
-    providers: [CasesService]
 })
 export class CourtDateComponent extends CaseChildComponent<CaseCourtDate> implements OnInit {
     docketTypes: DocketType[];
@@ -23,9 +26,9 @@ export class CourtDateComponent extends CaseChildComponent<CaseCourtDate> implem
 
     ngOnInit(): void {
         this.activeRoute.params.subscribe(r => {
-            let newItem = new CaseCourtDate();
-            super.initializeBase(+r["caseId"], ObjectType.CaseCourtDate, newItem, CaseAPIEndpoints.CourtDates);
-            this.editItem(+r["id"]);
+            const newItem = new CaseCourtDate();
+            super.initializeBase(+r['caseId'], ObjectType.CaseCourtDate, newItem, CaseAPIEndpoints.CourtDates);
+            this.editItem(+r['id']);
 
         });
     }

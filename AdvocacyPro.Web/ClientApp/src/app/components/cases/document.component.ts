@@ -1,20 +1,23 @@
-﻿import { Component, ViewChild, Input, FormGroup, Observable, Subject, ActivatedRoute, Router, OnInit } from '../../vendor';
-import { CasesService, FormService, ValuesService } from '../../services';
-import { ModalComponent, FileUploadComponent } from '../';
-import { CaseDocument, DocumentType, ObjectType } from '../../models';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
+import { FileUploadComponent } from '../fileUpload.component';
+import { CaseDocument } from 'src/app/models/caseDocument.model';
+import { FormGroup } from '@angular/forms';
+import { CasesService } from 'src/app/services/cases.service';
+import { FormService } from 'src/app/services/form.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObjectType } from 'src/app/models/constants';
+import { DocumentType } from 'src/app/models/valueBase.model';
 
 @Component({
-    selector: 'document-modal',
     template: require('./document.component.html'),
-    providers: [CasesService]
 })
 export class DocumentComponent implements OnInit {
     @ViewChild(FileUploadComponent) public readonly fileUpload: FileUploadComponent;
     document: CaseDocument;
     formGroup: FormGroup;
-    submitted: boolean = false;
+    submitted = false;
     caseId: number;
-
     caseDocumentTypes: DocumentType[];
 
     constructor(private api: CasesService, private formService: FormService,
@@ -24,14 +27,15 @@ export class DocumentComponent implements OnInit {
 
     ngOnInit(): void {
         this.activeRoute.params.subscribe(r => {
-            this.caseId = +r["caseId"];
-            this.editDocument(+r["id"]);
+            this.caseId = +r['caseId'];
+            this.editDocument(+r['id']);
         });
     }
 
     public editDocument(id: number): void {
-        if (!!this.fileUpload)
+        if (!!this.fileUpload) {
             this.fileUpload.reset();
+        }
 
         if (id > 0) {
             this.api.getDocument(this.caseId, id).subscribe(
@@ -58,25 +62,25 @@ export class DocumentComponent implements OnInit {
         if (this.formGroup.valid) {
             this.formService.buildObject(value, this.document);
             this.document.fileName = this.fileUpload.fileName;
-            if (this.document.id == 0)
+            if (this.document.id === 0) {
                 this.api.createDocument(this.caseId, this.document).subscribe((document) => {
                     this.updateDocument(document);
                 });
-            else
+            } else {
                 this.api.updateDocument(this.caseId, this.document.id, this.document).subscribe((document) => {
                     this.updateDocument(document);
                 });
+            }
         }
     }
 
     private updateDocument(document: CaseDocument) {
-        if (this.fileUpload.fileName != "")
+        if (this.fileUpload.fileName !== '') {
             this.api.uploadDocument(this.caseId, document.id, this.fileUpload.formData).subscribe(upload => {
                 document.fileName = this.fileUpload.fileName;
                 this.router.navigate([`/cases/${this.caseId}/documents`]);
-
             });
-        else {
+        } else {
             this.router.navigate([`/cases/${this.caseId}/documents`]);
 
         }

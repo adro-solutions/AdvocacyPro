@@ -1,13 +1,13 @@
-﻿import { Component, ViewChild, Input, OnInit } from '../../vendor';
-import { ValuesService } from '../../services';
-import { TrackedBase } from "../../models/trackedBase.model";
+﻿import { Component, Input } from '@angular/core';
+import { TrackedBase } from 'src/app/models/trackedBase.model';
+import { ValuesService } from 'src/app/services/values.service';
 
 @Component({
-    selector: 'last-edit-info',
+    selector: 'app-last-edit-info',
     template: require('./lasteditinfo.component.html')
 })
 export class LastEditInfoComponent {
-    @Input() item: TrackedBase; 
+    @Input() item: TrackedBase;
     @Input() title: string;
 
     constructor(private valueService: ValuesService) { }

@@ -1,12 +1,15 @@
-﻿import { Component, OnInit, Input, ViewChild, Router } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService } from '../../services';
-import { CaseDocument, CaseAPIEndpoints } from '../../models';
-import { DocumentComponent, CaseChildListComponent } from '../';
+﻿import { Component, OnInit, Input } from '@angular/core';
+import { CaseChildListComponent } from './casechildlist.component';
+import { CaseDocument } from 'src/app/models/caseDocument.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: "documents",
+    selector: 'app-documents',
     template: require('./documents.component.html'),
-    providers: [CasesService]
 })
 export class DocumentsComponent extends CaseChildListComponent<CaseDocument> implements OnInit {
     @Input() caseId: number;
@@ -19,7 +22,7 @@ export class DocumentsComponent extends CaseChildListComponent<CaseDocument> imp
     ngOnInit() {
         this.initializeBase(this.caseId, CaseAPIEndpoints.Documents);
     }
-    
+
     download(id: number, fileName: string) {
         this.caseApi.downloadDocument(this.caseId, id, fileName);
     }

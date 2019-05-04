@@ -1,13 +1,16 @@
-﻿import { Component, ViewChild, Input, OnInit, Router, ActivatedRoute } from '../../vendor';
-import { CasesService, FormService, ValuesService, StateService } from '../../services';
-import { ModalComponent } from '../';
-import { CaseVictimization, VictimType, UserData, CaseAPIEndpoints, ObjectType } from '../../models';
-import { CaseChildComponent } from './casechild.component';
+﻿import { CaseChildComponent } from './casechild.component';
+import { Component, OnInit } from '@angular/core';
+import { CaseVictimization } from 'src/app/models/caseVictimization.model';
+import { VictimType } from 'src/app/models/valueBase.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { FormService } from 'src/app/services/form.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { StateService } from 'src/app/services/state.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: 'victimization-modal',
     template: require('./victimization.component.html'),
-    providers: [CasesService]
 })
 export class VictimizationComponent extends CaseChildComponent<CaseVictimization> implements OnInit {
     victimTypes: VictimType[];
@@ -21,9 +24,9 @@ export class VictimizationComponent extends CaseChildComponent<CaseVictimization
 
     ngOnInit(): void {
         this.activeRoute.params.subscribe(r => {
-            let newItem = new CaseVictimization();
-            super.initializeBase(+r["caseId"], ObjectType.CaseVictimization, newItem, CaseAPIEndpoints.Victimizations);
-            this.editItem(+r["id"]);
+            const newItem = new CaseVictimization();
+            super.initializeBase(+r['caseId'], ObjectType.CaseVictimization, newItem, CaseAPIEndpoints.Victimizations);
+            this.editItem(+r['id']);
 
         });
     }

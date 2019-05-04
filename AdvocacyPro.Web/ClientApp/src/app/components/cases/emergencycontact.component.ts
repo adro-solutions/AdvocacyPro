@@ -1,13 +1,15 @@
-﻿import { Component, ViewChild, Input, OnInit, Router, ActivatedRoute } from '../../vendor';
-import { CasesService, FormService, ValuesService, StateService } from '../../services';
-import { ModalComponent } from '../';
-import { CaseEmergencyContact, State, Gender, Race, Ethnicity, CaseAPIEndpoints, ObjectType } from '../../models';
-import { CaseChildComponent } from './casechild.component';
+﻿import { CaseChildComponent } from './casechild.component';
+import { Component, OnInit } from '@angular/core';
+import { CaseEmergencyContact } from 'src/app/models/caseEmergencyContact.model';
+import { State, Gender, Race, Ethnicity } from 'src/app/models/valueBase.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { FormService } from 'src/app/services/form.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: 'emergency-contact-modal',
     template: require('./emergencycontact.component.html'),
-    providers: [CasesService]
 })
 export class EmergencyContactComponent extends CaseChildComponent<CaseEmergencyContact> implements OnInit  {
     states: State[];
@@ -26,9 +28,9 @@ export class EmergencyContactComponent extends CaseChildComponent<CaseEmergencyC
 
     ngOnInit(): void {
         this.activeRoute.params.subscribe(r => {
-            super.initializeBase(+r["caseId"], ObjectType.CaseEmergencyContact, new CaseEmergencyContact(), CaseAPIEndpoints.EmergencyContacts);
-            this.editItem(+r["id"]);
-
+            super.initializeBase(+r['caseId'], ObjectType.CaseEmergencyContact,
+                new CaseEmergencyContact(), CaseAPIEndpoints.EmergencyContacts);
+            this.editItem(+r['id']);
         });
     }
 

@@ -1,12 +1,15 @@
-﻿import { Component, OnInit, Input, ViewChild, Router } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService } from '../../services';
-import { CaseNote, CaseAPIEndpoints } from '../../models';
-import { NoteComponent, CaseChildListComponent } from '../';
+﻿import { Component, OnInit, Input } from '@angular/core';
+import { CaseChildListComponent } from './casechildlist.component';
+import { CaseNote } from 'src/app/models/caseNote.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: "notes",
+    selector: 'app-notes',
     template: require('./notes.component.html'),
-    providers: [CasesService]
 })
 export class NotesComponent extends CaseChildListComponent<CaseNote> implements OnInit {
     @Input() caseId: number;

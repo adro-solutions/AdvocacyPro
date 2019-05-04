@@ -1,13 +1,15 @@
-﻿import { Component, OnInit, Input, ViewChild, Router } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService } from '../../services';
-import { CaseLetter, CaseAPIEndpoints } from '../../models';
-import { CaseChildListComponent } from './casechildlist.component';
-import { LetterComponent } from '../';
+﻿import { CaseChildListComponent } from './casechildlist.component';
+import { Input, Component, OnInit } from '@angular/core';
+import { CaseLetter } from 'src/app/models/caseLetter.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: "letters",
+    selector: 'app-letters',
     template: require('./letters.component.html'),
-    providers: [CasesService]
 })
 export class LettersComponent extends CaseChildListComponent<CaseLetter> implements OnInit {
     @Input() caseId: number;

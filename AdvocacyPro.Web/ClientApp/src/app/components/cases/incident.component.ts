@@ -1,7 +1,15 @@
-﻿import { Component, ViewChild, Input, OnInit, Router, ActivatedRoute } from '../../vendor';
-import { CasesService, FormService, ValuesService, StateService, LocationsService } from '../../services';
-import { CaseIncident, Offense, LocationType, UserData, Status, CaseAPIEndpoints, ObjectType } from '../../models';
-import { CaseChildComponent } from './casechild.component';
+﻿import { CaseChildComponent } from './casechild.component';
+import { Component, OnInit } from '@angular/core';
+import { CasesService } from 'src/app/services/cases.service';
+import { LocationsService } from 'src/app/services/locations.service';
+import { CaseIncident } from 'src/app/models/caseIncident.model';
+import { Offense, LocationType, Status } from 'src/app/models/valueBase.model';
+import { UserData } from 'src/app/models/userData.model';
+import { FormService } from 'src/app/services/form.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { StateService } from 'src/app/services/state.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     template: require('./incident.component.html'),
@@ -26,12 +34,12 @@ export class IncidentComponent extends CaseChildComponent<CaseIncident> implemen
     }
 
     ngOnInit(): void {
-        let newItem = new CaseIncident();
+        const newItem = new CaseIncident();
         this.locationsService.getAll().subscribe(d => this.oLocations = d);
         newItem.staffUserId = this.stateService.user.id;
         this.activeRoute.params.subscribe(r => {
-            super.initializeBase(+r["caseId"], ObjectType.CaseIncident, newItem, CaseAPIEndpoints.Incidents);
-            this.editItem(+r["id"]);
+            super.initializeBase(+r['caseId'], ObjectType.CaseIncident, newItem, CaseAPIEndpoints.Incidents);
+            this.editItem(+r['id']);
 
         });
     }

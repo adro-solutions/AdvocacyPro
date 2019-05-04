@@ -1,13 +1,16 @@
-﻿import { Component, ViewChild, Input, OnInit, ActivatedRoute, Router } from '../../vendor';
-import { CasesService, FormService, ValuesService, StateService } from '../../services';
-import { ModalComponent } from '../';
-import { CaseLetter, LetterType, UserData, Language, CaseAPIEndpoints, ObjectType } from '../../models';
-import { CaseChildComponent } from './casechild.component';
+﻿import { CaseChildComponent } from './casechild.component';
+import { Component, OnInit } from '@angular/core';
+import { CaseLetter } from 'src/app/models/caseLetter.model';
+import { LetterType, Language } from 'src/app/models/valueBase.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { FormService } from 'src/app/services/form.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { StateService } from 'src/app/services/state.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: 'letter-modal',
     template: require('./letter.component.html'),
-    providers: [CasesService]
 })
 export class LetterComponent extends CaseChildComponent<CaseLetter> implements OnInit {
     letterTypes: LetterType[];
@@ -23,10 +26,9 @@ export class LetterComponent extends CaseChildComponent<CaseLetter> implements O
 
     ngOnInit(): void {
         this.activeRoute.params.subscribe(r => {
-            let newItem = new CaseLetter();
-            super.initializeBase(+r["caseId"], ObjectType.CaseLetter, newItem, CaseAPIEndpoints.Letters);
-            this.editItem(+r["id"]);
-
+            const newItem = new CaseLetter();
+            super.initializeBase(+r['caseId'], ObjectType.CaseLetter, newItem, CaseAPIEndpoints.Letters);
+            this.editItem(+r['id']);
         });
     }
 }

@@ -1,13 +1,16 @@
-﻿import { Component, OnInit, Input, ViewChild, Router } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService } from '../../services';
-import { InterviewDocumentationType, CaseInterview, CaseAPIEndpoints } from '../../models';
-import { CaseChildListComponent } from './casechildlist.component';
-import { InterviewComponent } from '../';
+﻿import { CaseChildListComponent } from './casechildlist.component';
+import { Component, OnInit, Input } from '@angular/core';
+import { CasesService } from 'src/app/services/cases.service';
+import { CaseInterview } from 'src/app/models/caseInterview.model';
+import { InterviewDocumentationType } from 'src/app/models/valueBase.model';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: "interviews",
+    selector: 'app-interviews',
     template: require('./interviews.component.html'),
-    providers: [CasesService]
 })
 export class InterviewsComponent extends CaseChildListComponent<CaseInterview> implements OnInit {
     @Input() caseId: number;
@@ -24,9 +27,9 @@ export class InterviewsComponent extends CaseChildListComponent<CaseInterview> i
         this.initializeBase(this.caseId, CaseAPIEndpoints.Interviews);
     }
 
-    documentationList(item : CaseInterview): string {
+    documentationList(item: CaseInterview): string {
         return item.caseInterviewDocumentationTypes
-            .map(dt => { return this.documentationTypes.filter(i => i.id == dt.interviewDocumentationTypeId)[0].name; })
+            .map(dt => this.documentationTypes.filter(i => i.id === dt.interviewDocumentationTypeId)[0].name)
             .join(', ');
     }
 }

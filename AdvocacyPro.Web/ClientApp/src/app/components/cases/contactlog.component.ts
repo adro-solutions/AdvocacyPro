@@ -1,12 +1,15 @@
-﻿import { Component, OnInit, Input, ViewChild, Router } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService } from '../../services';
-import { CaseContact, CaseAPIEndpoints } from '../../models';
-import { ContactComponent, CaseChildListComponent } from '../';
+﻿import { Component, OnInit, Input } from '@angular/core';
+import { CaseChildListComponent } from './casechildlist.component';
+import { CaseContact } from 'src/app/models/caseContact.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: "contact-log",
+    selector: 'app-contact-log',
     template: require('./contactlog.component.html'),
-    providers: [CasesService]
 })
 export class ContactLogComponent extends CaseChildListComponent<CaseContact> implements OnInit {
     @Input() caseId: number;

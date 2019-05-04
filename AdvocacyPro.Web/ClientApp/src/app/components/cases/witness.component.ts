@@ -1,13 +1,15 @@
-﻿import { Component, ViewChild, Input, OnInit, ActivatedRoute, Router } from '../../vendor';
-import { CasesService, FormService, ValuesService } from '../../services';
-import { ModalComponent } from '../';
-import { CaseWitness, RelationshipType, Gender, Race, Ethnicity, CaseAPIEndpoints, ObjectType } from '../../models';
-import { CaseChildComponent } from './casechild.component';
+﻿import { CaseChildComponent } from './casechild.component';
+import { Component, OnInit } from '@angular/core';
+import { CaseWitness } from 'src/app/models/caseWitness.model';
+import { RelationshipType, Gender, Race, Ethnicity } from 'src/app/models/valueBase.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { FormService } from 'src/app/services/form.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: 'witness-modal',
     template: require('./witness.component.html'),
-    providers: [CasesService]
 })
 export class WitnessComponent extends CaseChildComponent<CaseWitness> implements OnInit {
 
@@ -27,8 +29,8 @@ export class WitnessComponent extends CaseChildComponent<CaseWitness> implements
 
     ngOnInit(): void {
         this.activeRoute.params.subscribe(r => {
-            super.initializeBase(+r["caseId"], ObjectType.CaseWitness, new CaseWitness(), CaseAPIEndpoints.Witnesses);
-            this.editItem(+r["id"]);
+            super.initializeBase(+r['caseId'], ObjectType.CaseWitness, new CaseWitness(), CaseAPIEndpoints.Witnesses);
+            this.editItem(+r['id']);
 
         });
     }

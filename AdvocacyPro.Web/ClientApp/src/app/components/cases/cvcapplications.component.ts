@@ -1,12 +1,15 @@
-﻿import { Component, OnInit, Input, ViewChild, Router } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService } from '../../services';
-import { CaseCVCApplication, CaseAPIEndpoints } from '../../models';
-import { CVCApplicationComponent, CaseChildListComponent } from '../';
+﻿import { Component, OnInit, Input } from '@angular/core';
+import { CasesService } from 'src/app/services/cases.service';
+import { CaseChildListComponent } from './casechildlist.component';
+import { CaseCVCApplication } from 'src/app/models/caseCVCApplication.model';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: "cvc-applications",
+    selector: 'app-cvc-applications',
     template: require('./cvcapplications.component.html'),
-    providers: [CasesService]
 })
 export class CVCApplicationsComponent extends CaseChildListComponent<CaseCVCApplication> implements OnInit {
     @Input() caseId: number;

@@ -1,11 +1,15 @@
-﻿import { Component, OnInit, FormGroup, FormBuilder, Validators, Observable, ActivatedRoute } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService, FormService } from '../../services';
-import { Case, Gender } from '../../models';
+﻿import { Component, OnInit } from '@angular/core';
+import { Case } from 'src/app/models/case.model';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Gender } from 'src/app/models/valueBase.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormService } from 'src/app/services/form.service';
 
 @Component({
-    selector: 'cases',
     template: require('./cases.component.html'),
-    providers: [CasesService]
 })
 export class CasesComponent implements OnInit {
     cases: Case[];
@@ -23,7 +27,7 @@ export class CasesComponent implements OnInit {
 
     ngOnInit() {
         this.route.queryParams.subscribe(p => {
-            this.archived = p["archived"] == "y";
+            this.archived = p['archived'] === 'y';
             this.api.getAll(this.archived).subscribe(c => {
                 this.cases = c;
                 this.reset();
@@ -44,11 +48,11 @@ export class CasesComponent implements OnInit {
     }
 
     archive(c: Case) {
-        this.popupService.showConfirm("Archive?", "Are you sure you want to archive this item?").subscribe(confirm => {
+        this.popupService.showConfirm('Archive?', 'Are you sure you want to archive this item?').subscribe(confirm => {
             if (confirm.response) {
                 c.archived = true;
                 this.api.update(c.id, c).subscribe(() => {
-                    let i = this.cases.filter((c2) => { return c2.id === c.id })[0];
+                    const i = this.cases.filter((c2) => c2.id === c.id)[0];
                     this.cases.splice(this.cases.indexOf(i), 1);
                     this.search(this.formGroup.value);
                 });
@@ -58,23 +62,30 @@ export class CasesComponent implements OnInit {
 
     search(formValue) {
         this.filteredCases = this.cases.filter(c => {
-            if (formValue["lastName"] != null && c.lastName != null && c.lastName.toLowerCase().indexOf(formValue["lastName"].toLowerCase()) < 0)
+            if (formValue['lastName'] != null && c.lastName != null
+                && c.lastName.toLowerCase().indexOf(formValue['lastName'].toLowerCase()) < 0) {
                 return false;
+            }
 
-            if (formValue["caseDateStart"] != null && new Date(formValue["caseDateStart"]) > new Date(c.caseDate))
+            if (formValue['caseDateStart'] != null && new Date(formValue['caseDateStart']) > new Date(c.caseDate)) {
                 return false;
+            }
 
-            if (formValue["caseDateEnd"] != null && new Date(formValue["caseDateEnd"]) < new Date(c.caseDate))
+            if (formValue['caseDateEnd'] != null && new Date(formValue['caseDateEnd']) < new Date(c.caseDate)) {
                 return false;
+            }
 
-            if (formValue["dobStart"] != null && new Date(formValue["dobStart"]) > new Date(c.dob))
+            if (formValue['dobStart'] != null && new Date(formValue['dobStart']) > new Date(c.dob)) {
                 return false;
+            }
 
-            if (formValue["dobEnd"] != null && new Date(formValue["dobEnd"]) < new Date(c.dob))
+            if (formValue['dobEnd'] != null && new Date(formValue['dobEnd']) < new Date(c.dob)) {
                 return false;
+            }
 
-            if (formValue["genderId"] != null && formValue["genderId"] != c.genderId)
+            if (formValue['genderId'] != null && formValue['genderId'] !== c.genderId) {
                 return false;
+            }
 
             return true;
         });

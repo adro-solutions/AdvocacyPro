@@ -1,13 +1,15 @@
-﻿import { Component, OnInit, Input, ViewChild, Router } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService } from '../../services';
-import { CasePayment, CaseAPIEndpoints } from '../../models';
-import { CaseChildListComponent } from './casechildlist.component';
-import { PaymentComponent } from '../';
+﻿import { CaseChildListComponent } from './casechildlist.component';
+import { Component, OnInit, Input } from '@angular/core';
+import { CasePayment } from 'src/app/models/casePayment.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: "payments",
+    selector: 'app-payments',
     template: require('./payments.component.html'),
-    providers: [CasesService]
 })
 export class PaymentsComponent extends CaseChildListComponent<CasePayment> implements OnInit {
     @Input() caseId: number;

@@ -1,12 +1,15 @@
-﻿import { Component, OnInit, Input, ViewChild, Router } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService } from '../../services';
-import { CaseCourtDate, CaseAPIEndpoints } from '../../models';
-import { CourtDateComponent, CaseChildListComponent } from '../';
+﻿import { Component, OnInit, Input } from '@angular/core';
+import { CaseChildListComponent } from './casechildlist.component';
+import { CaseCourtDate } from 'src/app/models/caseCourtDate.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: "court-dates",
+    selector: 'app-court-dates',
     template: require('./courtdates.component.html'),
-    providers: [CasesService]
 })
 export class CourtDatesComponent extends CaseChildListComponent<CaseCourtDate> implements OnInit {
     @Input() caseId: number;

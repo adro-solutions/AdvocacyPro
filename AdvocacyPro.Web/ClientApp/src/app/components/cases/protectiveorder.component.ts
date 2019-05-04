@@ -1,11 +1,15 @@
-﻿import { Component, ViewChild, Input, OnInit, Router, ActivatedRoute } from '../../vendor';
-import { CasesService, FormService, ValuesService, StateService } from '../../services';
-import { ModalComponent } from '../';
-import { CaseProtectiveOrder, OrderStatus, UserData, OrderType, CaseAPIEndpoints, ObjectType } from '../../models';
-import { CaseChildComponent } from './casechild.component';
+﻿import { CaseChildComponent } from './casechild.component';
+import { Component, OnInit } from '@angular/core';
+import { CasesService } from 'src/app/services/cases.service';
+import { CaseProtectiveOrder } from 'src/app/models/caseProtectiveOrder.model';
+import { OrderStatus, OrderType } from 'src/app/models/valueBase.model';
+import { FormService } from 'src/app/services/form.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { StateService } from 'src/app/services/state.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: 'protective-order-modal',
     template: require('./protectiveorder.component.html'),
     providers: [CasesService]
 })
@@ -23,9 +27,9 @@ export class ProtectiveOrderComponent extends CaseChildComponent<CaseProtectiveO
 
     ngOnInit(): void {
         this.activeRoute.params.subscribe(r => {
-            let newItem = new CaseProtectiveOrder();
-            super.initializeBase(+r["caseId"], ObjectType.CaseProtectiveOrder, newItem, CaseAPIEndpoints.ProtectiveOrders);
-            this.editItem(+r["id"]);
+            const newItem = new CaseProtectiveOrder();
+            super.initializeBase(+r['caseId'], ObjectType.CaseProtectiveOrder, newItem, CaseAPIEndpoints.ProtectiveOrders);
+            this.editItem(+r['id']);
 
         });
     }

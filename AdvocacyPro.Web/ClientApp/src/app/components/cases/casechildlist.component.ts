@@ -1,6 +1,7 @@
-﻿import { CasesService, CSPNotificationService } from '../../services';
-import { CaseChild } from '../../models';
-import { Router } from '../../vendor';
+﻿import { CasesService } from 'src/app/services/cases.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseChild } from 'src/app/models/casechild.model';
 
 export class CaseChildListComponent<T extends CaseChild> {
     _caseId: number;
@@ -18,12 +19,13 @@ export class CaseChildListComponent<T extends CaseChild> {
     }
 
     delete(id: number) {
-        this.popupService.showConfirm("Delete?", "Are you sure you want to delete this item?").subscribe(confirm => {
-            if (confirm.response)
+        this.popupService.showConfirm('Delete?', 'Are you sure you want to delete this item?').subscribe(confirm => {
+            if (confirm.response) {
                 this.api.deleteItem<T>(this._caseId, id, this.caseEndpoint).subscribe(() => {
-                    let i = this.items.filter((item) => { return item.id === id })[0];
+                    const i = this.items.filter((item) => item.id === id)[0];
                     this.items.splice(this.items.indexOf(i), 1);
                 });
+            }
         });
     }
 

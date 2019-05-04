@@ -1,13 +1,15 @@
-﻿import { Component, OnInit, Input, ViewChild, Router } from '../../vendor';
-import { CasesService, ValuesService, CSPNotificationService } from '../../services';
-import { CaseVictimization, CaseAPIEndpoints } from '../../models';
-import { CaseChildListComponent } from './casechildlist.component';
-import { VictimizationComponent } from '../';
+﻿import { CaseChildListComponent } from './casechildlist.component';
+import { Component, OnInit, Input } from '@angular/core';
+import { CaseVictimization } from 'src/app/models/caseVictimization.model';
+import { CasesService } from 'src/app/services/cases.service';
+import { ValuesService } from 'src/app/services/values.service';
+import { CSPNotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    selector: "victimizations",
+    selector: 'app-victimizations',
     template: require('./victimizations.component.html'),
-    providers: [CasesService]
 })
 export class VictimizationsComponent extends CaseChildListComponent<CaseVictimization> implements OnInit {
     @Input() caseId: number;
