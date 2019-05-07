@@ -1,13 +1,13 @@
-﻿import { Component, OnInit, ViewEncapsulation } from '../../vendor';
-import { CaseIncident } from '../../models';
-import { ReportsService, ValuesService } from '../../services';
-import { ReportBase } from '../';
+﻿import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { ReportsService } from 'src/app/services/reports.service';
+import { ReportBase } from './reportBase.component';
+import { CaseIncident } from 'src/app/models/caseIncident.model';
+import { ValuesService } from 'src/app/services/values.service';
 
 @Component({
     template: require('./crimeLog.component.html'),
     styleUrls: ['print.css'],
     encapsulation: ViewEncapsulation.None,
-    providers: [ReportsService]
 })
 export class CrimeLogComponent extends ReportBase implements OnInit {
     items: CaseIncident[];

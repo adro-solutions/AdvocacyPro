@@ -1,7 +1,6 @@
-﻿import { Component } from '../../vendor';
+﻿import { Component } from '@angular/core';
 
 @Component({
-    selector: 'documentation',
     template: require('./documentation.component.html')
 })
 export class DocumentationComponent { }

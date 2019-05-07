@@ -1,11 +1,18 @@
-﻿import { Component, OnInit, ActivatedRoute, FormGroup, Router } from '../../vendor';
-import { Fire, UserData, Status, FireCause, LocationType } from '../../models';
-import { FiresService, FormService, ValuesService, DashboardService, StateService, LocationsService } from '../../services';
+﻿import { Component, OnInit } from '@angular/core';
+import { FiresService } from 'src/app/services/fires.service';
+import { LocationsService } from 'src/app/services/locations.service';
+import { Fire } from 'src/app/models/fire.model';
+import { FormGroup } from '@angular/forms';
+import { Status, FireCause, LocationType } from 'src/app/models/valueBase.model';
+import { UserData } from 'src/app/models/userData.model';
+import { ValuesService } from 'src/app/services/values.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormService } from 'src/app/services/form.service';
+import { DashboardService } from 'src/app/services/dashboard.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
-    selector: 'fire',
     template: require('./fire.component.html'),
-    providers: [FiresService, LocationsService]
 })
 export class FireComponent implements OnInit {
     fire: Fire;
@@ -39,15 +46,15 @@ export class FireComponent implements OnInit {
         this.locationsService.getAll().subscribe(d => this.oLocations = d);
 
         this.route.params.subscribe(params => {
-            this.id = +params["id"];
+            this.id = +params['id'];
 
-            if (this.id > 0)
+            if (this.id > 0) {
                 this.api.get(this.id).subscribe(f => {
                     this.fire = f;
                     this.archived = f.archived ? 'y' : 'n';
                     this.buildForm();
                 });
-            else {
+            } else {
                 this.archived = 'n';
                 this.fire = new Fire();
                 this.fire.staffUserId = this.stateService.user.id;
@@ -64,34 +71,35 @@ export class FireComponent implements OnInit {
         this.submitted = true;
         if (this.formGroup.valid) {
             this.formService.buildObject(value, this.fire);
-            if (this.id == 0)
+            if (this.id === 0) {
                 this.api.create(this.fire).subscribe(c => {
                     this.dService.refresh();
-                    if (saveAndClose)
+                    if (saveAndClose) {
                         this.router.navigate(['/fires'], { queryParams: { 'archived': c.archived ? 'y' : 'n' } });
-                    else {
+                    } else {
                         this.fire = c;
                         this.id = c.id;
                         this.archived = c.archived ? 'y' : 'n';
                         this.buildForm();
                     }
                 });
-            else
+            } else {
                 this.api.update(this.id, this.fire).subscribe(c => {
                     this.dService.refresh();
-                    if (saveAndClose)
+                    if (saveAndClose) {
                         this.router.navigate(['/fires'], { queryParams: { 'archived': c.archived ? 'y' : 'n' } });
-                    else {
+                    } else {
                         this.fire = c;
                         this.archived = c.archived ? 'y' : 'n';
                         this.buildForm();
                     }
                 });
+            }
         }
     }
 
     buildForm() {
-        this.formService.buildFormGroup<Fire>(this.fire, "Fire")
+        this.formService.buildFormGroup<Fire>(this.fire, 'Fire')
             .subscribe((fbg: FormGroup) => { this.formGroup = fbg; });
     }
 }

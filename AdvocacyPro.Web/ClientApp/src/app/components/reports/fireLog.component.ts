@@ -1,13 +1,13 @@
-﻿import { Component, OnInit, ViewEncapsulation } from '../../vendor';
-import { Fire } from '../../models';
-import { ReportsService, ValuesService } from '../../services';
-import { ReportBase } from '../';
+﻿import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { ReportBase } from './reportBase.component';
+import { Fire } from 'src/app/models/fire.model';
+import { ReportsService } from 'src/app/services/reports.service';
+import { ValuesService } from 'src/app/services/values.service';
 
 @Component({
     template: require('./fireLog.component.html'),
     styleUrls: ['print.css'],
     encapsulation: ViewEncapsulation.None,
-    providers: [ReportsService]
 })
 export class FireLogComponent extends ReportBase implements OnInit {
     items: Fire[];

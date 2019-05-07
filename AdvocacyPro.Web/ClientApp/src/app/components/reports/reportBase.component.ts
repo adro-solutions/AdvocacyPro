@@ -1,5 +1,5 @@
-﻿import { ReportPeriod } from "../../enums";
-import * as moment from 'moment';
+﻿import * as moment from 'moment';
+import { ReportPeriod } from 'src/app/enums/reportPeriod.enum';
 
 export class ReportBase {
     dateStart: Date;
@@ -13,7 +13,7 @@ export class ReportBase {
     }
 
     presetChange() {
-        var d = new Date();
+        const d = new Date();
         switch (+this.preset) {
             case ReportPeriod.Custom:
 
@@ -39,8 +39,8 @@ export class ReportBase {
 
                 break;
             case ReportPeriod.Yesterday:
-                this.dateStart = moment().subtract(1, "days").toDate();
-                this.dateEnd = moment().subtract(1, "days").toDate();
+                this.dateStart = moment().subtract(1, 'days').toDate();
+                this.dateEnd = moment().subtract(1, 'days').toDate();
 
                 break;
 
