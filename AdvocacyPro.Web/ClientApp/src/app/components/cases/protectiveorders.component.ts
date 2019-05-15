@@ -9,7 +9,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-protective-orders',
-    template: require('./protectiveorders.component.html'),
+    template: './protectiveorders.component.html'
 })
 export class ProtectiveOrdersComponent extends CaseChildListComponent<CaseProtectiveOrder> implements OnInit {
     @Input() caseId: number;

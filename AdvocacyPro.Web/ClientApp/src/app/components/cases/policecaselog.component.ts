@@ -9,7 +9,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-police-case-log',
-    template: require('./policecaselog.component.html'),
+    template: './policecaselog.component.html'
 })
 export class PoliceCaseLogComponent extends CaseChildListComponent<CasePolice> implements OnInit {
     @Input() caseId: number;

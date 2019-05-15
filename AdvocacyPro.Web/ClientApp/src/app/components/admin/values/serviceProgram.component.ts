@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    template: require('./serviceProgram.component.html')
+    template: './serviceProgram.component.html'
 })
 export class ServiceProgramComponent implements OnInit {
     id: number;

@@ -14,7 +14,7 @@ import { forkJoin } from 'rxjs';
 
 
 @Component({
-    template: require('./organization.component.html'),
+    template: './organization.component.html',
 })
 export class OrganizationComponent implements OnInit {
     @ViewChild(FileUploadComponent) public readonly fileUpload: FileUploadComponent;

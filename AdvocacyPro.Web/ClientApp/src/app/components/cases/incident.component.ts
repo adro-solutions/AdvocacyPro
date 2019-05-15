@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: require('./incident.component.html'),
+    template: './incident.component.html',
     providers: [CasesService, LocationsService]
 })
 export class IncidentComponent extends CaseChildComponent<CaseIncident> implements OnInit {

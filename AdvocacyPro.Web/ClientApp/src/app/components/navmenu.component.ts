@@ -5,7 +5,7 @@ import { StateService } from '../services/state.service';
 
 @Component({
     selector: 'app-nav-menu',
-    template: require('./navmenu.component.html'),
+    template: './navmenu.component.html',
     styleUrls: ['navmenu.component.css']
 })
 export class NavMenuComponent implements OnInit {

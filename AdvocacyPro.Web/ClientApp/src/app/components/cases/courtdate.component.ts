@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: require('./courtdate.component.html'),
+    template: './courtdate.component.html',
 })
 export class CourtDateComponent extends CaseChildComponent<CaseCourtDate> implements OnInit {
     docketTypes: DocketType[];

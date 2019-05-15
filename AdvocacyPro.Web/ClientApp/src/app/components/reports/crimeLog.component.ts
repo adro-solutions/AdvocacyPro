@@ -5,7 +5,7 @@ import { CaseIncident } from 'src/app/models/caseIncident.model';
 import { ValuesService } from 'src/app/services/values.service';
 
 @Component({
-    template: require('./crimeLog.component.html'),
+    template: './crimeLog.component.html',
     styleUrls: ['print.css'],
     encapsulation: ViewEncapsulation.None,
 })

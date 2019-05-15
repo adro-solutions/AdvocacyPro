@@ -8,10 +8,18 @@ import { AppRoutingModule } from './app-router.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { DateConverterInterceptor } from './interceptors/date-converter.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { ResetPasswordComponent } from './components/resetpassword.component';
+import { ChangePasswordComponent } from './components/changepassword.component';
+import { HomeComponent } from './components/home.component';
+import { LoginComponent } from './components/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ResetPasswordComponent,
+    ChangePasswordComponent,
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

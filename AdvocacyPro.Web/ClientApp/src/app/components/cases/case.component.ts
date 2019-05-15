@@ -12,7 +12,7 @@ import { StateService } from 'src/app/services/state.service';
 
 
 @Component({
-    template: require('./case.component.html'),
+    template: './case.component.html',
 })
 export class CaseComponent implements OnInit {
     case: Case;

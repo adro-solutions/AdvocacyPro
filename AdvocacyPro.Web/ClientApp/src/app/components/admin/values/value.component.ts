@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    template: require('./value.component.html')
+    template: './value.component.html'
 })
 export class ValueComponent implements OnInit {
     id: number;

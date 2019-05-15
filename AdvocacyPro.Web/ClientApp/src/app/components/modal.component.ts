@@ -2,7 +2,7 @@
 
 @Component({
     selector: 'app-modal',
-    template: require('./modal.component.html'),
+    template: './modal.component.html',
     styleUrls: ['modal.component.css']
 })
 export class ModalComponent {

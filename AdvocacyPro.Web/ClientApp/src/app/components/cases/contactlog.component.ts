@@ -9,7 +9,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-contact-log',
-    template: require('./contactlog.component.html'),
+    template: './contactlog.component.html',
 })
 export class ContactLogComponent extends CaseChildListComponent<CaseContact> implements OnInit {
     @Input() caseId: number;

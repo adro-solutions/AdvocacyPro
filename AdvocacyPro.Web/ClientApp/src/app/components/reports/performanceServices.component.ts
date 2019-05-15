@@ -5,7 +5,7 @@ import { ServiceCategory, ServiceProgram } from 'src/app/models/valueBase.model'
 import { ValuesService } from 'src/app/services/values.service';
 
 @Component({
-    template: require('./performanceServices.component.html'),
+    template: './performanceServices.component.html',
     styleUrls: ['print.css'],
     encapsulation: ViewEncapsulation.None,
     providers: [ReportsService]

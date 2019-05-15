@@ -5,7 +5,7 @@ import { ServiceProgram } from './../../../models/valueBase.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    template: require('./servicePrograms.component.html')
+    template: './servicePrograms.component.html'
 })
 export class ServiceProgramsComponent implements OnInit {
     servicePrograms: ServiceProgram[];

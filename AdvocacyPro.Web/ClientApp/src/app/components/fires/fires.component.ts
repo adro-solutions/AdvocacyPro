@@ -8,7 +8,7 @@ import { CSPNotificationService } from 'src/app/services/notification.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    template: require('./fires.component.html'),
+    template: './fires.component.html'
 })
 export class FiresComponent implements OnInit {
     fires: Fire[];

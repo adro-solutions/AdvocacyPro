@@ -7,7 +7,7 @@ import { ValuesService } from '../services/values.service';
 
 @Component({
     selector: 'app-site-header',
-    template: require('./header.component.html'),
+    template: './header.component.html',
     styleUrls: ['header.component.css']
 })
 export class HeaderComponent implements OnInit {

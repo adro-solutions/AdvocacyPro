@@ -4,7 +4,7 @@ import { FormControl } from '../models/formControl.model';
 
 @Component({
     selector: 'app-form-errors',
-    template: require('./formerrors.component.html')
+    template: './formerrors.component.html'
 })
 export class FormErrorsComponent implements OnInit {
     @Input() formGroup: FormGroup;

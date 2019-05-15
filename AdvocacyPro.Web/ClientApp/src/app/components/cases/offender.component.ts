@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: require('./offender.component.html'),
+    template: './offender.component.html'
 })
 export class OffenderComponent extends CaseChildComponent<CaseOffender> implements OnInit {
     relationshipTypes: RelationshipType[];

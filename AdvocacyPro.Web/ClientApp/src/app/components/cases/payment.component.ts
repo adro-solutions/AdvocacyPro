@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: require('./payment.component.html'),
+    template: './payment.component.html'
 })
 export class PaymentComponent extends CaseChildComponent<CasePayment> implements OnInit {
     paymentCategories: PaymentCategory[];

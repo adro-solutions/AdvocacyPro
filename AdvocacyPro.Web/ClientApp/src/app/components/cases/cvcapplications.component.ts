@@ -9,7 +9,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-cvc-applications',
-    template: require('./cvcapplications.component.html'),
+    template: './cvcapplications.component.html',
 })
 export class CVCApplicationsComponent extends CaseChildListComponent<CaseCVCApplication> implements OnInit {
     @Input() caseId: number;

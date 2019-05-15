@@ -5,7 +5,7 @@ import { State } from './../../../models/valueBase.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    template: require('./states.component.html')
+    template: './states.component.html'
 })
 export class StatesComponent implements OnInit {
     states: State[];

@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: require('./victimization.component.html'),
+    template: './victimization.component.html'
 })
 export class VictimizationComponent extends CaseChildComponent<CaseVictimization> implements OnInit {
     victimTypes: VictimType[];

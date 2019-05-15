@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-member-modal',
-    template: require('./member.component.html'),
+    template: './member.component.html',
 })
 export class MemberComponent {
     @ViewChild(ModalComponent) public readonly modal: ModalComponent;

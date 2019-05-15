@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: require('./emergencycontact.component.html'),
+    template: './emergencycontact.component.html',
 })
 export class EmergencyContactComponent extends CaseChildComponent<CaseEmergencyContact> implements OnInit  {
     states: State[];

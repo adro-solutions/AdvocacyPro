@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormService } from 'src/app/services/form.service';
 
 @Component({
-    template: require('./cases.component.html'),
+    template: './cases.component.html',
 })
 export class CasesComponent implements OnInit {
     cases: Case[];

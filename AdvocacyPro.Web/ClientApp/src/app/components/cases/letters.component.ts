@@ -9,7 +9,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-letters',
-    template: require('./letters.component.html'),
+    template: './letters.component.html'
 })
 export class LettersComponent extends CaseChildListComponent<CaseLetter> implements OnInit {
     @Input() caseId: number;

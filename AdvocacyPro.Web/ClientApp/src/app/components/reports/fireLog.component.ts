@@ -5,7 +5,7 @@ import { ReportsService } from 'src/app/services/reports.service';
 import { ValuesService } from 'src/app/services/values.service';
 
 @Component({
-    template: require('./fireLog.component.html'),
+    template: './fireLog.component.html',
     styleUrls: ['print.css'],
     encapsulation: ViewEncapsulation.None,
 })

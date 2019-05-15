@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: require('./note.component.html'),
+    template: './note.component.html'
 })
 export class NoteComponent extends CaseChildComponent<CaseNote> implements OnInit {
     constructor(private _api: CasesService, private _formService: FormService,

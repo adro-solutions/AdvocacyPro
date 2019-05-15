@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: require('./protectiveorder.component.html'),
+    template: './protectiveorder.component.html',
     providers: [CasesService]
 })
 export class ProtectiveOrderComponent extends CaseChildComponent<CaseProtectiveOrder> implements OnInit {

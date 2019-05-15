@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: require('./serviceProvided.component.html'),
+    template: './serviceProvided.component.html'
 })
 export class ServiceProvidedComponent extends CaseChildComponent<CaseService> implements OnInit {
     caseServiceCategories: ServiceCategory[];
