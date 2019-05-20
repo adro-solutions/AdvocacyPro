@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { CSPNotificationService } from '../services/notification.service';
 import { ToastMessageOptions, ToastType } from '../models/toastOptions.model';
 
@@ -14,7 +14,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 if (error instanceof HttpErrorResponse) {
                     switch (error.status) {
                         case 401:
-                            break;
+                            return throwError(error);
                         default:
                             let message = '<ul>';
                             Object.keys(error).forEach(key => {

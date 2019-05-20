@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
 import { ConvertService } from '../services/convert.service';
 
 @Injectable()
@@ -15,7 +15,10 @@ export class DateConverterInterceptor implements HttpInterceptor {
                 if (res instanceof HttpResponse && res.body) {
                     return res.clone({ body: this.localizeDateObject(res.body) });
                 }
-            }));
+            },
+            catchError(error => {
+                return throwError(error);
+            })));
     }
 
     private localizeDateObject(json: any): any {
@@ -49,7 +52,8 @@ export class DateConverterInterceptor implements HttpInterceptor {
     private datesToUTC(json: any): any {
         let obj: any = {};
 
-        if (typeof (json) === 'string' || typeof (json) === 'number' || json instanceof FormData) {
+        if (typeof (json) === 'string' || typeof (json) === 'number' || json instanceof FormData ||
+        json === null || json === undefined) {
             return json;
         }
 
