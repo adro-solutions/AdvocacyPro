@@ -10,7 +10,7 @@ import { Organization } from '../models/valueBase.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
-    template: './login.component.html',
+    templateUrl: './login.component.html',
     styleUrls: ['login.component.css']
 })
 export class LoginComponent {

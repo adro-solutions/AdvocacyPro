@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: './policecase.component.html'
+    templateUrl: './policecase.component.html'
 })
 export class PoliceCaseComponent extends CaseChildComponent<CasePolice> implements OnInit {
 

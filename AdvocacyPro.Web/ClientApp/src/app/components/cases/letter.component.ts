@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: './letter.component.html'
+    templateUrl: './letter.component.html'
 })
 export class LetterComponent extends CaseChildComponent<CaseLetter> implements OnInit {
     letterTypes: LetterType[];

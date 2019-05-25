@@ -5,7 +5,7 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 import { StateService } from 'src/app/services/state.service';
 
 @Component({
-    template: './dashboard.component.html'
+    templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
     organization: Organization;

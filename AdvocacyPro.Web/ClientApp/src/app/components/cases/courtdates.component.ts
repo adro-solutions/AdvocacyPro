@@ -9,7 +9,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-court-dates',
-    template: './courtdates.component.html',
+    templateUrl: './courtdates.component.html',
 })
 export class CourtDatesComponent extends CaseChildListComponent<CaseCourtDate> implements OnInit {
     @Input() caseId: number;

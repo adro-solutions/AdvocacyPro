@@ -4,7 +4,7 @@ import { ValuesService } from 'src/app/services/values.service';
 
 @Component({
     selector: 'app-last-edit-info',
-    template: './lasteditinfo.component.html'
+    templateUrl: './lasteditinfo.component.html'
 })
 export class LastEditInfoComponent {
     @Input() item: TrackedBase;

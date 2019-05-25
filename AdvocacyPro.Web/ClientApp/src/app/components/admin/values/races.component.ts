@@ -5,7 +5,7 @@ import { Race } from './../../../models/valueBase.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    template: './races.component.html'
+    templateUrl: './races.component.html'
 })
 export class RacesComponent implements OnInit {
     races: Race[];

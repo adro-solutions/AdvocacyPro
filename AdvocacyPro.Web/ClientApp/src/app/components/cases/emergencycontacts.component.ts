@@ -9,7 +9,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-emergency-contacts',
-    template: './emergencycontacts.component.html',
+    templateUrl: './emergencycontacts.component.html',
 })
 export class EmergencyContactsComponent extends CaseChildListComponent<CaseEmergencyContact> implements OnInit {
     @Input() caseId: number;

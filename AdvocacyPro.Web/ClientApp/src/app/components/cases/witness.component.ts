@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: './witness.component.html'
+    templateUrl: './witness.component.html'
 })
 export class WitnessComponent extends CaseChildComponent<CaseWitness> implements OnInit {
 

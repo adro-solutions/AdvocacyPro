@@ -5,7 +5,7 @@ import { Offense } from './../../../models/valueBase.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    template: './offenses.component.html'
+    templateUrl: './offenses.component.html'
 })
 export class OffensesComponent implements OnInit {
     offenses: Offense[];

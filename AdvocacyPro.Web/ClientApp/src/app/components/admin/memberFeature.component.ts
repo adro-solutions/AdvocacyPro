@@ -9,7 +9,7 @@ import { Subject, Observable, forkJoin, noop } from 'rxjs';
 
 @Component({
     selector: 'app-member-feature-modal',
-    template: './memberFeature.component.html',
+    templateUrl: './memberFeature.component.html',
 })
 export class MemberFeatureComponent {
     @ViewChild(ModalComponent) public readonly modal: ModalComponent;

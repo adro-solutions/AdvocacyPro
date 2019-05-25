@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: './contact.component.html',
+    templateUrl: './contact.component.html',
 })
 export class ContactComponent extends CaseChildComponent<CaseContact> implements OnInit {
     caseContactTypes: ContactType[];

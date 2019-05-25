@@ -2,7 +2,7 @@
 
 @Component({
     selector: 'app-site-footer',
-    template: './footer.component.html'
+    templateUrl: './footer.component.html'
 })
 export class FooterComponent {
     private version: string;

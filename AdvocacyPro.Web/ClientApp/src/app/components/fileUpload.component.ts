@@ -4,7 +4,7 @@ import { ToastMessageOptions, ToastType } from '../models/toastOptions.model';
 
 @Component({
     selector: 'app-file-upload',
-    template: '<input type="file" (change)="fileChanged()" #fileInput>'
+    templateUrl: '<input type="file" (change)="fileChanged()" #fileInput>'
 })
 export class FileUploadComponent {
     public fileName = '';

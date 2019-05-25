@@ -9,7 +9,7 @@ import { MemberFeatureComponent } from './memberFeature.component';
 
 @Component({
     selector: 'app-members',
-    template: './members.component.html',
+    templateUrl: './members.component.html',
 })
 export class MembersComponent implements OnInit {
     members: User[];

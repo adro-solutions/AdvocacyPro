@@ -6,11 +6,12 @@ import { ChangePasswordComponent } from './components/changepassword.component';
 import { ResetPasswordComponent } from './components/resetpassword.component';
 
 const routes = [
-  { path: '', resolve: {app: AppResolver}, children: [
-    { path: 'resetpassword', component: ResetPasswordComponent },
-    { path: 'changepassword', component: ChangePasswordComponent },
-    { path: 'login', component: LoginComponent }
-  ] }
+  { path: 'resetpassword', component: ResetPasswordComponent },
+  { path: 'changepassword', component: ChangePasswordComponent },
+  { path: 'login', component: LoginComponent },
+  {
+    path: '', resolve: { app: AppResolver }, children: []
+  }
 ];
 
 @NgModule({

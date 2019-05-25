@@ -11,7 +11,7 @@ import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 import { FormArray } from '@angular/forms';
 
 @Component({
-    template: './interview.component.html',
+    templateUrl: './interview.component.html',
     styleUrls: ['interview.component.css'],
 })
 export class InterviewComponent extends CaseChildComponent<CaseInterview> implements OnInit {

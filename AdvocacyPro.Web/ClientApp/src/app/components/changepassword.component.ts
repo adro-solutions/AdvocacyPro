@@ -6,7 +6,7 @@ import { CSPNotificationService } from '../services/notification.service';
 import { FormService } from '../services/form.service';
 
 @Component({
-    template: './changepassword.component.html',
+    templateUrl: './changepassword.component.html',
     styleUrls: ['changepassword.component.css']
 })
 export class ChangePasswordComponent implements OnInit {

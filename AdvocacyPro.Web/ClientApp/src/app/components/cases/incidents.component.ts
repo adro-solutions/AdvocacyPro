@@ -9,7 +9,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-incidents',
-    template: './incidents.component.html',
+    templateUrl: './incidents.component.html',
     providers: [CasesService]
 })
 export class IncidentsComponent extends CaseChildListComponent<CaseIncident> implements OnInit {

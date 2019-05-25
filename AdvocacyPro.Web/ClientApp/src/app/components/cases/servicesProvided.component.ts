@@ -9,7 +9,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-services-provided',
-    template: './servicesProvided.component.html'
+    templateUrl: './servicesProvided.component.html'
 })
 export class ServicesProvidedComponent extends CaseChildListComponent<CaseService> implements OnInit {
     @Input() caseId: number;

@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: './cvcapplication.component.html',
+    templateUrl: './cvcapplication.component.html',
 })
 export class CVCApplicationComponent extends CaseChildComponent<CaseCVCApplication> implements OnInit {
     applicationStatuses: ApplicationStatus[];

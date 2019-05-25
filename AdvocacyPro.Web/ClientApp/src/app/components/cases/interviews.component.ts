@@ -10,7 +10,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-interviews',
-    template: './interviews.component.html',
+    templateUrl: './interviews.component.html',
 })
 export class InterviewsComponent extends CaseChildListComponent<CaseInterview> implements OnInit {
     @Input() caseId: number;

@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
     selector: 'app',
     styleUrls: ['app.component.css'],
     encapsulation: ViewEncapsulation.None,
-    template: './app.component.html'
+    templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit  {
     constructor(private nService: CSPNotificationService, public toastr: ToastrService, vcr: ViewContainerRef) {

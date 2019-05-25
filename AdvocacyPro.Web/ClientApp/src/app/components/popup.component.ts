@@ -5,7 +5,7 @@ import { CSPNotificationService } from '../services/notification.service';
 
 @Component({
     selector: 'app-popup-modal',
-    template: './popup.component.html'
+    templateUrl: './popup.component.html'
 })
 export class PopupComponent implements OnInit {
     @ViewChild(ModalComponent) public readonly modal: ModalComponent;

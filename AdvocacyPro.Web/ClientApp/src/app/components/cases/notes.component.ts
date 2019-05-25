@@ -9,7 +9,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-notes',
-    template: './notes.component.html'
+    templateUrl: './notes.component.html'
 })
 export class NotesComponent extends CaseChildListComponent<CaseNote> implements OnInit {
     @Input() caseId: number;

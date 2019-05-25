@@ -10,7 +10,7 @@ import { ObjectType } from 'src/app/models/constants';
 import { DocumentType } from 'src/app/models/valueBase.model';
 
 @Component({
-    template: './document.component.html',
+    templateUrl: './document.component.html',
 })
 export class DocumentComponent implements OnInit {
     @ViewChild(FileUploadComponent) public readonly fileUpload: FileUploadComponent;

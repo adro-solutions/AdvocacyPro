@@ -5,7 +5,7 @@ import { Organization } from './../../models/valueBase.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    template: './organizations.component.html',
+    templateUrl: './organizations.component.html',
 })
 export class OrganizationsComponent implements OnInit {
     organizations: Organization[];

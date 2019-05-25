@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    template: './race.component.html'
+    templateUrl: './race.component.html'
 })
 export class RaceComponent implements OnInit {
     id: number;

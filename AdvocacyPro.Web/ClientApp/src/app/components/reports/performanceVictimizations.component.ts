@@ -5,7 +5,7 @@ import { ReportsService } from 'src/app/services/reports.service';
 import { ValuesService } from 'src/app/services/values.service';
 
 @Component({
-    template: './performanceVictimizations.component.html',
+    templateUrl: './performanceVictimizations.component.html',
     styleUrls: ['print.css'],
     encapsulation: ViewEncapsulation.None,
 })

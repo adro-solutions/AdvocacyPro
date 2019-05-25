@@ -12,7 +12,7 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 import { StateService } from 'src/app/services/state.service';
 
 @Component({
-    template: './fire.component.html'
+    templateUrl: './fire.component.html'
 })
 export class FireComponent implements OnInit {
     fire: Fire;

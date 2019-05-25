@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObjectType, CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
-    template: './referral.component.html'
+    templateUrl: './referral.component.html'
 })
 export class ReferralComponent extends CaseChildComponent<CaseReferral> implements OnInit {
     caseReferralTypes: ReferralType[];

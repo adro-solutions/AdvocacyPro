@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    template: './valueList.component.html'
+    templateUrl: './valueList.component.html'
 })
 export class ValueListComponent implements OnInit {
     items: ValueBase[];

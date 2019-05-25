@@ -3,7 +3,7 @@ import { UserData } from '../models/userData.model';
 import { StateService } from '../services/state.service';
 
 @Component({
-    template: './home.component.html'
+    templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
     user: UserData;

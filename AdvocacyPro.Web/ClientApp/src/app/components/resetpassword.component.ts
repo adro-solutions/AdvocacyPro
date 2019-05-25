@@ -6,7 +6,7 @@ import { FormService } from '../services/form.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-    template: './resetpassword.component.html',
+    templateUrl: './resetpassword.component.html',
     styleUrls: ['resetpassword.component.css']
 })
 export class ResetPasswordComponent implements OnInit {

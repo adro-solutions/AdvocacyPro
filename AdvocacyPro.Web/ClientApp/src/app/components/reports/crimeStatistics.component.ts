@@ -4,7 +4,7 @@ import { ReportBase } from './reportBase.component';
 import { ValuesService } from 'src/app/services/values.service';
 
 @Component({
-    template: './crimeStatistics.component.html',
+    templateUrl: './crimeStatistics.component.html',
     styleUrls: ['print.css'],
     encapsulation: ViewEncapsulation.None,
 })

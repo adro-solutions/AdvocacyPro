@@ -9,7 +9,7 @@ import { CaseAPIEndpoints } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-referrals',
-    template: './referrals.component.html'
+    templateUrl: './referrals.component.html'
 })
 export class ReferralsComponent extends CaseChildListComponent<CaseReferral> implements OnInit {
     @Input() caseId: number;

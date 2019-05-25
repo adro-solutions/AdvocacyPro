@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
-    template: './offense.component.html'
+    templateUrl: './offense.component.html'
 })
 export class OffenseComponent implements OnInit {
     id: number;
