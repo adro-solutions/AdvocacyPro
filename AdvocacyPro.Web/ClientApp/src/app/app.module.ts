@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -12,6 +12,10 @@ import { ResetPasswordComponent } from './components/resetpassword.component';
 import { ChangePasswordComponent } from './components/changepassword.component';
 import { HomeComponent } from './components/home.component';
 import { LoginComponent } from './components/login.component';
+import { FormErrorsComponent } from './components/formerrors.component';
+import { FooterComponent } from './components/footer.component';
+import { NavMenuComponent } from './components/navmenu.component';
+import { HeaderComponent } from './components/header.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +23,17 @@ import { LoginComponent } from './components/login.component';
     ResetPasswordComponent,
     ChangePasswordComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    FormErrorsComponent,
+    FooterComponent,
+    NavMenuComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [{

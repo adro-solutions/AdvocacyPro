@@ -4,7 +4,7 @@
     </div>
     <div class="app-modal-body">
         <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup">
-            <app-form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+            <app-form-errors [formGroup]="formGroup" *ngIf="submitted"></app-form-errors>
             <div class="row" *ngFor="let item of features">
                 <label class="col-sm-6 text-right">{{item.name}}</label>
                 <div class="col-sm-6">

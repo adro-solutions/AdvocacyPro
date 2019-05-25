@@ -7,7 +7,7 @@
         </div>
         <form class="form-horizontal" [formGroup]="formGroup" *ngIf="formGroup" (ngSubmit)="submit(formGroup.value)">
             <div class="box-body">
-                <app-form-errors [formGroup]="formGroup" *ngIf="submitted"></form-errors>
+                <app-form-errors [formGroup]="formGroup" *ngIf="submitted"></app-form-errors>
                 <div class="form-group">
                     <label for="name" class="col-sm-1 control-label">Name</label>
                     <div class="col-sm-11">
