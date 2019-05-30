@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { StateService } from '../services/state.service';
 import { ValuesService } from '../services/values.service';
@@ -21,12 +21,14 @@ export class LoginComponent {
         private valueService: ValuesService, private popupService: CSPNotificationService) { }
 
     public login() {
-        const headers = new HttpHeaders();
-        // also tried other types to test if its working with other types, but no luck
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded',
+          })
+        };
 
         this.http.post('/api/Auth/token', 'username=' + this.userName +
-                '&password=' + encodeURIComponent(this.password) + '&grant_type=password', { headers: headers })
+          '&password=' + encodeURIComponent(this.password) + '&grant_type=password', httpOptions)
             .subscribe(result => {
                 forkJoin(
                     this.http.get<UserData>('/api/Users/Current'),
