@@ -46,13 +46,14 @@ import { StatesComponent } from './components/admin/values/states.component';
 import { StateComponent } from './components/admin/values/state.component';
 import { ValueListComponent } from './components/admin/values/valueList.component';
 import { ValueComponent } from './components/admin/values/value.component';
+import { HomeComponent } from './components/home.component';
 
 const routes = [
   { path: 'resetpassword', component: ResetPasswordComponent },
   { path: 'changepassword', component: ChangePasswordComponent },
   { path: 'login', component: LoginComponent },
   {
-    path: '', resolve: { app: AppResolver }, children: [
+    path: '', resolve: { app: AppResolver }, component: HomeComponent, children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'cases/:caseId/contacts/:id', component: ContactComponent },
