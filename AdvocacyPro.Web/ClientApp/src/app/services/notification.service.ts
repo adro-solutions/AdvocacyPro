@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { PopupResponse, PopupConfig } from '../models/popupConfig.model';
 import { ToastMessageOptions } from '../models/toastOptions.model';

@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CalendarModule } from 'primeng/calendar';
 import { InputMaskModule } from 'primeng/inputmask';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-router.module';
@@ -83,6 +85,7 @@ import { VictimizationsComponent } from './components/cases/victimizations.compo
 import { MemberComponent } from './components/admin/member.component';
 import { MemberFeatureComponent } from './components/admin/memberFeature.component';
 import { ModalComponent } from './components/modal.component';
+import { PopupComponent } from './components/popup.component';
 
 @NgModule({
   declarations: [
@@ -160,8 +163,8 @@ import { ModalComponent } from './components/modal.component';
     MembersComponent,
     MemberComponent,
     MemberFeatureComponent,
-    ModalComponent
-
+    ModalComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -171,7 +174,9 @@ import { ModalComponent } from './components/modal.component';
     AppRoutingModule,
     CalendarModule,
     InputMaskModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
