@@ -94,8 +94,9 @@ export class ValuesService {
     }
 
     public get offenseTypes(): ValueList<OffenseType> { return this._offenseTypes; }
-    public get offenses(): ValueList<Offense> { return this._offenses; }
-    public get locationTypes(): ValueList<LocationType> { return this._locationTypes; }
+    public get offenses(): ValueList<Offense> { return this._offenses ? this._offenses : new ValueList<Offense>([]); }
+    public get locationTypes(): ValueList<LocationType> { return this._locationTypes ?
+        this.locationTypes : new ValueList<LocationType>([]); }
     public get ageGroupings(): ValueList<AgeGrouping> { return this._ageGroupings; }
     public get caseContactTypes(): ValueList<ContactType> { return this._contactTypes; }
     public get caseDocumentTypes(): ValueList<DocumentType> { return this._documentTypes; }
@@ -111,7 +112,7 @@ export class ValuesService {
     public get races(): ValueList<Race> { return this._races; }
     public get relationshipTypes(): ValueList<RelationshipType> { return this._relationshipTypes; }
     public get states(): ValueList<State, string> { return this._states; }
-    public get statuses(): ValueList<Status> { return this._statuses; }
+    public get statuses(): ValueList<Status> { return this._statuses ? this.statuses : new ValueList<Status>([]); }
     public get applicationStatuses(): ValueList<ApplicationStatus> { return this._applicationStatuses; }
     public get bondTypes(): ValueList<BondType> { return this._bondTypes; }
     public get docketTypes(): ValueList<DocketType> { return this._docketTypes; }
@@ -124,7 +125,7 @@ export class ValuesService {
     public get payors(): ValueList<Payor> { return this._payors; }
     public get victimTypes(): ValueList<VictimType> { return this._victimTypes; }
     public get interviewDocumentationTypes(): ValueList<InterviewDocumentationType> { return this._interviewDocumentationTypes; }
-    public get users(): Array<UserData> { return this._users; }
+    public get users(): Array<UserData> { return this._users ? this._users : []; }
 
     getAll<T>(apiEndpoint: string): Observable<T[]> {
         return this.httpService.get<T[]>(apiEndpoint);
