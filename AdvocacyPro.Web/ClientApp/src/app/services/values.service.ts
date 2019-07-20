@@ -126,7 +126,9 @@ export class ValuesService {
     public get victimTypes(): ValueList<VictimType> { return this._victimTypes; }
     public get interviewDocumentationTypes(): ValueList<InterviewDocumentationType> { return this._interviewDocumentationTypes; }
     public get users(): Array<UserData> { return this._users ? this._users : []; }
-
+    public user(id: number): UserData {
+        return this.users.filter(o => o.id === id)[0];
+    }
     getAll<T>(apiEndpoint: string): Observable<T[]> {
         return this.httpService.get<T[]>(apiEndpoint);
     }
