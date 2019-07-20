@@ -9,12 +9,15 @@ import { Injectable } from '@angular/core';
 import { UsersService } from './users.service';
 import { HttpClient } from '@angular/common/http';
 import { ValueAPIEndpoints } from '../models/constants';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { UserData } from '../models/userData.model';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, switchMap } from 'rxjs/operators';
+import { ObjectVersion } from '../models/objectVersion.model';
 
 @Injectable({ providedIn: 'root' })
 export class ValuesService {
+    private _versions: ObjectVersion[];
+
     private _offenseTypes: ValueList<OffenseType>;
     private _offenses: ValueList<Offense>;
     private _locationTypes: ValueList<LocationType>;
@@ -50,47 +53,67 @@ export class ValuesService {
 
     constructor(private uApi: UsersService, private httpService: HttpClient) { }
 
-    private initializeList<T extends ValueBase, TKey>(endPoint: string, listProperty: ValueList<T, TKey>, key = 'id'): Observable<boolean> {
-        return this.getAll<T>(endPoint).pipe(tap(o => { listProperty = new ValueList<T, TKey>(o, key); }), map(_ => true));
+    private initializeList<T extends ValueBase, TKey>(type: string, endPoint: string,
+        listProperty: ValueList<T, TKey>, key = 'id'): Observable<boolean> {
+        const storedValue = localStorage.getItem(endPoint);
+        const storedVersion = localStorage.getItem(`${endPoint}.Version`);
+        const ver = this._versions.filter(v => v.type === `AdvocacyPro.Models.Values.${type}`);
+
+        const serverVersion = ver.length === 0 ? 0 : ver[0].version;
+        const localVersion = storedVersion ? +storedVersion : 0;
+
+        if (storedValue && serverVersion === localVersion) {
+            listProperty = new ValueList<T, TKey>(JSON.parse(storedValue), key);
+            return of(true);
+        }
+        return this.getAll<T>(endPoint).pipe(
+            tap(o => { listProperty = new ValueList<T, TKey>(o, key); }),
+            tap(o => { localStorage.setItem(endPoint, JSON.stringify(o));
+                       localStorage.setItem(`${endPoint}.Version`, serverVersion.toString()); }),
+            map(_ => true));
     }
 
     initialize(): Observable<boolean> {
-        return forkJoin(
-            this.initializeList(ValueAPIEndpoints.offensetypes, this._offenseTypes),
-            this.initializeList(ValueAPIEndpoints.offenses, this._offenses),
-            this.initializeList(ValueAPIEndpoints.locationtypes, this._locationTypes),
-            this.initializeList(ValueAPIEndpoints.agegroupings, this._ageGroupings),
-            this.initializeList(ValueAPIEndpoints.contacttypes, this._contactTypes),
-            this.initializeList(ValueAPIEndpoints.documenttypes, this._documentTypes),
-            this.initializeList(ValueAPIEndpoints.referraltypes, this._referralTypes),
-            this.initializeList(ValueAPIEndpoints.servicecategories, this._serviceCategories),
-            this.initializeList(ValueAPIEndpoints.servicepopulations, this._servicePopulations),
-            this.initializeList(ValueAPIEndpoints.serviceprograms, this._servicePrograms),
-            this.initializeList(ValueAPIEndpoints.countries, this._countries),
-            this.initializeList(ValueAPIEndpoints.ethnicities, this._ethnicities),
-            this.initializeList(ValueAPIEndpoints.firecauses, this._fireCauses),
-            this.initializeList(ValueAPIEndpoints.genders, this._genders),
-            this.initializeList(ValueAPIEndpoints.organizationtypes, this._organizationTypes),
-            this.initializeList(ValueAPIEndpoints.races, this._races),
-            this.initializeList(ValueAPIEndpoints.relationshiptypes, this._relationshipTypes),
-            this.initializeList(ValueAPIEndpoints.states, this._states, 'code'),
-            this.initializeList(ValueAPIEndpoints.statuses, this._statuses),
-            this.initializeList(ValueAPIEndpoints.applicationstatuses, this._applicationStatuses),
-            this.initializeList(ValueAPIEndpoints.bondtypes, this._bondTypes),
-            this.initializeList(ValueAPIEndpoints.dockettypes, this._docketTypes),
-            this.initializeList(ValueAPIEndpoints.interviewerpositions, this._interviewerPositions),
-            this.initializeList(ValueAPIEndpoints.languages, this._languages),
-            this.initializeList(ValueAPIEndpoints.lettertypes, this._letterTypes),
-            this.initializeList(ValueAPIEndpoints.orderstatuses, this._orderStatuses),
-            this.initializeList(ValueAPIEndpoints.ordertypes, this._orderTypes),
-            this.initializeList(ValueAPIEndpoints.paymentcategories, this._paymentCategories),
-            this.initializeList(ValueAPIEndpoints.payors, this._payors),
-            this.initializeList(ValueAPIEndpoints.victimtypes, this._victimTypes),
-            this.initializeList(ValueAPIEndpoints.interviewdocumentationtypes, this._interviewDocumentationTypes),
-            this.uApi.getAll().pipe(tap(o => {
-                this._users = o.sort((a, b) => a.firstName + ' ' + a.lastName < b.firstName + ' ' + b.lastName ? -1 : 1);
-            }))
-        ).pipe(map(_ => true));
+        return this.httpService.get<ObjectVersion[]>(`api/Object/Versions`).pipe(
+            tap(v => this._versions = v),
+            switchMap(v => forkJoin(
+                this.initializeList('OffenseType', ValueAPIEndpoints.offensetypes, this._offenseTypes),
+                this.initializeList('Offense', ValueAPIEndpoints.offenses, this._offenses),
+                this.initializeList('LocationType', ValueAPIEndpoints.locationtypes, this._locationTypes),
+                this.initializeList('AgeGrouping', ValueAPIEndpoints.agegroupings, this._ageGroupings),
+                this.initializeList('CaseContactType', ValueAPIEndpoints.contacttypes, this._contactTypes),
+                this.initializeList('CaseDocumentType', ValueAPIEndpoints.documenttypes, this._documentTypes),
+                this.initializeList('CaseReferralType', ValueAPIEndpoints.referraltypes, this._referralTypes),
+                this.initializeList('CaseServiceCategory', ValueAPIEndpoints.servicecategories, this._serviceCategories),
+                this.initializeList('CaseServicePopulation', ValueAPIEndpoints.servicepopulations, this._servicePopulations),
+                this.initializeList('CaseServiceProgram', ValueAPIEndpoints.serviceprograms, this._servicePrograms),
+                this.initializeList('Country', ValueAPIEndpoints.countries, this._countries),
+                this.initializeList('Ethnicity', ValueAPIEndpoints.ethnicities, this._ethnicities),
+                this.initializeList('FireCause', ValueAPIEndpoints.firecauses, this._fireCauses),
+                this.initializeList('Gender', ValueAPIEndpoints.genders, this._genders),
+                this.initializeList('OrganizationType', ValueAPIEndpoints.organizationtypes, this._organizationTypes),
+                this.initializeList('Race', ValueAPIEndpoints.races, this._races),
+                this.initializeList('RelationshipType', ValueAPIEndpoints.relationshiptypes, this._relationshipTypes),
+                this.initializeList('State', ValueAPIEndpoints.states, this._states, 'code'),
+                this.initializeList('Status', ValueAPIEndpoints.statuses, this._statuses),
+                this.initializeList('ApplicationStatus', ValueAPIEndpoints.applicationstatuses, this._applicationStatuses),
+                this.initializeList('BondType', ValueAPIEndpoints.bondtypes, this._bondTypes),
+                this.initializeList('DocketType', ValueAPIEndpoints.dockettypes, this._docketTypes),
+                this.initializeList('InterviewerPosition', ValueAPIEndpoints.interviewerpositions, this._interviewerPositions),
+                this.initializeList('Language', ValueAPIEndpoints.languages, this._languages),
+                this.initializeList('LetterType', ValueAPIEndpoints.lettertypes, this._letterTypes),
+                this.initializeList('OrderStatus', ValueAPIEndpoints.orderstatuses, this._orderStatuses),
+                this.initializeList('OrderType', ValueAPIEndpoints.ordertypes, this._orderTypes),
+                this.initializeList('PaymentCategory', ValueAPIEndpoints.paymentcategories, this._paymentCategories),
+                this.initializeList('Payor', ValueAPIEndpoints.payors, this._payors),
+                this.initializeList('VictimType', ValueAPIEndpoints.victimtypes, this._victimTypes),
+                this.initializeList('InterviewDocumentationType', ValueAPIEndpoints.interviewdocumentationtypes,
+                    this._interviewDocumentationTypes),
+                this.uApi.getAll().pipe(tap(o => {
+                    this._users = o.sort((a, b) => a.firstName + ' ' + a.lastName < b.firstName + ' ' + b.lastName ? -1 : 1);
+                }))
+            ).pipe(map(_ => true)))
+        );
     }
 
     public get offenseTypes(): ValueList<OffenseType> { return this._offenseTypes; }
