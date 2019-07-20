@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="row">
                                         <label class="col-lg-3 text-right">Created By</label>
-                                        <span class="col-lg-9">{{vService.users.item(case.createdById)?.firstName}} {{vService.users.item(case.createdById)?.lastName}}</span>
+                                        <span class="col-lg-9">{{vService.user(case.createdById)?.firstName}} {{vService.user(case.createdById)?.lastName}}</span>
                                     </div>
                                     <div class="row">
                                         <label class="col-lg-3 text-right">Updated</label>
@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="row">
                                         <label class="col-lg-3 text-right">Updated By</label>
-                                        <span class="col-lg-9">{{vService.users.item(case.updatedById)?.firstName}} {{vService.users.item(case.updatedById)?.lastName}}</span>
+                                        <span class="col-lg-9">{{vService.user(case.updatedById)?.firstName}} {{vService.user(case.updatedById)?.lastName}}</span>
                                     </div>
                                     <div class="row form-horizontal">
                                         <label class="col-lg-3 control-label" for="status">Status</label>

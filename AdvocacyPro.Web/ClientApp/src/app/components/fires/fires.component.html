@@ -82,7 +82,7 @@
                                 <td>{{vService.locationTypes.item(item.locationTypeId)?.name}}</td>
                                 <td>{{vService.statuses.item(item.statusId)?.name}}</td>
                                 <td>{{item.disposition}}</td>
-                                <td>
+                                <td class="text-nowrap">
                                     <a [routerLink]="['/fires', item.id]" title="Edit" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
                                     <a *ngIf="!this.archived" title="Archive" (click)="archive(item)" role="button" class="btn btn-sm btn-danger"><i class="fa fa-archive"></i> Archive</a>
                                 </td>

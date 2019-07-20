@@ -5,10 +5,14 @@
 @import '../node_modules/admin-lte/dist/css/skins/skin-blue.min.css';
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
 @import '../node_modules/ionicons-npm/css/ionicons.min.css';
-@import '../node_modules/primeng/resources/themes/luna-blue/theme.css';
+@import '../node_modules/primeng/resources/themes/nova-light/theme.css';
 @import '../node_modules/primeng/resources/primeng.min.css';
 @import '~ngx-toastr/toastr.css';
 
 p-calendar .ui-calendar, p-calendar .ui-calendar .ui-inputtext {
   width: 100%
+}
+
+.btn {
+  margin-left: 5px;
 }
