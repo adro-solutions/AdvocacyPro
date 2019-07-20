@@ -51,14 +51,14 @@
                 </tr>
                 <ng-template ngFor let-item [ngForOf]="output">
                     <tr>
-                        <th colspan="3">{{vService.offense(item.offenseId)?.name}}</th>
+                        <th colspan="3">{{vService.offenses.item(item.offenseId)?.name}}</th>
                         <th>{{item.count}}</th>
                     </tr>
                     <ng-template ngFor let-child [ngForOf]="item.group">
                         <tr>
                             <td></td>
                             <td>{{child.occurrenceDate}}</td>
-                            <td>{{vService.locationType(child.locationTypeId)?.name}}</td>
+                            <td>{{vService.locationTypes.item(child.locationTypeId)?.name}}</td>
                             <td>{{child.count}}</td>
                         </tr>
                     </ng-template>

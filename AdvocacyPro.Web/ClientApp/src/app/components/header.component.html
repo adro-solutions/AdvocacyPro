@@ -58,7 +58,7 @@
                                         <a [routerLink]="['/fires', f.id]" (click)="toggleNav('fire-header')" role="button">
                                             <h3>
                                                 {{f.location}}
-                                                <small class="pull-right">{{vService.fireCause(f.causeId)?.name}}</small>
+                                                <small class="pull-right">{{vService.fireCauses.item(f.causeId)?.name}}</small>
                                             </h3>
                                             <small>
                                                 Occurrence Date: {{f.occurrenceDate | date}}

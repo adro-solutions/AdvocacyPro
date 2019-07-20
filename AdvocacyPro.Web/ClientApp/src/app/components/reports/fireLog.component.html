@@ -53,11 +53,11 @@
                 </tr>
                 <tr *ngFor="let item of items">
                     <td>{{item.id}}</td>
-                    <td>{{vService.fireCause(item.causeId)?.name}}</td>
+                    <td>{{vService.fireCauses.item(item.causeId)?.name}}</td>
                     <td>{{item.occurrenceDate | date}}</td>
                     <td>{{item.location}}</td>
-                    <td>{{vService.locationType(item.locationTypeId)?.name}}</td>
-                    <td>{{vService.status(item.statusId)?.name}}</td>
+                    <td>{{vService.locationTypes.item(item.locationTypeId)?.name}}</td>
+                    <td>{{vService.statuses.item(item.statusId)?.name}}</td>
                     <td>{{item.disposition}}</td>
                 </tr>
             </tbody>

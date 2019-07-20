@@ -20,7 +20,7 @@
                         </div>
                         <div class="row">
                             <label class="col-lg-3 text-right">Created By</label>
-                            <span class="col-lg-9">{{vService.user(fire.createdById)?.firstName}} {{vService.user(fire.createdById)?.lastName}}</span>
+                            <span class="col-lg-9">{{vService.users.item(fire.createdById)?.firstName}} {{vService.users.item(fire.createdById)?.lastName}}</span>
                         </div>
                         <div class="row">
                             <label class="col-lg-3 text-right">Updated</label>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="row">
                             <label class="col-lg-3 text-right">Updated By</label>
-                            <span class="col-lg-9">{{vService.user(fire.updatedById)?.firstName}} {{vService.user(fire.updatedById)?.lastName}}</span>
+                            <span class="col-lg-9">{{vService.users.item(fire.updatedById)?.firstName}} {{vService.users.item(fire.updatedById)?.lastName}}</span>
                         </div>
                         <div class="row form-horizontal">
                             <label class="col-lg-3 control-label" for="status">Status</label>
