@@ -14,8 +14,8 @@ import { MemberFeatureComponent } from './memberFeature.component';
 export class MembersComponent implements OnInit {
     members: User[];
     user: UserData;
-    @ViewChild(MemberComponent) public readonly member: MemberComponent;
-    @ViewChild(MemberFeatureComponent) public readonly memberFeature: MemberFeatureComponent;
+    @ViewChild(MemberComponent, { static: true }) public readonly member: MemberComponent;
+    @ViewChild(MemberFeatureComponent, { static: true }) public readonly memberFeature: MemberFeatureComponent;
     @Input() organizationId: number;
     hasFeature: Function;
 

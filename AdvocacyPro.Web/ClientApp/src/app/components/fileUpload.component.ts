@@ -9,7 +9,7 @@ import { ToastMessageOptions, ToastType } from '../models/toastOptions.model';
 export class FileUploadComponent {
     public fileName = '';
     public formData: FormData;
-    @ViewChild('fileInput') inputEl: ElementRef;
+    @ViewChild('fileInput', { static: true }) inputEl: ElementRef;
     @Input() maxSize: number;
 
     constructor(private notification: CSPNotificationService) { }

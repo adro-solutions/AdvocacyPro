@@ -8,7 +8,7 @@ import { CSPNotificationService } from '../services/notification.service';
     templateUrl: './popup.component.html'
 })
 export class PopupComponent implements OnInit {
-    @ViewChild(ModalComponent) public readonly modal: ModalComponent;
+    @ViewChild(ModalComponent, { static: false }) public readonly modal: ModalComponent;
     config: PopupConfig;
 
     constructor(private popupService: CSPNotificationService) {

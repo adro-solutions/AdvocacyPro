@@ -11,7 +11,7 @@ import { FormGroup } from '@angular/forms';
     templateUrl: './member.component.html',
 })
 export class MemberComponent {
-    @ViewChild(ModalComponent) public readonly modal: ModalComponent;
+    @ViewChild(ModalComponent, { static: false }) public readonly modal: ModalComponent;
     @Input() organizationId: number;
     member: User;
     formGroup: FormGroup;

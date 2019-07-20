@@ -13,7 +13,7 @@ import { DocumentType } from 'src/app/models/valueBase.model';
     templateUrl: './document.component.html',
 })
 export class DocumentComponent implements OnInit {
-    @ViewChild(FileUploadComponent) public readonly fileUpload: FileUploadComponent;
+    @ViewChild(FileUploadComponent, { static: true }) public readonly fileUpload: FileUploadComponent;
     document: CaseDocument;
     formGroup: FormGroup;
     submitted = false;

@@ -12,7 +12,7 @@ import { Subject, Observable, forkJoin, noop } from 'rxjs';
     templateUrl: './memberFeature.component.html',
 })
 export class MemberFeatureComponent {
-    @ViewChild(ModalComponent) public readonly modal: ModalComponent;
+    @ViewChild(ModalComponent, { static: true }) public readonly modal: ModalComponent;
     @Input() organizationId: number;
     memberId: number;
     features: Feature[];
