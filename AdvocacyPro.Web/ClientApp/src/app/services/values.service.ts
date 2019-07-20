@@ -105,7 +105,7 @@ export class ValuesService {
     public get caseServicePrograms(): ValueList<ServiceProgram> { return this._servicePrograms; }
     public get countries(): ValueList<Country> { return this._countries; }
     public get ethnicities(): ValueList<Ethnicity> { return this._ethnicities; }
-    public get fireCauses(): ValueList<FireCause> { return this._fireCauses; }
+    public get fireCauses(): ValueList<FireCause> { return this._fireCauses ? this._fireCauses : new ValueList<FireCause>([]); }
     public get genders(): ValueList<Gender> { return this._genders; }
     public get orgTypes(): ValueList<OrganizationType> { return this._organizationTypes; }
     public get races(): ValueList<Race> { return this._races; }

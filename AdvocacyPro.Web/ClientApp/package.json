@@ -24,7 +24,7 @@
     "@nguniversal/module-map-ngfactory-loader": "^8.1.1",
     "admin-lte": "^2.4.15",
     "aspnet-prerendering": "^3.0.1",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^3.4.1",
     "core-js": "^3.1.4",
     "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
