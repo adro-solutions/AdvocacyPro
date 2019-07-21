@@ -18,43 +18,43 @@ import { ObjectVersion } from '../models/objectVersion.model';
 export class ValuesService {
     private _versions: ObjectVersion[];
 
-    private _offenseTypes: ValueList<OffenseType>;
-    private _offenses: ValueList<Offense>;
-    private _locationTypes: ValueList<LocationType>;
-    private _ageGroupings: ValueList<AgeGrouping>;
-    private _contactTypes: ValueList<ContactType>;
-    private _documentTypes: ValueList<DocumentType>;
-    private _referralTypes: ValueList<ReferralType>;
-    private _serviceCategories: ValueList<ServiceCategory>;
-    private _servicePopulations: ValueList<ServicePopulation>;
-    private _servicePrograms: ValueList<ServiceProgram>;
-    private _countries: ValueList<Country>;
-    private _ethnicities: ValueList<Ethnicity>;
-    private _fireCauses: ValueList<FireCause>;
-    private _genders: ValueList<Gender>;
-    private _organizationTypes: ValueList<OrganizationType>;
-    private _races: ValueList<Race>;
-    private _relationshipTypes: ValueList<RelationshipType>;
-    private _states: ValueList<State, string>;
-    private _statuses: ValueList<Status>;
-    private _applicationStatuses: ValueList<ApplicationStatus>;
-    private _bondTypes: ValueList<BondType>;
-    private _docketTypes: ValueList<DocketType>;
-    private _interviewerPositions: ValueList<InterviewerPosition>;
-    private _languages: ValueList<Language>;
-    private _letterTypes: ValueList<LetterType>;
-    private _orderStatuses: ValueList<OrderStatus>;
-    private _orderTypes: ValueList<OrderType>;
-    private _paymentCategories: ValueList<PaymentCategory>;
-    private _payors: ValueList<Payor>;
-    private _victimTypes: ValueList<VictimType>;
-    private _interviewDocumentationTypes: ValueList<InterviewDocumentationType>;
+    private _offenseTypes = new ValueList<OffenseType>();
+    private _offenses = new ValueList<Offense>();
+    private _locationTypes = new ValueList<LocationType>();
+    private _ageGroupings = new ValueList<AgeGrouping>();
+    private _contactTypes = new ValueList<ContactType>();
+    private _documentTypes = new ValueList<DocumentType>();
+    private _referralTypes = new ValueList<ReferralType>();
+    private _serviceCategories = new ValueList<ServiceCategory>();
+    private _servicePopulations = new ValueList<ServicePopulation>();
+    private _servicePrograms = new ValueList<ServiceProgram>();
+    private _countries = new ValueList<Country>();
+    private _ethnicities = new ValueList<Ethnicity>();
+    private _fireCauses = new ValueList<FireCause>();
+    private _genders = new ValueList<Gender>();
+    private _organizationTypes = new ValueList<OrganizationType>();
+    private _races = new ValueList<Race>();
+    private _relationshipTypes = new ValueList<RelationshipType>();
+    private _states = new ValueList<State, string>('code');
+    private _statuses = new ValueList<Status>();
+    private _applicationStatuses = new ValueList<ApplicationStatus>();
+    private _bondTypes = new ValueList<BondType>();
+    private _docketTypes = new ValueList<DocketType>();
+    private _interviewerPositions = new ValueList<InterviewerPosition>();
+    private _languages = new ValueList<Language>();
+    private _letterTypes = new ValueList<LetterType>();
+    private _orderStatuses = new ValueList<OrderStatus>();
+    private _orderTypes = new ValueList<OrderType>();
+    private _paymentCategories = new ValueList<PaymentCategory>();
+    private _payors = new ValueList<Payor>();
+    private _victimTypes = new ValueList<VictimType>();
+    private _interviewDocumentationTypes = new ValueList<InterviewDocumentationType>();
     private _users: UserData[] = [];
 
     constructor(private uApi: UsersService, private httpService: HttpClient) { }
 
     private initializeList<T extends ValueBase, TKey>(type: string, endPoint: string,
-        listProperty: ValueList<T, TKey>, key = 'id'): Observable<boolean> {
+        listProperty: ValueList<T, TKey>): Observable<boolean> {
         const storedValue = localStorage.getItem(endPoint);
         const storedVersion = localStorage.getItem(`${endPoint}.Version`);
         const ver = this._versions.filter(v => v.type === `AdvocacyPro.Models.Values.${type}`);
@@ -63,11 +63,11 @@ export class ValuesService {
         const localVersion = storedVersion ? +storedVersion : 0;
 
         if (storedValue && serverVersion === localVersion) {
-            listProperty = new ValueList<T, TKey>(JSON.parse(storedValue), key);
+            listProperty.load(JSON.parse(storedValue));
             return of(true);
         }
         return this.getAll<T>(endPoint).pipe(
-            tap(o => { listProperty = new ValueList<T, TKey>(o, key); }),
+            tap(o => { listProperty.load(o); }),
             tap(o => { localStorage.setItem(endPoint, JSON.stringify(o));
                        localStorage.setItem(`${endPoint}.Version`, serverVersion.toString()); }),
             map(_ => true));
@@ -94,7 +94,7 @@ export class ValuesService {
                 this.initializeList('OrganizationType', ValueAPIEndpoints.organizationtypes, this._organizationTypes),
                 this.initializeList('Race', ValueAPIEndpoints.races, this._races),
                 this.initializeList('RelationshipType', ValueAPIEndpoints.relationshiptypes, this._relationshipTypes),
-                this.initializeList('State', ValueAPIEndpoints.states, this._states, 'code'),
+                this.initializeList('State', ValueAPIEndpoints.states, this._states),
                 this.initializeList('Status', ValueAPIEndpoints.statuses, this._statuses),
                 this.initializeList('ApplicationStatus', ValueAPIEndpoints.applicationstatuses, this._applicationStatuses),
                 this.initializeList('BondType', ValueAPIEndpoints.bondtypes, this._bondTypes),
@@ -117,9 +117,8 @@ export class ValuesService {
     }
 
     public get offenseTypes(): ValueList<OffenseType> { return this._offenseTypes; }
-    public get offenses(): ValueList<Offense> { return this._offenses ? this._offenses : new ValueList<Offense>([]); }
-    public get locationTypes(): ValueList<LocationType> { return this._locationTypes ?
-        this.locationTypes : new ValueList<LocationType>([]); }
+    public get offenses(): ValueList<Offense> { return this._offenses; }
+    public get locationTypes(): ValueList<LocationType> { return this._locationTypes; }
     public get ageGroupings(): ValueList<AgeGrouping> { return this._ageGroupings; }
     public get caseContactTypes(): ValueList<ContactType> { return this._contactTypes; }
     public get caseDocumentTypes(): ValueList<DocumentType> { return this._documentTypes; }
@@ -129,13 +128,13 @@ export class ValuesService {
     public get caseServicePrograms(): ValueList<ServiceProgram> { return this._servicePrograms; }
     public get countries(): ValueList<Country> { return this._countries; }
     public get ethnicities(): ValueList<Ethnicity> { return this._ethnicities; }
-    public get fireCauses(): ValueList<FireCause> { return this._fireCauses ? this._fireCauses : new ValueList<FireCause>([]); }
+    public get fireCauses(): ValueList<FireCause> { return this._fireCauses; }
     public get genders(): ValueList<Gender> { return this._genders; }
     public get orgTypes(): ValueList<OrganizationType> { return this._organizationTypes; }
     public get races(): ValueList<Race> { return this._races; }
     public get relationshipTypes(): ValueList<RelationshipType> { return this._relationshipTypes; }
     public get states(): ValueList<State, string> { return this._states; }
-    public get statuses(): ValueList<Status> { return this._statuses ? this.statuses : new ValueList<Status>([]); }
+    public get statuses(): ValueList<Status> { return this._statuses; }
     public get applicationStatuses(): ValueList<ApplicationStatus> { return this._applicationStatuses; }
     public get bondTypes(): ValueList<BondType> { return this._bondTypes; }
     public get docketTypes(): ValueList<DocketType> { return this._docketTypes; }

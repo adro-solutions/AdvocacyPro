@@ -2,11 +2,14 @@
 
 export class ValueList<T extends ValueBase, TKey = number> extends Array<T> {
     private keyField: string;
-    constructor (list: T[], keyField = 'id') {
+    constructor (keyField = 'id') {
         super();
-        const sortedList = list.sort((a, b) => a.name < b.name ? -1 : 1);
-        this.push(...sortedList);
         this.keyField = keyField;
+    }
+
+    public load(items: T[]) {
+        const sortedList = items.sort((a, b) => a.name < b.name ? -1 : 1);
+        this.push(...sortedList);
     }
 
     public item(id: TKey): T {
